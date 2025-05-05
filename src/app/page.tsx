@@ -21,7 +21,7 @@ export default function Home() {
         >
           <h2 className="text-2xl font-bold mb-6 tracking-tighter text-gray-900">About</h2>
           <p className="mb-6 text-base text-gray-600 leading-relaxed max-w-lg">
-            I'm a student studying Computer Science and Math at Northeastern University.
+            I&apos;m a student studying Computer Science and Math at Northeastern University.
           </p>
           <p className="mb-0 text-base text-gray-600 leading-relaxed max-w-lg">
             I enjoy programming, mathematics, and exploring creative projects in my free time.
