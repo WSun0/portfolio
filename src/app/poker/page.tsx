@@ -3,7 +3,7 @@ export default function PokerPage() {
     <div className="w-full max-w-4xl mx-auto pt-4 pb-20 px-10">
       <section>
         <h1 className="text-2xl font-bold mb-4">Poker</h1>
-        <p className="text-base text-gray-800 mb-8">Coming soon: strategy, analysis, and poker stories.</p>
+        <p className="text-base text-gray-800 mb-8">Coming soon: casino reviews, spot analysis, and thoughts on progressing from low (1/2) to mid stakes (5/10) as a full-time student.</p>
       </section>
     </div>
   );
