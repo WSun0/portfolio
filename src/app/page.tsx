@@ -36,8 +36,8 @@ export default function Home() {
           <h2 className="text-2xl font-bold mb-6 tracking-tighter text-gray-900">Updates</h2>
           <ul className="space-y-3">
             <li className="text-gray-800 transition duration-150">
-              <span className="text-gray-500 mr-3 font-medium text-sm">Dec 24, 2024</span>
-              Launched my new personal website.
+              <span className="text-gray-500 mr-3 font-medium text-sm">May 5, 2025</span>
+              Launched this portfolio website.
             </li>
           </ul>
         </motion.section>
