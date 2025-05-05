@@ -30,6 +30,7 @@ export default function Header() {
                 transformStyle: "preserve-3d",
                 fontFamily: 'Inter, Arial, sans-serif',
               }}
+              initial={{ rotateY: 0 }}
               animate={{ rotateY: hovered ? -90 : 0 }}
               transition={{ duration: 0.18, ease: "easeInOut" }}
             >
@@ -42,6 +43,7 @@ export default function Header() {
                 transformStyle: "preserve-3d",
                 fontFamily: 'Inter, Arial, sans-serif',
               }}
+              initial={{ rotateY: 90 }}
               animate={{ rotateY: hovered ? 0 : 90 }}
               transition={{ duration: 0.18, ease: "easeInOut" }}
             >
@@ -64,4 +66,4 @@ export default function Header() {
       </nav>
     </header>
   );
-} 
+}

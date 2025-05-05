@@ -1,7 +1,7 @@
-import Header from "./Header";
-import Footer from "./Footer";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { ReactNode } from "react";
-import PageTransition from "./PageTransition";
+import PageTransition from "@/components/PageTransition";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
@@ -13,4 +13,4 @@ export default function Layout({ children }: { children: ReactNode }) {
       <Footer />
     </div>
   );
-} 
+}
