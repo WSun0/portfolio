@@ -1,4 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# William Sun
+
+Hi, I'm Will — welcome to my personal website and portfolio.
+
+- [GitHub](https://github.com/wsun0)
+- [LinkedIn](https://www.linkedin.com/in/william1sun/)
+
+This site is a digital home for my work, interests, and updates. I'm a student studying Computer Science and Math at Northeastern University, and I enjoy building things that matter.
+
+---
+
+## How to Run Locally
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/wsun0/portfolio.git
+   cd portfolio
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+Built with [Next.js](https://nextjs.org/) and [Tailwind CSS](https://tailwindcss.com/).
 
 ## Getting Started
 
