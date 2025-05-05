@@ -33,7 +33,7 @@ export default function Header() {
                   exit={{ y: -20, opacity: 0 }}
                   transition={{ duration: 0.2 }}
                   className="absolute inset-0 flex items-center"
-                  style={{ fontFamily: 'Inter, Arial, sans-serif' }}
+                  style={{ fontFamily: "Inter, Arial, sans-serif" }}
                 >
                   William Sun
                 </motion.div>
@@ -45,7 +45,7 @@ export default function Header() {
                   exit={{ y: 20, opacity: 0 }}
                   transition={{ duration: 0.05 }}
                   className="absolute inset-0 flex items-center text-indigo-600"
-                  style={{ fontFamily: 'Inter, Arial, sans-serif' }}
+                  style={{ fontFamily: "Inter, Arial, sans-serif" }}
                 >
                   wsun1
                 </motion.div>
