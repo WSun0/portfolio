@@ -46,16 +46,16 @@ export default function ParticleBackground() {
           },
           move: { 
             enable: true, 
-            speed: 0.5, 
+            speed: 1, 
             direction: "none", 
             outModes: { default: "out" }
           },
           links: { 
             enable: true, 
-            distance: 150, 
+            distance: 200, 
             color: "#818cf8", 
-            opacity: 0.5, 
-            width: 1.2 
+            opacity: 0.375, 
+            width: 1.5
           },
         },
         detectRetina: true,

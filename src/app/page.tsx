@@ -21,10 +21,13 @@ export default function Home() {
         >
           <h2 className="text-2xl font-bold mb-6 tracking-tighter text-gray-900">About</h2>
           <p className="mb-6 text-base text-gray-600 leading-relaxed max-w-lg">
-            Hi! My name I'm studying Computer Science and Math at Northeastern University. My expected graduation month is December 2025.
+            Hi! My name is William and I'm a student at NEU studying Computer Science and Math. My expected graduation month is December 2025.
+          </p>
+          <p className="mb-6 text-base text-gray-600 leading-relaxed max-w-lg">
+            My current interests include AI, quantitative trading, zero-sum game theory, and math contests. My hobbies include Poker, cooking, traveling, FPS, and competitive Pokémon battling.
           </p>
           <p className="mb-0 text-base text-gray-600 leading-relaxed max-w-lg">
-            My current interests include AI, quantitative trading, zero-sum game theory, and cooking.
+            Always happy to chat — feel free to reach out at sun [dot] wil [at] northeastern [dot] edu.
           </p>
         </motion.section>
         
