@@ -8,7 +8,7 @@ export default function Home() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="relative w-full max-w-2xl mx-auto pt-6 pb-24 px-6 font-sans"
+      className="relative w-full max-w-4xl mx-auto pt-4 pb-24 px-10 font-sans"
     >
       <ParticleBackground />
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/10 via-white to-purple-50/5 -z-10" />
@@ -20,13 +20,13 @@ export default function Home() {
           className="mb-16"
         >
           <h2 className="text-2xl font-bold mb-6 tracking-tighter text-gray-900">About</h2>
-          <p className="mb-6 text-base text-gray-600 leading-relaxed max-w-lg">
+          <p className="mb-6 text-base text-gray-600 leading-relaxed">
             Hi! My name is William and I&apos;m a student at NEU studying Computer Science and Math. My expected graduation month is December 2025.
           </p>
-          <p className="mb-6 text-base text-gray-600 leading-relaxed max-w-lg">
+          <p className="mb-6 text-base text-gray-600 leading-relaxed">
             My current interests include AI, quantitative trading, zero-sum game theory, and math contests. My hobbies include Poker, cooking, traveling, FPS, and competitive Pokémon battling.
           </p>
-          <p className="mb-0 text-base text-gray-600 leading-relaxed max-w-lg">
+          <p className="mb-0 text-base text-gray-600 leading-relaxed">
             Always happy to chat — feel free to reach out at sun [dot] wil [at] northeastern [dot] edu.
           </p>
         </motion.section>
