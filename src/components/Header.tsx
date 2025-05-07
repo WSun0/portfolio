@@ -31,7 +31,7 @@ export default function Header() {
                   initial={{ y: -20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -20, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
+                  transition={{ duration: 0.15, ease: 'easeInOut' }}
                   className="absolute inset-0 flex items-center"
                   style={{ fontFamily: "Inter, Arial, sans-serif" }}
                 >
@@ -39,15 +39,15 @@ export default function Header() {
                 </motion.div>
               ) : (
                 <motion.div 
-                  key="wsun1"
+                  key="favicon"
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: 20, opacity: 0 }}
-                  transition={{ duration: 0.05 }}
-                  className="absolute inset-0 flex items-center text-indigo-600"
+                  transition={{ duration: 0.15, ease: 'easeInOut' }}
+                  className="absolute inset-0 flex items-center"
                   style={{ fontFamily: "Inter, Arial, sans-serif" }}
                 >
-                  wsun1
+                  <img src="/HomeButtonIcon.png" alt="Home Icon" className="w-8 h-8" />
                 </motion.div>
               )}
             </AnimatePresence>
