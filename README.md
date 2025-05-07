@@ -1,8 +1,4 @@
-# William Sun
-
-Welcome to my personal website and portfolio! Currently, I am a student studying Computer Science and Math at NEU, and I enjoy building.
-
-This site is my digital corner of the internet home for documentarian purposes. I will update it occasionally with hobbies. 
+Welcome to my digital corner of the internet for documentarian purposes! Currently, I am a student studying Computer Science and Math at NEU, and I enjoy building. I occasionally populate this website with entries about my hobbies and various thoughts. 
 
 - [GitHub](https://github.com/wsun0)
 - [LinkedIn](https://www.linkedin.com/in/william1sun/)

@@ -21,7 +21,7 @@ export default function Home() {
         >
           <h2 className="text-2xl font-bold mb-6 tracking-tighter text-gray-900">About</h2>
           <p className="mb-6 text-base text-gray-600 leading-relaxed">
-            Hi! My name is William and I&apos;m a student at NEU studying Computer Science and Math. My expected graduation month is December 2025.
+            Hi! My name is William Sun and I&apos;m a student at NEU studying Computer Science and Math. My expected graduation month is December 2025.
           </p>
           <p className="mb-6 text-base text-gray-600 leading-relaxed">
             My current interests include AI, quantitative trading, zero-sum game theory, and math contests. My hobbies include Poker, cooking, traveling, FPS, and competitive Pokémon battling.

@@ -18,40 +18,18 @@ export default function Header() {
       <nav className="max-w-4xl mx-auto flex items-center justify-between px-10 py-2">
         <Link
           href="/"
-          className="text-xl font-normal text-gray-900 relative group focus:outline-none font-sans"
+          className="relative group focus:outline-none font-sans"
           style={{ textDecoration: "none" }}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
         >
-          <div className="relative w-[140px] h-[32px] overflow-hidden">
-            <AnimatePresence mode="wait">
-              {!hovered ? (
-                <motion.div 
-                  key="william"
-                  initial={{ y: -20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -20, opacity: 0 }}
-                  transition={{ duration: 0.15, ease: 'easeInOut' }}
-                  className="absolute inset-0 flex items-center"
-                  style={{ fontFamily: "Inter, Arial, sans-serif" }}
-                >
-                  William Sun
-                </motion.div>
-              ) : (
-                <motion.div 
-                  key="favicon"
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: 20, opacity: 0 }}
-                  transition={{ duration: 0.15, ease: 'easeInOut' }}
-                  className="absolute inset-0 flex items-center"
-                  style={{ fontFamily: "Inter, Arial, sans-serif" }}
-                >
-                  <img src="/HomeButtonIcon.png" alt="Home Icon" className="w-8 h-8" />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+          <motion.img
+            src="/HomeButtonIcon.png"
+            alt="Home Icon"
+            className="w-10 h-10"
+            animate={hovered ? { rotate: 360 } : { rotate: 0 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+          />
         </Link>
         <div className="flex gap-2 text-base font-normal">
           {navLinks.map(({ href, label }) => (
