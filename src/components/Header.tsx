@@ -14,7 +14,7 @@ export default function Header() {
   const [hovered, setHovered] = useState(false);
   
   return (
-    <header className="sticky top-0 z-30 w-full bg-white/80 backdrop-blur border-b border-gray-200 header-shadow">
+    <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur border-b border-gray-200 header-shadow">
       <nav className="max-w-4xl mx-auto flex items-center justify-between px-10 py-2">
         <Link
           href="/"
