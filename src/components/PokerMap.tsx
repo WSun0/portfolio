@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import type { Icon } from "leaflet";
 
 const locations: { name: string; position: [number, number] }[] = [
   { name: "Encore Boston Harbor", position: [42.4070, -71.0536] },
@@ -10,7 +11,7 @@ const locations: { name: string; position: [number, number] }[] = [
 ];
 
 export default function PokerMap() {
-  const [redIcon, setRedIcon] = useState<any>(null);
+  const [redIcon, setRedIcon] = useState<Icon | null>(null);
 
   useEffect(() => {
     import("leaflet").then(L => {
