@@ -8,6 +8,11 @@ export default function CookingPage() {
         <p className="text-base text-gray-800 mb-8">Explore my home-cooked meals and special occasions. Click on an entry to read more.</p>
         <ul className="space-y-4">
           <li>
+            <Link href="/cooking/first-time-cooking-wagyu-2025" className="text-lg text-indigo-700 hover:underline">
+              First Time Cooking Wagyu 2025
+            </Link>
+          </li>
+          <li>
             <Link href="/cooking/christmas-dinner" className="text-lg text-indigo-700 hover:underline">
               Christmas Dinner 2024
             </Link>
