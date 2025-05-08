@@ -1,9 +1,9 @@
 import Image from "next/image";
 
 const images = [
-  "/cooking/sf-pier-farmers-market-breakfast-2023/finished.jpg",
-  "/cooking/sf-pier-farmers-market-breakfast-2023/ingredients.jpg",
-  "/cooking/sf-pier-farmers-market-breakfast-2023/market.jpg",
+  "/cooking/sf-pier-farmers-market-breakfast-2023/finished.JPG",
+  "/cooking/sf-pier-farmers-market-breakfast-2023/ingredients.JPG",
+  "/cooking/sf-pier-farmers-market-breakfast-2023/market.JPG",
 ];
 
 export default function SFPierFarmersMarketBreakfastPage() {
