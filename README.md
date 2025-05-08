@@ -9,3 +9,4 @@ The creation of this portfolio website was inspired by the following engineers. 
 - https://www.andrewlee03.dev/
 - https://tejasgupta.com/
 - https://williamlin.io/
+- https://kzeng24.github.io/personal-website/
