@@ -30,24 +30,6 @@ export default function Home() {
             Always happy to chat — feel free to reach out at sun [dot] wil [at] northeastern [dot] edu.
           </p>
         </motion.section>
-        
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <h2 className="text-2xl font-bold mb-6 tracking-tighter text-gray-900">Updates</h2>
-          <ul className="space-y-3">
-            <li className="text-gray-800 transition duration-150">
-              <span className="text-gray-500 mr-3 font-medium text-sm">May 8, 2025</span>
-              Started to populate cooking and poker sections (WIP)
-            </li> 
-            <li className="text-gray-800 transition duration-150">
-              <span className="text-gray-500 mr-3 font-medium text-sm">May 5, 2025</span>
-              Launched this portfolio website.
-            </li>
-          </ul>
-        </motion.section>
       </div>
     </motion.div>
   );

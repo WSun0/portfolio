@@ -25,7 +25,7 @@ export default function Header() {
         >
           <motion.img
             src="/HomeButtonIcon.png"
-            alt="Home Icon"
+            alt="Home Icon" 
             className="w-10 h-10"
             animate={hovered ? { rotate: 360 } : { rotate: 0 }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
