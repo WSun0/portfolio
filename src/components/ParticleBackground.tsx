@@ -23,39 +23,39 @@ export default function ParticleBackground() {
         background: { color: { value: "transparent" } },
         fpsLimit: 60,
         particles: {
-          number: { 
-            value: 40, 
-            density: { 
-              enable: true 
-            } 
+          number: {
+            value: 25,
+            density: {
+              enable: true
+            }
           },
           color: { value: ["#6366f1", "#818cf8", "#a78bfa"] },
-          opacity: { 
-            value: .5,
+          opacity: {
+            value: 0.25,
             animation: {
               enable: true,
-              speed: 2
+              speed: 1.5
             }
           },
-          size: { 
-            value: { min: 0.5, max: 3 },
+          size: {
+            value: { min: 0.5, max: 2 },
             animation: {
               enable: true,
-              speed: 5
+              speed: 3
             }
           },
-          move: { 
-            enable: true, 
-            speed: 1, 
-            direction: "none", 
+          move: {
+            enable: true,
+            speed: 0.8,
+            direction: "none",
             outModes: { default: "out" }
           },
-          links: { 
-            enable: true, 
-            distance: 200, 
-            color: "#818cf8", 
-            opacity: 0.375, 
-            width: 1.5
+          links: {
+            enable: true,
+            distance: 180,
+            color: "#818cf8",
+            opacity: 0.15,
+            width: 1
           },
         },
         detectRetina: true,

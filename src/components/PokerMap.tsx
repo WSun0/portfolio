@@ -8,6 +8,9 @@ const locations: { name: string; position: [number, number] }[] = [
   { name: "Encore Boston Harbor", position: [42.4070, -71.0536] },
   { name: "Parx Casino", position: [40.0871, -74.9083] },
   { name: "Chasers Poker Room", position: [42.7855, -71.2690] },
+  { name: "Metro Casino", position: [18.4657, -66.1057] },
+  { name: "Caesars New Orleans", position: [29.9511, -90.0715] },
+  { name: "Playground Card Room", position: [45.4947, -73.7109] },
 ];
 
 export default function PokerMap() {
@@ -32,7 +35,7 @@ export default function PokerMap() {
   }
 
   return (
-    <MapContainer center={[41.5, -74.5]} zoom={6} style={{ height: "100%", width: "100%" }} scrollWheelZoom={true}>
+    <MapContainer center={[32, -78]} zoom={4} style={{ height: "100%", width: "100%" }} scrollWheelZoom={true}>
       <TileLayer
         url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
         attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'
