@@ -33,7 +33,7 @@ export default function CasinosPage() {
   return (
     <div className="w-full max-w-4xl mx-auto pt-4 pb-20 px-10">
       <section>
-        <h1 className="text-2xl font-bold mb-4">Casinos I've Played Poker At</h1>
+        <h1 className="text-2xl font-bold mb-4">Casinos I&apos;ve Played Poker At</h1>
 
         <div className="mb-8">
           <h2 className="text-lg font-semibold mb-3 text-gray-900">In-Person Casinos</h2>
