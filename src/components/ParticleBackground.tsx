@@ -31,7 +31,7 @@ export default function ParticleBackground() {
           },
           color: { value: ["#6366f1", "#818cf8", "#a78bfa"] },
           opacity: {
-            value: 0.25,
+            value: .75,
             animation: {
               enable: true,
               speed: 1.5
@@ -54,7 +54,7 @@ export default function ParticleBackground() {
             enable: true,
             distance: 180,
             color: "#818cf8",
-            opacity: 0.15,
+            opacity: 0.5,
             width: 1
           },
         },
