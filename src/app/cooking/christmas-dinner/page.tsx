@@ -1,4 +1,5 @@
 import Image from "next/image";
+import BackButton from "@/components/BackButton";
 
 const images = [
   "/cooking/christmas-dinner-2024/overview.png",
@@ -9,6 +10,7 @@ const images = [
 export default function ChristmasDinnerPage() {
   return (
     <div className="w-full max-w-4xl mx-auto pt-4 pb-20 px-10">
+      <BackButton href="/cooking" label="Back to Cooking" />
       <section>
         <h1 className="text-2xl font-bold mb-4">Christmas Dinner 2024</h1>
         <p className="text-base text-gray-800 mb-8">
