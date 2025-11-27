@@ -1,12 +1,3 @@
-Welcome to my digital corner of the internet for documentarian purposes! Currently, I am a student studying Computer Science and Math at NEU, and I enjoy building. I occasionally populate this website with entries about my hobbies and various thoughts. 
+Welcome to my personal website! I will occasionally update this website with entries about my hobbies and various thoughts for documentation purposes.
 
-- [GitHub](https://github.com/wsun0)
-- [LinkedIn](https://www.linkedin.com/in/william1sun/)
-
-The creation of this portfolio website was inspired by the following engineers. Thank you:
-- https://hachiyuki8.com/blog/
-- https://leerob.com/
-- https://www.andrewlee03.dev/
-- https://tejasgupta.com/
-- https://williamlin.io/
-- https://kzeng24.github.io/personal-website/
+The creation of this portfolio website was largely inspired by the following engineers. Thank you [Joanna Y](https://hachiyuki8.com/blog/), [Lee R](https://leerob.com/), [Andrew L](https://www.andrewlee03.dev/), [Tejas G](https://tejasgupta.com/), [William L](https://williamlin.io/), [Katherine Z](https://kzeng24.github.io/personal-website/), and [Max S](https://thenumb.at/).
