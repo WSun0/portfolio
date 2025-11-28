@@ -24,7 +24,7 @@ export default function Home() {
             I&apos;m a student at Northeastern University studying CS & Math graduating in December 2025.
           </p>
           <p className="mb-6 text-base text-gray-600 leading-relaxed">
-            My current interests include quantitative trading, game theory (particularly zero-sum), and deep reinforcement learning. For fun, I enjoy playing poker, cooking, traveling,{" "}
+            My current interests include quantitative trading, game theory (particularly zero-sum), and deep reinforcement learning. For fun, I enjoy playing poker, cooking and eating out, traveling,{" "}
             <a
               href="https://tracker.gg/valorant/profile/riot/WSun1%23aly/overview?platform=pc&playlist=competitive&season=4539cac3-47ae-90e5-3d01-b3812ca3274e"
               target="_blank"

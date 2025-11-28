@@ -1,3 +1,3 @@
 Welcome to my personal website! I will occasionally update this website with entries about my hobbies and various thoughts for documentation purposes.
 
-The creation of this portfolio website was largely inspired by the following engineers. Thank you [Joanna Y](https://hachiyuki8.com/blog/), [Lee R](https://leerob.com/), [Andrew L](https://www.andrewlee03.dev/), [Tejas G](https://tejasgupta.com/), [William L](https://williamlin.io/), [Katherine Z](https://kzeng24.github.io/personal-website/), and [Max S](https://thenumb.at/).
+The creation of this portfolio website was largely inspired by the following friends and engineers. Thank you [Joanna Y](https://hachiyuki8.com/blog/), [Lee R](https://leerob.com/), [Andrew L](https://www.andrewlee03.dev/), [Tejas G](https://tejasgupta.com/), [William L](https://williamlin.io/), [Katherine Z](https://kzeng24.github.io/personal-website/), and [Max S](https://thenumb.at/).
