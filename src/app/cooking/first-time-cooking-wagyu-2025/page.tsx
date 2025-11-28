@@ -13,7 +13,7 @@ export default function FirstTimeCookingWagyu2025Page() {
       <BackButton href="/cooking" label="Back to Cooking" />
       <section>
         <h1 className="text-2xl font-bold mb-4">First Time Cooking Wagyu 2025</h1>
-        <p className="text-base text-gray-800 mb-8">
+        <p className="text-base text-gray-600 mb-8">
           I kept seeing Japanese A5 Wagyu at the local Maruichi market in Brookline so I finally decided to buy some and try it out!
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
@@ -31,14 +31,14 @@ export default function FirstTimeCookingWagyu2025Page() {
             </div>
           ))}
         </div>
-        <article className="prose max-w-none">
-          <h2>Menu and/or Ingredients</h2>
-          <ul>
+        <div>
+          <h2 className="text-lg font-semibold mb-3 text-gray-900">Menu</h2>
+          <ul className="list-disc list-inside text-base text-gray-600 space-y-1">
             <li>Japanese A5 Wagyu Ribeye with Sea Salt</li>
             <li>Overeasy Egg with Cracked Chili and Black Pepper</li>
             <li>Steamed White Rice</li>
           </ul>
-        </article>
+        </div>
       </section>
     </div>
   );

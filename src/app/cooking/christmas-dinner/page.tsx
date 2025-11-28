@@ -13,7 +13,7 @@ export default function ChristmasDinnerPage() {
       <BackButton href="/cooking" label="Back to Cooking" />
       <section>
         <h1 className="text-2xl font-bold mb-4">Christmas Dinner 2024</h1>
-        <p className="text-base text-gray-800 mb-8">
+        <p className="text-base text-gray-600 mb-8">
           Christmas dinner 2024 with family and friends!
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
@@ -31,16 +31,16 @@ export default function ChristmasDinnerPage() {
             </div>
           ))}
         </div>
-        <article className="prose max-w-none">
-          <h2>Menu and/or Ingredients</h2>
-          <ul>
+        <div>
+          <h2 className="text-lg font-semibold mb-3 text-gray-900">Menu</h2>
+          <ul className="list-disc list-inside text-base text-gray-600 space-y-1">
             <li>Medium-Rare Prime Ribeye</li>
             <li>Garlic Mashed Potatoes</li>
             <li>Cajun Roasted Fingerling Potatoes</li>
             <li>Lemon Butter Asparagus</li>
             <li>Mushroom Cream Reduction Sauce</li>
           </ul>
-        </article>
+        </div>
       </section>
     </div>
   );

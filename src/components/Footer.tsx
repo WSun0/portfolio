@@ -2,7 +2,7 @@ export default function Footer() {
   return (
     <footer className="w-full py-12 text-center text-sm text-gray-500 relative z-10">
       <div className="max-w-3xl mx-auto px-8 flex flex-col items-center gap-3">
-        <div className="flex items-center gap-2 flex-wrap justify-center">
+        <div className="flex items-center gap-2 flex-wrap justify-center text-xs">
           <a
             href="https://www.linkedin.com/in/william1sun/"
             target="_blank"

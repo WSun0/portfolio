@@ -82,7 +82,7 @@ export default function CasinosPage() {
               </p>
         </div>
 
-        <p className="text-base text-gray-800 mb-2">A map of where I have played poker in-person:</p>
+        <h2 className="text-lg font-semibold mb-3 text-gray-900">A map of where I have played poker in-person:</h2>
         <div style={{ height: "500px", width: "100%", borderRadius: "1rem", overflow: "hidden", boxShadow: "0 2px 16px rgba(0,0,0,0.08)", zIndex: 1, position: "relative" }}>
           <PokerMap />
         </div>

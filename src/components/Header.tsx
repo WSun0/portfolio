@@ -24,7 +24,7 @@ export default function Header() {
             transition={{ duration: 0.4, ease: "easeInOut" }}
           />
         </Link>
-        <div className="flex items-center gap-2 text-sm text-gray-600">
+        <div className="flex items-center gap-2 text-base text-gray-600">
           <Link href="/blog" className="hover:text-gray-900 transition">
             Blog
           </Link>
