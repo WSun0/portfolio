@@ -11,6 +11,11 @@ export default function BlogPage() {
               Detoxifying Life
             </Link>
           </li>
+          <li>
+            <Link href="/blog/small-changes-for-health-improvements" className="text-base text-gray-600 underline hover:text-indigo-600 hover:decoration-indigo-600 underline-offset-2 transition-colors">
+              Small Changes For Health Improvements
+            </Link>
+          </li>
         </ul>
       </section>
     </div>

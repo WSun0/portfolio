@@ -1,11 +1,11 @@
 import BackButton from "@/components/BackButton";
 
-export default function DetoxifyingLifePage() {
+export default function SmallChangesForHealthImprovementsPage() {
   return (
     <div className="w-full max-w-4xl mx-auto pt-4 pb-20 px-10">
       <BackButton href="/blog" label="Back to Blog" />
       <section>
-        <h1 className="text-2xl font-bold mb-4">Detoxifying Life</h1>
+        <h1 className="text-2xl font-bold mb-4">Small Changes For Health Improvements</h1>
         <p className="text-base text-gray-600 leading-relaxed">
           Disclaimer: this is not professional advice. Please read your own literature and make your own decisions.
         </p>
@@ -58,43 +58,6 @@ export default function DetoxifyingLifePage() {
           </div>
 
           <div>
-            <h2 className="text-lg font-semibold mb-3 text-gray-900">Bamboo Toothbrushes, Plant-Based Floss</h2>
-            <p className="text-base text-gray-600 leading-relaxed">
-              This one&apos;s about microplastic exposure. It makes intuitive sense: brushing and flossing daily with plastic bristles and strings likely introduces microplastics into your body. 
-              The friction, heat, water, and wear create the perfect combination to release microplastics directly into your mouth and into your blood system. I replaced my electric toothbrush with 
-              disposable bamboo ones bearing plant-based bristles, and swapped my Crest floss for floss made from plant fibers and peppermint oil.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-lg font-semibold mb-3 text-gray-900">Dr. Bronner and Native</h2>
-            <p className="text-base text-gray-600 leading-relaxed">
-              Dr. Bronner&apos;s and Native are two brands that I&apos;ve started to purchase more, replace my existing soap, dish soap, body wash, and shampoo. 
-              These brands are transparent, deliberate, and health-conscious with the ingredients they choose for their products, which gives me peace of mind knowing 
-              I&apos;m not unknowingly poisoning myself every day with chemicals whose effects on the complex human body aren&apos;t entirely understood, traceable, or documented.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-lg font-semibold mb-3 text-gray-900">High Quality Olive Oil, Ghee, Kerrygold Butter (Occasionally), or Nothing</h2>
-            <p className="text-base text-gray-600 leading-relaxed">
-              I only use two types of oil when I cook nowadays: high quality extra virgin olive oil and ghee (clarified butter). Need to sear something or get the pan 
-              ripping hot? Clarified butter is the answer thanks to its high smoke point. Everything else? High quality extra virgin olive oil. I only occasionally use 
-              butter, and most of the time, it&apos;s to make reduced sauces slightly richer at the end or to baste steak. Margarine, seed oils, etc. all cause extra 
-              inflammation within the body and contribute to long-term health issues.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-lg font-semibold mb-3 text-gray-900">Replacing Kitchen Utensils and Avoiding Teflon Non-Stick Pans</h2>
-            <p className="text-base text-gray-600 leading-relaxed">
-              Many kitchen utensils, such as steak prongs and spatulas, are made from silicone, plastic, or rubber. I&apos;ve replaced all of my utensils with stainless steel, 
-              as I don&apos;t want to leach chemicals into my food long-term. Teflon pans are avoided for the same reason — once punctured even slightly, a Teflon pan will continue 
-              to leach harmful chemicals into food. These punctures are often very tiny and hard to detect with the naked eye, which only makes them more dangerous.
-            </p>
-          </div>
-
-          <div>
             <h2 className="text-lg font-semibold mb-3 text-gray-900">Mouth Tape</h2>
             <p className="text-base text-gray-600 leading-relaxed">I&apos;ve been taping my mouth shut every night before I go to bed. Something I&apos;ve come to realize recently is that 
               swimming for 5 years throughtout elementary to middle school has taught my body to subconsciously accept mouth breathing as a form of oxygen intake. Long-term, this is incredibly 
@@ -107,41 +70,7 @@ export default function DetoxifyingLifePage() {
           </div>
 
           <div>
-            <h2 className="text-lg font-semibold mb-3 text-gray-900">Cotton Underwear and Breathable Clothing</h2>
-            <p className="text-base text-gray-600 leading-relaxed">
-              A study that always sticks around in my mind is a{" "}
-              <a
-                href="https://pubmed.ncbi.nlm.nih.gov/8262106/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 hover:text-indigo-600 underline decoration-gray-600 hover:decoration-indigo-600 underline-offset-2 transition-colors"
-              >
-                1993 study by Egyptian urologist Ahmed Shafik
-              </a>
-              {" "}where rats were dressed in pants made of different materials to study their effect on sexual activity. The study found that rats wearing polyester or poly-cotton blend pants had significantly lower sexual activity compared to those wearing cotton or wool pants, likely due to static electricity generated by the polyester. Shafik hypothesized that these &quot;electrostatic fields&quot; could explain his findings and suggested the results might apply to humans.
-            </p>
-            <p className="text-base text-gray-600 leading-relaxed">
-              I&apos;m not saying this study definitively proves anything about human health, but it made me think about what I&apos;m putting on my body every single day. After reading this, I became super conscious about clothing materials. I&apos;ve switched almost entirely to cotton underwear and breathable natural fabrics. The idea that synthetic materials could generate electrostatic fields that might interfere with your body&apos;s natural processes just doesn&apos;t sit right with me, especially when it comes to areas that are in constant contact with sensitive skin. Plus, natural fabrics like cotton and wool just feel better — they breathe better, they don&apos;t trap moisture, and they don&apos;t make you feel like you&apos;re wrapped in plastic.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-lg font-semibold mb-3 text-gray-900">On Red Meat</h2>
-            <p className="text-base text-gray-600 leading-relaxed">Content coming soon</p>
-          </div>
-
-          <div>
-            <h2 className="text-lg font-semibold mb-3 text-gray-900">Laptop Radiation Pad</h2>
-            <p className="text-base text-gray-600 leading-relaxed">Content coming soon</p>
-          </div>
-
-          <div>
             <h2 className="text-lg font-semibold mb-3 text-gray-900">Paying Attention to Sources of Fiber</h2>
-            <p className="text-base text-gray-600 leading-relaxed">Content coming soon</p>
-          </div>
-
-          <div>
-            <h2 className="text-lg font-semibold mb-3 text-gray-900">Processed Sugar and Dermatographia</h2>
             <p className="text-base text-gray-600 leading-relaxed">Content coming soon</p>
           </div>
         </div>
@@ -149,3 +78,4 @@ export default function DetoxifyingLifePage() {
     </div>
   );
 }
+
