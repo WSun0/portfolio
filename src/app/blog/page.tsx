@@ -7,8 +7,8 @@ export default function BlogPage() {
         <h1 className="text-2xl font-bold mb-4">Blog</h1>
         <ul className="space-y-4">
           <li>
-            <Link href="/blog/recent-obsessions" className="text-base text-gray-800 underline hover:text-indigo-600 hover:decoration-indigo-600 underline-offset-2 transition-colors">
-              Recent Obsessions
+            <Link href="/blog/detoxifying-life" className="text-base text-gray-600 underline hover:text-indigo-600 hover:decoration-indigo-600 underline-offset-2 transition-colors">
+              Detoxifying Life
             </Link>
           </li>
         </ul>
