@@ -6,9 +6,6 @@ export default function SmallChangesForHealthImprovementsPage() {
       <BackButton href="/blog" label="Back to Blog" />
       <section>
         <h1 className="text-2xl font-bold mb-4">Small Changes For Health Improvements</h1>
-        <p className="text-base text-gray-600 leading-relaxed">
-          Disclaimer: this is not professional advice. Please read your own literature and make your own decisions.
-        </p>
         <br />
         <div className="space-y-8">
           <div>
