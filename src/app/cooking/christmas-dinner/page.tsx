@@ -9,16 +9,16 @@ const images = [
 
 export default function ChristmasDinnerPage() {
   return (
-    <div className="w-full max-w-4xl mx-auto pt-4 pb-20 px-10">
+    <div className="w-full max-w-4xl mx-auto pt-2 pb-20 px-10">
       <BackButton href="/cooking" label="Back to Cooking" />
-      <section>
+      <section className="glass-panel-static py-8 px-2">
         <h1 className="text-2xl font-bold mb-4">Christmas Dinner 2024</h1>
-        <p className="text-base text-gray-600 mb-8">
+        <p className="text-base opacity-80 mb-8">
           Christmas dinner 2024 with family and friends!
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
           {images.map((src, idx) => (
-            <div key={idx} className="w-full h-64 relative rounded-lg overflow-hidden shadow-md">
+            <div key={idx} className="glass-image-container w-full h-64 relative">
               <Image
                 src={src}
                 alt={`Christmas Dinner ${idx + 1}`}
@@ -31,9 +31,9 @@ export default function ChristmasDinnerPage() {
             </div>
           ))}
         </div>
-        <div>
-          <h2 className="text-lg font-semibold mb-3 text-gray-900">Menu</h2>
-          <ul className="list-disc list-inside text-base text-gray-600 space-y-1">
+        <div className="glass-card p-6">
+          <h2 className="text-lg font-semibold mb-3">Menu</h2>
+          <ul className="text-base opacity-80 space-y-2">
             <li>Medium-Rare Prime Ribeye</li>
             <li>Garlic Mashed Potatoes</li>
             <li>Cajun Roasted Fingerling Potatoes</li>
