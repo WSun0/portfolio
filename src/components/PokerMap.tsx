@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import type { Icon } from "leaflet";
@@ -15,8 +15,11 @@ const locations: { name: string; position: [number, number] }[] = [
 
 export default function PokerMap() {
   const [redIcon, setRedIcon] = useState<Icon | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+  const mapKey = useRef(Math.random().toString(36).substring(7));
 
   useEffect(() => {
+    setIsMounted(true);
     import("leaflet").then(L => {
       const icon = new L.Icon({
         iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
@@ -30,12 +33,18 @@ export default function PokerMap() {
     });
   }, []);
 
-  if (!redIcon) {
+  if (!isMounted || !redIcon) {
     return null;
   }
 
   return (
-    <MapContainer center={[32, -78]} zoom={4} style={{ height: "100%", width: "100%" }} scrollWheelZoom={true}>
+    <MapContainer 
+      key={mapKey.current}
+      center={[32, -78]} 
+      zoom={4} 
+      style={{ height: "100%", width: "100%" }} 
+      scrollWheelZoom={true}
+    >
       <TileLayer
         url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
         attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'

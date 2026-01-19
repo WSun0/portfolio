@@ -7,7 +7,7 @@ export default function SmallChangesForHealthImprovementsPage() {
       <section className="glass-panel-static py-8 px-2">
         <h1 className="text-2xl font-bold mb-8">Small Changes For Health Improvements</h1>
         <div className="space-y-6">
-          <div className="glass-card p-6">
+          <div>
             <h2 className="text-lg font-semibold mb-3">Mountain Spring Valley Water</h2>
             <div className="text-base opacity-80 leading-relaxed space-y-4">
               <p>
@@ -53,7 +53,7 @@ export default function SmallChangesForHealthImprovementsPage() {
             </div>
           </div>
 
-          <div className="glass-card p-6">
+          <div>
             <h2 className="text-lg font-semibold mb-3">Mouth Tape</h2>
             <p className="text-base opacity-80 leading-relaxed">I&apos;ve been taping my mouth shut every night before I go to bed. Something I&apos;ve come to realize recently is that
               swimming for 5 years throughtout elementary to middle school has taught my body to subconsciously accept mouth breathing as a form of oxygen intake. Long-term, this is incredibly
@@ -65,7 +65,7 @@ export default function SmallChangesForHealthImprovementsPage() {
             </p>
           </div>
 
-          <div className="glass-card p-6">
+          <div>
             <h2 className="text-lg font-semibold mb-3">Paying Attention to Sources of Fiber</h2>
             <p className="text-base opacity-60 leading-relaxed">Content coming soon</p>
           </div>

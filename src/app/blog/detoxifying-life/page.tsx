@@ -10,7 +10,7 @@ export default function DetoxifyingLifePage() {
           Disclaimer: this is not professional advice. Please read your own literature and make your own decisions.
         </p>
         <div className="space-y-6">
-          <div className="glass-card p-6">
+          <div>
             <h2 className="text-lg font-semibold mb-3">Bamboo Toothbrushes, Plant-Based Floss</h2>
             <p className="text-base opacity-80 leading-relaxed">
               This one&apos;s about microplastic exposure. It makes intuitive sense: brushing and flossing daily with plastic bristles and strings likely introduces microplastics into your body.
@@ -19,7 +19,7 @@ export default function DetoxifyingLifePage() {
             </p>
           </div>
 
-          <div className="glass-card p-6">
+          <div>
             <h2 className="text-lg font-semibold mb-3">Dr. Bronner and Native</h2>
             <p className="text-base opacity-80 leading-relaxed">
               Dr. Bronner&apos;s and Native are two brands that I&apos;ve started purchasing more and more to replace my existing soap, dish soap, body wash, and shampoo.
@@ -28,7 +28,7 @@ export default function DetoxifyingLifePage() {
             </p>
           </div>
 
-          <div className="glass-card p-6">
+          <div>
             <h2 className="text-lg font-semibold mb-3">High Quality Olive Oil, Ghee, Kerrygold Butter (Occasionally), or Nothing</h2>
             <p className="text-base opacity-80 leading-relaxed">
               I only use two types of oil when I cook nowadays: high quality extra virgin olive oil and ghee (clarified butter). Need to sear something or get the pan
@@ -38,7 +38,7 @@ export default function DetoxifyingLifePage() {
             </p>
           </div>
 
-          <div className="glass-card p-6">
+          <div>
             <h2 className="text-lg font-semibold mb-3">Replacing Kitchen Utensils and Avoiding Teflon Non-Stick Pans</h2>
             <p className="text-base opacity-80 leading-relaxed">
               Many kitchen utensils, such as steak prongs and spatulas, are made of silicone, plastic, or rubber. I&apos;ve replaced all of my utensils with stainless steel,
@@ -47,7 +47,7 @@ export default function DetoxifyingLifePage() {
             </p>
           </div>
 
-          <div className="glass-card p-6">
+          <div>
             <h2 className="text-lg font-semibold mb-3">Cotton Underwear and Breathable Clothing</h2>
             <div className="text-base opacity-80 leading-relaxed space-y-4">
               <p>
@@ -68,17 +68,17 @@ export default function DetoxifyingLifePage() {
             </div>
           </div>
 
-          <div className="glass-card p-6">
+          <div>
             <h2 className="text-lg font-semibold mb-3">On Red Meat</h2>
             <p className="text-base opacity-60 leading-relaxed">Content coming soon</p>
           </div>
 
-          <div className="glass-card p-6">
+          <div>
             <h2 className="text-lg font-semibold mb-3">Laptop Radiation Pad</h2>
             <p className="text-base opacity-60 leading-relaxed">Content coming soon</p>
           </div>
 
-          <div className="glass-card p-6">
+          <div>
             <h2 className="text-lg font-semibold mb-3">Processed Sugar and Dermatographia</h2>
             <p className="text-base opacity-60 leading-relaxed">Content coming soon</p>
           </div>

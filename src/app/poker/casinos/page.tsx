@@ -41,7 +41,7 @@ export default function CasinosPage() {
         <h1 className="text-2xl font-bold mb-6">Casinos I&apos;ve Played Poker At</h1>
 
         <div className="grid md:grid-cols-2 gap-4 mb-6">
-          <div className="glass-card p-6">
+          <div>
             <h2 className="text-lg font-semibold mb-3">In-Person Casinos</h2>
             <ul className="text-base opacity-80 space-y-2">
               <li>Encore Boston Harbor (Massachusetts)</li>
@@ -54,7 +54,7 @@ export default function CasinosPage() {
             </ul>
           </div>
 
-          <div className="glass-card p-6">
+          <div>
             <h2 className="text-lg font-semibold mb-3">Online Poker Rooms</h2>
             <ul className="text-base opacity-80 space-y-2">
               <li>Club WPT Gold</li>
@@ -65,7 +65,7 @@ export default function CasinosPage() {
           </div>
         </div>
 
-        <div className="glass-card p-6 mb-6">
+        <div className="mb-6">
           <h2 className="text-lg font-semibold mb-3">Thoughts on Online vs. In-Person</h2>
           <div className="text-base opacity-80 leading-relaxed space-y-4">
             <p>While online poker is great because you can play from the comfort of your room and hands move much faster,
