@@ -28,7 +28,7 @@ export default function Home() {
               href="https://tracker.gg/valorant/profile/riot/WSun1%23aly/overview?platform=pc&playlist=competitive&season=4539cac3-47ae-90e5-3d01-b3812ca3274e"
               target="_blank"
               rel="noopener noreferrer"
-              className="accent-link font-medium opacity-100"
+              className="accent-link"
             >
               first-person shooters
             </a>
@@ -37,7 +37,7 @@ export default function Home() {
               href="https://www.smogon.com/forums/members/will.485997/"
               target="_blank"
               rel="noopener noreferrer"
-              className="accent-link font-medium opacity-100"
+              className="accent-link"
             >
               battling Pokémon competitively
             </a>

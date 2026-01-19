@@ -256,34 +256,112 @@ footer {
   @apply shadow-md;
 }
 
-/* Accent underline for links */
+/* Unified liquid glass link styling */
 .accent-link {
   position: relative;
-  color: #1a1a2e;
-  opacity: 1;
+  background: linear-gradient(
+    45deg,
+    #6366f1 0%,
+    #818cf8 15%,
+    #6366f1 25%,
+    #8b5cf6 35%,
+    #6366f1 45%,
+    #a78bfa 55%,
+    #6366f1 65%,
+    #818cf8 75%,
+    #6366f1 85%,
+    #8b5cf6 100%
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0.125rem 0.5rem;
+  margin: 0 -0.5rem;
+  display: inline-block;
+  font-weight: 500;
+  animation: gradient-shift 8s ease infinite;
 }
 
-.accent-link::after {
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.accent-link::before {
   content: '';
   position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent), #a78bfa);
-  border-radius: 1px;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.3s ease;
+  inset: -6px -4px;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 90% 30%, rgba(139, 92, 246, 0.35) 0%, transparent 50%),
+    radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(167, 139, 250, 0.35) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.25) 0%, transparent 50%),
+    radial-gradient(circle at 5% 60%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 95% 40%, rgba(99, 102, 241, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 30% 10%, rgba(167, 139, 250, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 70% 90%, rgba(99, 102, 241, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 15% 75%, rgba(139, 92, 246, 0.25) 0%, transparent 50%),
+    radial-gradient(circle at 85% 15%, rgba(99, 102, 241, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 45%, rgba(167, 139, 250, 0.25) 0%, transparent 50%),
+    radial-gradient(circle at 60% 55%, rgba(99, 102, 241, 0.3) 0%, transparent 50%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 8px;
+  transform: scale(0.9);
 }
 
 .accent-link:hover {
-  color: var(--accent);
+  transform: translateY(-1px);
+  animation-duration: 4s;
 }
 
-.accent-link:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
+.accent-link:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .accent-link {
+    background: linear-gradient(
+      45deg,
+      #818cf8 0%,
+      #a78bfa 15%,
+      #818cf8 25%,
+      #c4b5fd 35%,
+      #818cf8 45%,
+      #a78bfa 55%,
+      #818cf8 65%,
+      #c4b5fd 75%,
+      #818cf8 85%,
+      #a78bfa 100%
+    );
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .accent-link::before {
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(129, 140, 248, 0.5) 0%, transparent 50%),
+      radial-gradient(circle at 90% 30%, rgba(167, 139, 250, 0.45) 0%, transparent 50%),
+      radial-gradient(circle at 20% 80%, rgba(129, 140, 248, 0.4) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(196, 181, 253, 0.45) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(129, 140, 248, 0.35) 0%, transparent 50%),
+      radial-gradient(circle at 5% 60%, rgba(167, 139, 250, 0.4) 0%, transparent 50%),
+      radial-gradient(circle at 95% 40%, rgba(129, 140, 248, 0.4) 0%, transparent 50%),
+      radial-gradient(circle at 30% 10%, rgba(196, 181, 253, 0.4) 0%, transparent 50%),
+      radial-gradient(circle at 70% 90%, rgba(129, 140, 248, 0.4) 0%, transparent 50%),
+      radial-gradient(circle at 15% 75%, rgba(167, 139, 250, 0.35) 0%, transparent 50%),
+      radial-gradient(circle at 85% 15%, rgba(129, 140, 248, 0.4) 0%, transparent 50%),
+      radial-gradient(circle at 40% 45%, rgba(196, 181, 253, 0.35) 0%, transparent 50%),
+      radial-gradient(circle at 60% 55%, rgba(129, 140, 248, 0.4) 0%, transparent 50%);
+  }
 }
