@@ -189,6 +189,17 @@ export default function ParticleBackground() {
 
   return (
     <>
+      {/* SVG gradient definition for snowflakes */}
+      <svg style={{ position: 'absolute', width: 0, height: 0 }}>
+        <defs>
+          <linearGradient id="snowflake-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#7c8be0" />
+            <stop offset="40%" stopColor="#6366f1" />
+            <stop offset="70%" stopColor="#4f46e5" />
+            <stop offset="100%" stopColor="#4338ca" />
+          </linearGradient>
+        </defs>
+      </svg>
       <style>{`
         @keyframes snowfall {
           0% {
@@ -201,11 +212,13 @@ export default function ParticleBackground() {
         .snowflake {
           position: fixed;
           top: 0;
-          color: #9ca3af;
           pointer-events: none;
           z-index: 1;
           animation: snowfall linear infinite;
-          filter: drop-shadow(0 1px 2px rgba(255,255,255,0.5));
+          filter: drop-shadow(0 1px 3px rgba(99, 102, 241, 0.3));
+        }
+        .snowflake svg {
+          stroke: url(#snowflake-gradient);
         }
       `}</style>
       {snowflakes.map((flake) => {
