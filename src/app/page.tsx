@@ -1,15 +1,16 @@
 "use client";
 import ParticleBackground, { generateSnowflakeSVG } from "@/components/ParticleBackground";
 import { motion } from "framer-motion";
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 
 export default function Home() {
   const [showSnowflakes, setShowSnowflakes] = useState(true);
+  const [buttonSnowflake, setButtonSnowflake] = useState<React.ReactNode>(null);
 
-  // Generate a random snowflake icon on each page load
-  const buttonSnowflake = useMemo(() => {
+  // Generate a random snowflake icon only on client after mount
+  useEffect(() => {
     const seed = Math.floor(Math.random() * 100000);
-    return generateSnowflakeSVG(seed);
+    setButtonSnowflake(generateSnowflakeSVG(seed));
   }, []);
 
   return (
