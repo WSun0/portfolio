@@ -1,157 +1,278 @@
 "use client";
-import { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 
-// Intricate realistic snowflake SVG designs
-const SnowflakeDesigns = [
-  // Design 1: Classic dendrite snowflake with detailed branches
-  () => (
-    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-      {/* Main 6 arms */}
-      {[0, 60, 120, 180, 240, 300].map((angle) => (
-        <g key={angle} transform={`rotate(${angle} 50 50)`}>
-          <line x1="50" y1="50" x2="50" y2="8" />
-          {/* Primary branches */}
-          <line x1="50" y1="20" x2="38" y2="28" />
-          <line x1="50" y1="20" x2="62" y2="28" />
-          <line x1="50" y1="32" x2="42" y2="38" />
-          <line x1="50" y1="32" x2="58" y2="38" />
-          {/* Tip detail */}
-          <line x1="50" y1="8" x2="46" y2="14" />
-          <line x1="50" y1="8" x2="54" y2="14" />
+// Seeded random number generator for consistent snowflakes
+export function seededRandom(seed: number) {
+  const x = Math.sin(seed++) * 10000;
+  return x - Math.floor(x);
+}
+
+// Generate a random number in range using seed
+export function randomInRange(min: number, max: number, seed: number): number {
+  return min + seededRandom(seed) * (max - min);
+}
+
+// Branch that connects to the main arm
+interface ArmBranch {
+  distanceFromCenter: number; // How far along the main arm this branch starts
+  length: number;
+  angle: number; // Positive = right, negative = left
+  thickness: number;
+  subBranches: SubBranch[]; // Small branches at the tip
+}
+
+// Small sub-branch at the end of a main branch
+interface SubBranch {
+  length: number;
+  angle: number; // Relative to parent branch
+}
+
+// Generate branches that connect to the main arm
+function generateArmBranches(seed: number, armLength: number): ArmBranch[] {
+  const branches: ArmBranch[] = [];
+  const numBranchPairs = Math.floor(randomInRange(3, 6, seed));
+
+  // Generate branch pairs at different distances along the arm
+  for (let i = 0; i < numBranchPairs; i++) {
+    const branchSeed = seed + i * 100;
+
+    // Position along the arm (closer to tip = shorter branches)
+    const minDist = 8 + (armLength - 15) * (i / numBranchPairs);
+    const maxDist = 8 + (armLength - 10) * ((i + 1) / numBranchPairs);
+    const distance = randomInRange(minDist, maxDist, branchSeed);
+
+    // Branch length decreases toward the tip
+    const maxBranchLength = Math.max(4, (armLength - distance) * 0.7);
+    const branchLength = randomInRange(Math.min(5, maxBranchLength), maxBranchLength, branchSeed + 1);
+
+    // Branch angle
+    const angle = randomInRange(30, 60, branchSeed + 2);
+
+    // Thickness decreases toward tip
+    const thickness = Math.max(0.6, 1.4 - (distance / armLength) * 0.6);
+
+    // Generate sub-branches at the tip
+    const subBranches: SubBranch[] = [];
+    const numSubBranches = Math.floor(randomInRange(0, 3, branchSeed + 3));
+
+    for (let j = 0; j < numSubBranches; j++) {
+      const subSeed = branchSeed + 50 + j;
+      subBranches.push({
+        length: randomInRange(2, branchLength * 0.5, subSeed),
+        angle: randomInRange(-40, 40, subSeed + 1),
+      });
+    }
+
+    // Add mirrored pair (left and right)
+    branches.push({
+      distanceFromCenter: distance,
+      length: branchLength,
+      angle: angle,
+      thickness,
+      subBranches,
+    });
+
+    branches.push({
+      distanceFromCenter: distance,
+      length: branchLength,
+      angle: -angle,
+      thickness,
+      subBranches: subBranches.map(sb => ({ ...sb, angle: -sb.angle })),
+    });
+  }
+
+  return branches;
+}
+
+// Render a single branch and its sub-branches
+function renderArmBranch(branch: ArmBranch, armIndex: number): React.ReactElement[] {
+  const elements: React.ReactElement[] = [];
+  const baseKey = `arm${armIndex}-d${branch.distanceFromCenter.toFixed(1)}-a${branch.angle.toFixed(1)}`;
+
+  // Calculate branch start point (on the main arm)
+  const startX = 50;
+  const startY = 50 - branch.distanceFromCenter;
+
+  // Calculate branch end point
+  const angleRad = (branch.angle * Math.PI) / 180;
+  const endX = startX + Math.sin(angleRad) * branch.length;
+  const endY = startY - Math.cos(angleRad) * branch.length;
+
+  // Main branch line
+  elements.push(
+    <line
+      key={baseKey}
+      x1={startX}
+      y1={startY}
+      x2={endX}
+      y2={endY}
+      strokeWidth={branch.thickness}
+    />
+  );
+
+  // Sub-branches at the tip
+  branch.subBranches.forEach((sub, idx) => {
+    const subAngleRad = ((branch.angle + sub.angle) * Math.PI) / 180;
+    const subEndX = endX + Math.sin(subAngleRad) * sub.length;
+    const subEndY = endY - Math.cos(subAngleRad) * sub.length;
+
+    elements.push(
+      <line
+        key={`${baseKey}-sub${idx}`}
+        x1={endX}
+        y1={endY}
+        x2={subEndX}
+        y2={subEndY}
+        strokeWidth={branch.thickness * 0.6}
+      />
+    );
+  });
+
+  // Add small tip fork if no sub-branches
+  if (branch.subBranches.length === 0 && branch.length > 4) {
+    const tipLength = branch.length * 0.3;
+    const tipAngle1 = ((branch.angle - 25) * Math.PI) / 180;
+    const tipAngle2 = ((branch.angle + 25) * Math.PI) / 180;
+
+    elements.push(
+      <line
+        key={`${baseKey}-tip1`}
+        x1={endX}
+        y1={endY}
+        x2={endX + Math.sin(tipAngle1) * tipLength}
+        y2={endY - Math.cos(tipAngle1) * tipLength}
+        strokeWidth={branch.thickness * 0.5}
+      />,
+      <line
+        key={`${baseKey}-tip2`}
+        x1={endX}
+        y1={endY}
+        x2={endX + Math.sin(tipAngle2) * tipLength}
+        y2={endY - Math.cos(tipAngle2) * tipLength}
+        strokeWidth={branch.thickness * 0.5}
+      />
+    );
+  }
+
+  return elements;
+}
+
+// Procedurally generate a unique snowflake SVG
+export function generateSnowflakeSVG(seed: number): React.ReactElement {
+  const armLength = randomInRange(34, 44, seed);
+  const armThickness = randomInRange(1.3, 1.8, seed + 1);
+  const hasCenter = seededRandom(seed + 2) > 0.4;
+  const centerSize = randomInRange(2, 4, seed + 3);
+
+  // Generate branches for one arm (will be replicated 6 times)
+  const branches = generateArmBranches(seed + 10, armLength);
+
+  // Tip decoration style
+  const tipStyle = Math.floor(randomInRange(0, 3, seed + 4));
+
+  return (
+    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeLinecap="round">
+      {/* Render 6 arms with 60-degree rotation */}
+      {[0, 60, 120, 180, 240, 300].map((rotation, armIndex) => (
+        <g key={rotation} transform={`rotate(${rotation} 50 50)`}>
+          {/* Main arm - connected to center */}
+          <line
+            x1="50"
+            y1="50"
+            x2="50"
+            y2={50 - armLength}
+            strokeWidth={armThickness}
+          />
+
+          {/* Arm tip decoration */}
+          {tipStyle === 0 && (
+            <>
+              <line
+                x1="50"
+                y1={50 - armLength}
+                x2="46"
+                y2={50 - armLength + 5}
+                strokeWidth={armThickness * 0.6}
+              />
+              <line
+                x1="50"
+                y1={50 - armLength}
+                x2="54"
+                y2={50 - armLength + 5}
+                strokeWidth={armThickness * 0.6}
+              />
+            </>
+          )}
+          {tipStyle === 1 && (
+            <>
+              <line
+                x1="50"
+                y1={50 - armLength}
+                x2="44"
+                y2={50 - armLength + 4}
+                strokeWidth={armThickness * 0.5}
+              />
+              <line
+                x1="50"
+                y1={50 - armLength}
+                x2="56"
+                y2={50 - armLength + 4}
+                strokeWidth={armThickness * 0.5}
+              />
+              <line
+                x1="50"
+                y1={50 - armLength}
+                x2="50"
+                y2={50 - armLength - 3}
+                strokeWidth={armThickness * 0.5}
+              />
+            </>
+          )}
+          {tipStyle === 2 && (
+            <>
+              <line
+                x1="50"
+                y1={50 - armLength}
+                x2="45"
+                y2={50 - armLength + 3}
+                strokeWidth={armThickness * 0.5}
+              />
+              <line
+                x1="50"
+                y1={50 - armLength}
+                x2="55"
+                y2={50 - armLength + 3}
+                strokeWidth={armThickness * 0.5}
+              />
+              <line
+                x1="50"
+                y1={50 - armLength}
+                x2="47"
+                y2={50 - armLength - 2}
+                strokeWidth={armThickness * 0.4}
+              />
+              <line
+                x1="50"
+                y1={50 - armLength}
+                x2="53"
+                y2={50 - armLength - 2}
+                strokeWidth={armThickness * 0.4}
+              />
+            </>
+          )}
+
+          {/* Branches - all connected to main arm */}
+          {branches.map((branch, idx) => renderArmBranch(branch, armIndex * 100 + idx))}
         </g>
       ))}
-      <circle cx="50" cy="50" r="4" strokeWidth="1" />
-    </svg>
-  ),
 
-  // Design 2: Stellar plate snowflake
-  () => (
-    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-      {[0, 60, 120, 180, 240, 300].map((angle) => (
-        <g key={angle} transform={`rotate(${angle} 50 50)`}>
-          <line x1="50" y1="50" x2="50" y2="12" />
-          <line x1="50" y1="18" x2="42" y2="26" />
-          <line x1="50" y1="18" x2="58" y2="26" />
-          <line x1="50" y1="28" x2="44" y2="32" />
-          <line x1="50" y1="28" x2="56" y2="32" />
-        </g>
-      ))}
-      <polygon points="50,38 56,44 56,56 50,62 44,56 44,44" strokeWidth="1" />
+      {/* Center decoration */}
+      {hasCenter && (
+        <circle cx="50" cy="50" r={centerSize} strokeWidth="0.8" />
+      )}
     </svg>
-  ),
-
-  // Design 3: Fernlike stellar dendrite
-  () => (
-    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round">
-      {[0, 60, 120, 180, 240, 300].map((angle) => (
-        <g key={angle} transform={`rotate(${angle} 50 50)`}>
-          <line x1="50" y1="50" x2="50" y2="6" />
-          {/* Fern-like branches */}
-          <line x1="50" y1="14" x2="40" y2="20" />
-          <line x1="50" y1="14" x2="60" y2="20" />
-          <line x1="50" y1="22" x2="43" y2="27" />
-          <line x1="50" y1="22" x2="57" y2="27" />
-          <line x1="50" y1="30" x2="45" y2="34" />
-          <line x1="50" y1="30" x2="55" y2="34" />
-          <line x1="50" y1="38" x2="47" y2="41" />
-          <line x1="50" y1="38" x2="53" y2="41" />
-          {/* Sub-branches */}
-          <line x1="40" y1="20" x2="36" y2="18" />
-          <line x1="40" y1="20" x2="38" y2="25" />
-          <line x1="60" y1="20" x2="64" y2="18" />
-          <line x1="60" y1="20" x2="62" y2="25" />
-        </g>
-      ))}
-      <circle cx="50" cy="50" r="3" strokeWidth="1" />
-    </svg>
-  ),
-
-  // Design 4: Sectored plate
-  () => (
-    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-      {[0, 60, 120, 180, 240, 300].map((angle) => (
-        <g key={angle} transform={`rotate(${angle} 50 50)`}>
-          <line x1="50" y1="50" x2="50" y2="15" />
-          <line x1="50" y1="22" x2="44" y2="28" />
-          <line x1="50" y1="22" x2="56" y2="28" />
-        </g>
-      ))}
-      <circle cx="50" cy="50" r="8" strokeWidth="1" />
-      <circle cx="50" cy="50" r="16" strokeWidth="0.8" />
-      {[0, 60, 120, 180, 240, 300].map((angle) => (
-        <line key={`inner-${angle}`} transform={`rotate(${angle} 50 50)`} x1="50" y1="42" x2="50" y2="34" strokeWidth="1" />
-      ))}
-    </svg>
-  ),
-
-  // Design 5: Simple stellar crystal
-  () => (
-    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-      {[0, 60, 120, 180, 240, 300].map((angle) => (
-        <g key={angle} transform={`rotate(${angle} 50 50)`}>
-          <line x1="50" y1="50" x2="50" y2="10" />
-          <line x1="50" y1="16" x2="40" y2="26" />
-          <line x1="50" y1="16" x2="60" y2="26" />
-        </g>
-      ))}
-    </svg>
-  ),
-
-  // Design 6: Hollow column crystal
-  () => (
-    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round">
-      {[0, 60, 120, 180, 240, 300].map((angle) => (
-        <g key={angle} transform={`rotate(${angle} 50 50)`}>
-          <line x1="50" y1="50" x2="50" y2="14" />
-          <line x1="50" y1="14" x2="44" y2="20" />
-          <line x1="50" y1="14" x2="56" y2="20" />
-          <line x1="50" y1="26" x2="46" y2="30" />
-          <line x1="50" y1="26" x2="54" y2="30" />
-          <circle cx="50" cy="20" r="2" strokeWidth="0.8" />
-        </g>
-      ))}
-      <circle cx="50" cy="50" r="5" strokeWidth="1" />
-    </svg>
-  ),
-
-  // Design 7: Radiating needles
-  () => (
-    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
-      {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((angle) => (
-        <line key={angle} transform={`rotate(${angle} 50 50)`} x1="50" y1="50" x2="50" y2={angle % 60 === 0 ? "12" : "24"} />
-      ))}
-      {[0, 60, 120, 180, 240, 300].map((angle) => (
-        <g key={`branch-${angle}`} transform={`rotate(${angle} 50 50)`}>
-          <line x1="50" y1="20" x2="44" y2="26" />
-          <line x1="50" y1="20" x2="56" y2="26" />
-        </g>
-      ))}
-    </svg>
-  ),
-
-  // Design 8: Delicate lace pattern
-  () => (
-    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round">
-      {[0, 60, 120, 180, 240, 300].map((angle) => (
-        <g key={angle} transform={`rotate(${angle} 50 50)`}>
-          <line x1="50" y1="50" x2="50" y2="8" />
-          <line x1="50" y1="15" x2="42" y2="22" />
-          <line x1="50" y1="15" x2="58" y2="22" />
-          <line x1="50" y1="25" x2="45" y2="30" />
-          <line x1="50" y1="25" x2="55" y2="30" />
-          <line x1="50" y1="35" x2="47" y2="38" />
-          <line x1="50" y1="35" x2="53" y2="38" />
-          <line x1="42" y1="22" x2="38" y2="20" />
-          <line x1="42" y1="22" x2="40" y2="27" />
-          <line x1="58" y1="22" x2="62" y2="20" />
-          <line x1="58" y1="22" x2="60" y2="27" />
-          <circle cx="50" cy="8" r="2" strokeWidth="0.8" />
-        </g>
-      ))}
-      <circle cx="50" cy="50" r="4" strokeWidth="0.8" />
-    </svg>
-  ),
-];
+  );
+}
 
 interface Snowflake {
   id: number;
@@ -160,26 +281,32 @@ interface Snowflake {
   opacity: number;
   duration: number;
   delay: number;
-  designIndex: number;
-  drift: number;
+  seed: number;
 }
 
 function generateSnowflakes(count: number): Snowflake[] {
   return Array.from({ length: count }, (_, i) => ({
     id: i,
     x: Math.random() * 100,
-    size: Math.random() * 20 + 14,
-    opacity: Math.random() * 0.35 + 0.25,
+    size: Math.random() * 22 + 16,
+    opacity: Math.random() * 0.4 + 0.2,
     duration: Math.random() * 20 + 25,
     delay: -Math.random() * 35,
-    designIndex: Math.floor(Math.random() * SnowflakeDesigns.length),
-    drift: (Math.random() - 0.5) * 80,
+    seed: Math.floor(Math.random() * 100000),
   }));
 }
 
-export default function ParticleBackground() {
+interface ParticleBackgroundProps {
+  visible?: boolean;
+}
+
+export default function ParticleBackground({ visible = true }: ParticleBackgroundProps) {
   const [mounted, setMounted] = useState(false);
-  const snowflakes = useMemo(() => generateSnowflakes(40), []);
+  const snowflakes = useMemo(() => generateSnowflakes(20), []);
+  const snowflakeSVGs = useMemo(
+    () => snowflakes.map((flake) => generateSnowflakeSVG(flake.seed)),
+    [snowflakes]
+  );
 
   useEffect(() => {
     setMounted(true);
@@ -188,7 +315,7 @@ export default function ParticleBackground() {
   if (!mounted) return null;
 
   return (
-    <>
+    <div style={{ display: visible ? 'block' : 'none' }}>
       {/* SVG gradient definition for snowflakes */}
       <svg style={{ position: 'absolute', width: 0, height: 0 }}>
         <defs>
@@ -221,25 +348,22 @@ export default function ParticleBackground() {
           stroke: url(#snowflake-gradient);
         }
       `}</style>
-      {snowflakes.map((flake) => {
-        const SnowflakeComponent = SnowflakeDesigns[flake.designIndex];
-        return (
-          <div
-            key={flake.id}
-            className="snowflake"
-            style={{
-              left: `${flake.x}%`,
-              width: `${flake.size}px`,
-              height: `${flake.size}px`,
-              opacity: flake.opacity,
-              animationDuration: `${flake.duration}s`,
-              animationDelay: `${flake.delay}s`,
-            }}
-          >
-            <SnowflakeComponent />
-          </div>
-        );
-      })}
-    </>
+      {snowflakes.map((flake, idx) => (
+        <div
+          key={flake.id}
+          className="snowflake"
+          style={{
+            left: `${flake.x}%`,
+            width: `${flake.size}px`,
+            height: `${flake.size}px`,
+            opacity: flake.opacity,
+            animationDuration: `${flake.duration}s`,
+            animationDelay: `${flake.delay}s`,
+          }}
+        >
+          {snowflakeSVGs[idx]}
+        </div>
+      ))}
+    </div>
   );
 }

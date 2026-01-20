@@ -1,8 +1,18 @@
 "use client";
-import ParticleBackground from "@/components/ParticleBackground";
+import ParticleBackground, { generateSnowflakeSVG } from "@/components/ParticleBackground";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [showSnowflakes, setShowSnowflakes] = useState(true);
+  const [buttonSnowflake, setButtonSnowflake] = useState<React.ReactNode>(null);
+
+  // Generate a random snowflake icon only on client after mount
+  useEffect(() => {
+    const seed = Math.floor(Math.random() * 100000);
+    setButtonSnowflake(generateSnowflakeSVG(seed));
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -10,7 +20,20 @@ export default function Home() {
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="relative w-full max-w-4xl mx-auto pt-2 pb-24 px-10 font-sans"
     >
-      <ParticleBackground />
+      <ParticleBackground visible={showSnowflakes} />
+
+      {/* Snowflake toggle button - directly under Cooking button */}
+      <div className="fixed top-16 right-0 w-full max-w-4xl mx-auto px-10 flex justify-end pointer-events-none" style={{ left: '50%', transform: 'translateX(-50%)' }}>
+        <button
+          onClick={() => setShowSnowflakes(!showSnowflakes)}
+          className={`glass-btn !py-2 !px-3 pointer-events-auto ${showSnowflakes ? "opacity-100" : "opacity-50"}`}
+          title={showSnowflakes ? "Hide snowflakes" : "Show snowflakes"}
+        >
+          <div className="w-4 h-4">
+            {buttonSnowflake}
+          </div>
+        </button>
+      </div>
       <div className="relative z-10">
         <motion.section
           initial={{ opacity: 0, y: 20 }}
@@ -23,7 +46,7 @@ export default function Home() {
             I&apos;m a student at Northeastern University studying CS & Math graduating in December 2025.
           </p>
           <p className="mb-6 text-base opacity-80 leading-relaxed">
-            My current interests include quantitative trading, game theory (particularly zero-sum), and deep reinforcement learning. For fun, I enjoy playing poker, cooking and eating out, traveling,{" "}
+            My current interests include quantitative trading, game theory (particularly zero-sum), and deep reinforcement learning. For fun, I enjoy playing poker, cooking, trying new restaurants, traveling,{" "}
             <a
               href="https://tracker.gg/valorant/profile/riot/WSun1%23aly/overview?platform=pc&playlist=competitive&season=4539cac3-47ae-90e5-3d01-b3812ca3274e"
               target="_blank"
@@ -44,7 +67,7 @@ export default function Home() {
             .
           </p>
           <p className="mb-0 text-base opacity-80 leading-relaxed">
-            Feel free to reach out at <code className="glass-code text-sm">sun[dot]wil[at]northeastern[dot]edu</code>!
+            Feel free to reach out at <code className="glass-code text-sm">sun [dot] wil [at] northeastern [dot] edu</code>!
           </p>
         </motion.section>
       </div>
