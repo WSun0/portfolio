@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 
 // Seeded random number generator for consistent snowflakes
 export function seededRandom(seed: number) {
@@ -85,8 +85,8 @@ function generateArmBranches(seed: number, armLength: number): ArmBranch[] {
 }
 
 // Render a single branch and its sub-branches
-function renderArmBranch(branch: ArmBranch, armIndex: number): JSX.Element[] {
-  const elements: JSX.Element[] = [];
+function renderArmBranch(branch: ArmBranch, armIndex: number): React.ReactElement[] {
+  const elements: React.ReactElement[] = [];
   const baseKey = `arm${armIndex}-d${branch.distanceFromCenter.toFixed(1)}-a${branch.angle.toFixed(1)}`;
 
   // Calculate branch start point (on the main arm)
@@ -158,7 +158,7 @@ function renderArmBranch(branch: ArmBranch, armIndex: number): JSX.Element[] {
 }
 
 // Procedurally generate a unique snowflake SVG
-export function generateSnowflakeSVG(seed: number): JSX.Element {
+export function generateSnowflakeSVG(seed: number): React.ReactElement {
   const armLength = randomInRange(34, 44, seed);
   const armThickness = randomInRange(1.3, 1.8, seed + 1);
   const hasCenter = seededRandom(seed + 2) > 0.4;
