@@ -212,6 +212,14 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0.7;
 }
 
+/* Disable shimmer on specific buttons */
+.glass-btn.glass-btn-no-shimmer::after,
+.glass-btn.glass-btn-no-shimmer:hover::after {
+  display: none !important;
+  animation: none !important;
+  opacity: 0 !important;
+}
+
 .glass-link {
   position: relative;
   color: var(--foreground);

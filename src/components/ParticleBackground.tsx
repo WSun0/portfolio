@@ -302,7 +302,7 @@ interface ParticleBackgroundProps {
 
 export default function ParticleBackground({ visible = true }: ParticleBackgroundProps) {
   const [mounted, setMounted] = useState(false);
-  const snowflakes = useMemo(() => generateSnowflakes(20), []);
+  const snowflakes = useMemo(() => generateSnowflakes(15), []);
   const snowflakeSVGs = useMemo(
     () => snowflakes.map((flake) => generateSnowflakeSVG(flake.seed)),
     [snowflakes]
