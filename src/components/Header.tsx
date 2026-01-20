@@ -12,7 +12,7 @@ export default function Header() {
         <div className="max-w-4xl mx-auto flex items-center justify-between px-10 py-4">
           <Link
             href="/"
-            className="relative group focus:outline-none font-sans glass-btn !p-2 !rounded-xl"
+            className="relative group focus:outline-none font-sans glass-btn glass-btn-no-shimmer !p-2 !rounded-xl"
             style={{ textDecoration: "none" }}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}

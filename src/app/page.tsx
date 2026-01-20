@@ -27,7 +27,6 @@ export default function Home() {
         <button
           onClick={() => setShowSnowflakes(!showSnowflakes)}
           className={`glass-btn !py-2 !px-3 pointer-events-auto ${showSnowflakes ? "opacity-100" : "opacity-50"}`}
-          title={showSnowflakes ? "Hide snowflakes" : "Show snowflakes"}
         >
           <div className="w-4 h-4">
             {buttonSnowflake}
