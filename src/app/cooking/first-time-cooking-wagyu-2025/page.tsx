@@ -14,7 +14,7 @@ export default function FirstTimeCookingWagyu2025Page() {
       <section className="glass-panel-static py-8 px-2">
         <h1 className="text-2xl font-bold mb-4">First Time Cooking Wagyu 2025</h1>
         <p className="text-base opacity-80 mb-8">
-          I kept seeing Japanese A5 Wagyu at the local Maruichi market in Brookline so I finally decided to buy some and try it out!
+          Kept seeing Japanese A5 Wagyu at Maruichi market in Brookline so I finally decided to buy some to try cooking it.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
           {images.map((src, idx) => (
