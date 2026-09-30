@@ -21,7 +21,7 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 1px solid 
 .file-tree { list-style: none; margin: 0; padding: 0; font-size: 12px; line-height: 2.2; }
 .tree-row { display: flex; align-items: baseline; min-height: 28px; }
 .tree-stem { flex: 0 0 23px; color: var(--branch); white-space: pre; user-select: none; }
-.folder-toggle { flex: 0 0 20px; color: var(--muted); text-align: center; }
+.folder-toggle { margin-left: 6px; flex: 0 0 20px; color: var(--muted); text-align: center; }
 .file-link, .folder-link { text-decoration: none; overflow-wrap: anywhere; min-width: 0; }
 .folder-link { color: var(--muted); }
 [aria-current="page"] { color: var(--foreground); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }

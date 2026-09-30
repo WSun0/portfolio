@@ -6,6 +6,9 @@ export const filesystem: SiteEntry = { name: '~', path: '/', href: '/', title: '
   { name: 'readme.md', path: '/readme.md', href: '/', title: 'William Sun' },
   { name: 'blog', path: '/blog', href: '/blog', title: 'blog', children: blog },
   { name: 'other', path: '/other', href: '/other', title: 'other', children: [
+    { name: 'job-recruiting', path: '/other/job-recruiting', href: '/other/job-recruiting', title: 'job recruiting', children: [
+      { name: 'under-construction.md', path: '/other/job-recruiting/under-construction.md', href: '/other/job-recruiting/under-construction', title: 'under construction' },
+    ] },
     { name: 'poker', path: '/other/poker', href: '/poker', title: 'poker', children: [
       { name: 'casinos.md', path: '/other/poker/casinos.md', href: '/poker/casinos', title: 'Casinos I’ve Played At' },
     ] },
@@ -13,9 +16,6 @@ export const filesystem: SiteEntry = { name: '~', path: '/', href: '/', title: '
       { name: 'wagyu.md', path: '/other/cooking/wagyu.md', href: '/cooking/first-time-cooking-wagyu-2025', title: 'First Time Cooking Wagyu 2025' },
       { name: 'christmas-dinner.md', path: '/other/cooking/christmas-dinner.md', href: '/cooking/christmas-dinner', title: 'Christmas Dinner 2024' },
       { name: 'farmers-market.md', path: '/other/cooking/farmers-market.md', href: '/cooking/sf-pier-farmers-market-breakfast-2023', title: 'SF Pier Farmer’s Market Breakfast 2023' },
-    ] },
-    { name: 'job-recruiting', path: '/other/job-recruiting', href: '/other/job-recruiting', title: 'job recruiting', children: [
-      { name: 'under-construction.md', path: '/other/job-recruiting/under-construction.md', href: '/other/job-recruiting/under-construction', title: 'under construction' },
     ] },
   ] },
   { name: 'contact.md', path: '/contact.md', href: '/contact', title: 'contact' },
