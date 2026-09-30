@@ -31,7 +31,9 @@ describe('casino map', () => {
     return { ...view, resize: () => resize(), observe, disconnect, container };
   }
   it('preserves all six casino pins and adds Bay 101', () => {
-    setup();
+    const { baseElement } = setup();
+    // Leaflet must have a height before the dynamically loaded CSS arrives.
+    expect(baseElement.querySelector('.casino-map')).toHaveStyle({ height: '100%', width: '100%', position: 'relative' });
     expect(screen.getAllByRole('button')).toHaveLength(7);
     for (const name of ['Encore Boston Harbor', 'Parx Casino', 'Chasers Poker Room', 'Metro Casino', 'Caesars New Orleans', 'Playground Card Room', 'Bay 101']) {
       expect(screen.getByRole('button', { name })).toBeInTheDocument();
