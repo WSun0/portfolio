@@ -56,15 +56,27 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 1px solid 
 .document .glass-image-container { border: 1px solid var(--line); overflow: hidden; }
 .document .glass-code { background: var(--hover); padding: 2px 5px; }
 .document img { max-width: 100%; }
-.terminal-panel { height: clamp(200px,32dvh,330px); flex: 0 0 auto; display: flex; flex-direction: column; border-top: 1px solid var(--line); background: var(--background); }
-.terminal-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 9px 25px; font-size: 12px; border-bottom: 1px solid var(--line); }
-.terminal-location { color: var(--muted); margin-left: 18px; }
-.terminal-scroll { flex: 1; min-height: 0; overflow: auto; padding: 12px 25px 18px; }
-.terminal-output { font-size: 13px; }
+.terminal-panel { position: relative; max-height: calc(100dvh - 174px); flex: 0 0 auto; display: flex; flex-direction: column; border-top: 1px solid var(--line); background: var(--background); }
+.terminal-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 4px 25px; min-height: 30px; font-size: 11px; line-height: 1.6; flex: 0 0 auto; }
+.terminal-status { display: flex; align-items: baseline; flex-wrap: wrap; gap: 2px 22px; min-width: 0; }
+.terminal-title { overflow-wrap: anywhere; }
+.terminal-session { color: var(--muted); font-variant-numeric: tabular-nums; }
+.terminal-session time { white-space: nowrap; }
+.terminal-actions { display: flex; align-items: center; gap: 8px; flex: 0 0 auto; }
+.terminal-actions button { min-width: 24px; min-height: 24px; text-align: center; }
+.terminal-actions .terminal-close { margin-left: 10px; }
+.terminal-actions button:disabled { opacity: .35; cursor: default; text-decoration: none; }
+.terminal-resize-handle { position: absolute; top: -5px; left: 0; right: 0; height: 10px; cursor: ns-resize; touch-action: none; z-index: 2; }
+.terminal-resize-handle::after { content: ''; position: absolute; top: 4px; left: 0; right: 0; height: 2px; background: transparent; }
+.terminal-resize-handle:hover::after, .terminal-resize-handle:focus-visible::after { background: var(--muted); }
+.terminal-resize-handle:focus-visible { outline: none; }
+.terminal-location { color: var(--muted); margin-left: 8px; }
+.terminal-scroll { flex: 1; min-height: 0; overflow: auto; padding: 6px 25px 16px; font-size: var(--terminal-font-size, 13px); line-height: 1.65; }
+.terminal-output { font-size: inherit; }
 .terminal-entry { margin-bottom: 10px; }
 .terminal-output pre { font: inherit; white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; }
 .terminal-echo { color: var(--muted); overflow-wrap: anywhere; }
-.terminal-form { display: flex; align-items: baseline; gap: 9px; padding: 0; font-size: 13px; }
+.terminal-form { display: flex; align-items: baseline; gap: 9px; padding: 0; font-size: inherit; }
 .terminal-prompt { color: var(--muted); max-width: 48%; overflow-wrap: anywhere; }
 .terminal-form input { flex: 1; min-width: 0; appearance: none; background: transparent; color: var(--foreground); caret-color: var(--foreground); border: 0; border-radius: 0; box-shadow: none; padding: 0; }
 .terminal-form input:focus, .terminal-form input:focus-visible { outline: none; box-shadow: none; }
@@ -83,8 +95,12 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 1px solid 
   .shortcut-hints { margin-top: 22px; }
   .writing-list li { grid-template-columns: 1fr; gap: 3px; }
   .terminal-scroll, .terminal-toolbar { padding-left: 20px; padding-right: 20px; }
-  .terminal-form input { font-size: 16px; }
-  .terminal-panel { height: clamp(180px,35dvh,300px); }
+  .terminal-form input { font-size: max(16px, var(--terminal-font-size, 13px)); }
+  .terminal-toolbar { align-items: flex-start; gap: 8px; }
+  .terminal-status { flex-direction: column; gap: 2px; }
+  .terminal-session { font-size: 10px; }
+  .terminal-actions { gap: 2px; }
+  .terminal-actions .terminal-close { margin-left: 4px; }
 }
 @media(pointer:coarse) { .toolbar button, .folder-toggle, .tree-row a, .terminal-toolbar button, .run-command { min-height: 44px; } .folder-toggle { flex-basis: 32px; } .tree-row { align-items: center; } .tree-row a { display: flex; align-items: center; } }
 @media(pointer:coarse) { .run-command { display: inline-block; } }

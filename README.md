@@ -36,3 +36,5 @@ git worktree add --detach ../portfolio-original archive/pre-redesign-2026-09-29
 The original machine also has a full-history backup at `.git/portfolio-before-redesign.bundle`. The tag is on GitHub; this bundle is local only. Article source files and photos are retained in the current site.
 
 Security controls and review limitations are documented in [SECURITY.md](SECURITY.md). Public pages use request-specific script nonces; keep the proxy and root layout paired when changing rendering or caching. Contact links live on `/contact`. Removed placeholder routes `/poker/hands` and `/poker/journey` redirect to `/poker`.
+
+Drag the terminal’s top edge to resize it; double-click the edge to reset. The focused resize handle also supports Up/Down (Shift for larger steps), Home, and End. The toolbar’s +/− controls adjust terminal text from 11–22px. Size settings survive closing/reopening within the current page session. The live session clock uses the requested fixed EDT offset (UTC−4), independent of the visitor’s timezone.
