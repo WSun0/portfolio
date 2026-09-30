@@ -16,7 +16,7 @@ describe('website terminal', () => {
   });
   it('lists the current or requested directory without navigating', () => {
     expect(runCommand('ls', '/blog').output).toContain('under-construction.md');
-    expect(runCommand('ls ~/other', '/blog')).toEqual({ output: 'poker/\ncooking/\njob-recruiting/' });
+    expect(runCommand('ls ~/other', '/blog')).toEqual({ output: 'job-recruiting/\npoker/\ncooking/' });
     expect(runCommand('ls ~/README.md', '/')).toEqual({ output: 'readme.md' });
   });
   it('rejects invalid commands and paths without emitting a navigation target', () => {

@@ -27,7 +27,7 @@ describe('published content', () => {
     render(<Other />);
     expect(screen.getByRole('link', { name: 'cooking/' })).toHaveAttribute('href', '/cooking');
     expect(screen.getByRole('link', { name: 'poker/' })).toHaveAttribute('href', '/poker');
-    expect(screen.getAllByRole('link').map(link => link.textContent)).toEqual(['poker/', 'cooking/', 'job recruiting/']);
+    expect(screen.getAllByRole('link').map(link => link.textContent)).toEqual(['job recruiting/', 'poker/', 'cooking/']);
   });
   it('opens the recruiting placeholder through an ordinary link', () => {
     render(<JobRecruiting />);
@@ -59,7 +59,7 @@ describe('published content', () => {
     unmount();
     render(<Contact />);
     expect(screen.getByRole('heading', { name: 'contact me' })).toBeInTheDocument();
-    expect(screen.getByText('love to meet new people and chat, feel free to reach out below')).toBeInTheDocument();
+    expect(screen.getByText('i love to meet new people and chat; feel free to reach out below')).toBeInTheDocument();
   });
   it('retains proper names in lowercase poker prose and includes Alex Foxen', () => {
     render(<Poker />);

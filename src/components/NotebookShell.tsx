@@ -85,8 +85,8 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
       {items.map((item, index) => <li key={item.path}>
         <div className="tree-row">
           <span className="tree-stem" aria-hidden="true">{index === items.length - 1 ? '└─' : '├─'}</span>
-          {item.children && <button type="button" className="folder-toggle" aria-label={`${folders[item.path] ? 'Collapse' : 'Expand'} ${item.name}`} aria-expanded={!!folders[item.path]} aria-controls={`folder-${item.name}`} onClick={() => setFolders(previous => ({ ...previous, [item.path]: !previous[item.path] }))}>{folders[item.path] ? '−' : '+'}</button>}
           <Link href={item.href} aria-current={entry?.path === item.path ? 'page' : undefined} className={item.children ? 'folder-link' : 'file-link'} onClick={() => { if (window.matchMedia('(max-width: 720px)').matches) setSidebarOpen(false); }}>{item.name}{item.children ? '/' : ''}</Link>
+          {item.children && <button type="button" className="folder-toggle" aria-label={`${folders[item.path] ? 'Collapse' : 'Expand'} ${item.name}`} aria-expanded={!!folders[item.path]} aria-controls={`folder-${item.name}`} onClick={() => setFolders(previous => ({ ...previous, [item.path]: !previous[item.path] }))}>{folders[item.path] ? '−' : '+'}</button>}
         </div>
         {item.children && <div id={`folder-${item.name}`} hidden={!folders[item.path]}>{tree(item.children, depth + 1)}</div>}
       </li>)}
