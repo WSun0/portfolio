@@ -34,21 +34,21 @@ describe('Notebook shell', () => {
   });
   it('navigates, changes theme, and retains terminal output across closing', () => {
     render(<NotebookShell>Home</NotebookShell>);
-    fireEvent.click(screen.getByRole('button', { name: 'terminal', exact: true }));
+    fireEvent.click(screen.getByRole('button', { name: 'terminal' }));
     command('cd ~/writing');
     expect(push).toHaveBeenCalledWith('/writing');
     command('dark');
     expect(document.documentElement).toHaveAttribute('data-theme', 'dark');
     expect(localStorage.getItem('portfolio-theme')).toBe('dark');
     fireEvent.click(screen.getByRole('button', { name: 'Close terminal' }));
-    fireEvent.click(screen.getByRole('button', { name: 'terminal', exact: true }));
+    fireEvent.click(screen.getByRole('button', { name: 'terminal' }));
     expect(within(screen.getByRole('log')).getByText('dark mode')).toBeInTheDocument();
     command('clear');
     expect(screen.getByRole('log')).toBeEmptyDOMElement();
   });
   it('recalls command history and restores an unfinished draft', () => {
     render(<NotebookShell>Home</NotebookShell>);
-    fireEvent.click(screen.getByRole('button', { name: 'terminal', exact: true }));
+    fireEvent.click(screen.getByRole('button', { name: 'terminal' }));
     command('help');
     const input = screen.getByRole('textbox', { name: 'Terminal command' });
     fireEvent.change(input, { target: { value: 'cd res' } });
