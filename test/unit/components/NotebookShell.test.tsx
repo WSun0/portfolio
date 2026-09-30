@@ -35,7 +35,7 @@ describe('Notebook shell', () => {
   it('separates folder disclosure from directory links', () => {
     render(<NotebookShell>Home</NotebookShell>);
     fireEvent.click(screen.getByRole('button', { name: 'Collapse writing' }));
-    expect(screen.queryByRole('link', { name: 'small-changes.md' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'under-construction.md' })).not.toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'writing/' })).toHaveAttribute('href', '/writing');
     expect(push).not.toHaveBeenCalled();
   });
@@ -80,13 +80,13 @@ describe('notebook regression cases', () => {
   it('tracks the working directory and active file after navigation', () => {
     const { rerender } = render(<NotebookShell>Home</NotebookShell>);
     fireEvent.click(screen.getByRole('button', { name: 'terminal' }));
-    route.pathname = '/writing/detoxifying-life';
+    route.pathname = '/writing/under-construction';
     rerender(<NotebookShell>Article</NotebookShell>);
-    expect(screen.getByRole('link', { name: 'detoxifying-life.md' })).toHaveAttribute('aria-current', 'page');
+    expect(screen.getByRole('link', { name: 'under-construction.md' })).toHaveAttribute('aria-current', 'page');
     command('pwd');
     expect(within(screen.getByRole('log')).getByText('~/writing')).toBeInTheDocument();
-    command('open small-changes.md');
-    expect(push).toHaveBeenCalledWith('/writing/small-changes-for-health-improvements');
+    command('open under-construction.md');
+    expect(push).toHaveBeenCalledWith('/writing/under-construction');
   });
   it('starts collapsed on mobile and closes after selecting a directory', () => {
     vi.mocked(window.matchMedia).mockReturnValue({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() } as unknown as MediaQueryList);

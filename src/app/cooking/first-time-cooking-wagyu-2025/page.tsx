@@ -10,18 +10,18 @@ const images = [
 export default function FirstTimeCookingWagyu2025Page() {
   return (
     <div className="w-full max-w-4xl mx-auto pt-2 pb-20 px-10">
-      <BackButton href="/cooking" label="Back to Cooking" />
+      <BackButton href="/cooking" label="back to cooking" />
       <section className="glass-panel-static py-8 px-2">
         <h1 className="text-2xl font-bold mb-4">First Time Cooking Wagyu 2025</h1>
         <p className="text-base opacity-80 mb-8">
-          Kept seeing Japanese A5 Wagyu at Maruichi market in Brookline so I finally decided to buy some to try cooking it.
+          kept seeing Japanese a5 wagyu at Maruichi market in Brookline so i finally decided to buy some to try cooking it.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
           {images.map((src, idx) => (
             <div key={idx} className="glass-image-container w-full h-64 relative">
               <Image
                 src={src}
-                alt={`First Time Cooking Wagyu 2025 ${idx + 1}`}
+                alt={`first time cooking wagyu 2025 ${idx + 1}`}
                 fill
                 style={{ objectFit: "cover" }}
                 sizes="(max-width: 768px) 100vw, 33vw"
@@ -34,9 +34,9 @@ export default function FirstTimeCookingWagyu2025Page() {
         <div className="glass-card p-6">
           <h2 className="text-lg font-semibold mb-3">Menu</h2>
           <ul className="text-base opacity-80 space-y-2">
-            <li>Japanese A5 Wagyu Ribeye with Sea Salt</li>
-            <li>Overeasy Egg with Cracked Chili and Black Pepper</li>
-            <li>Steamed White Rice</li>
+            <li>Japanese a5 wagyu ribeye with sea salt</li>
+            <li>overeasy egg with cracked chili and black pepper</li>
+            <li>steamed white rice</li>
           </ul>
         </div>
       </section>

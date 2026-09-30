@@ -11,13 +11,13 @@ describe('website terminal', () => {
   it('visits directories and opens files using the same routes as the sidebar', () => {
     expect(runCommand('cd ~/writing', '/')).toMatchObject({ href: '/writing' });
     expect(runCommand('cd ..', '/resources/cooking')).toMatchObject({ href: '/resources' });
-    expect(runCommand('open small-changes.md', '/writing')).toMatchObject({ href: '/writing/small-changes-for-health-improvements' });
+    expect(runCommand('open under-construction.md', '/writing')).toMatchObject({ href: '/writing/under-construction' });
     for (const entry of entries) expect(runCommand(`open ~${entry.path}`, '/').href).toBe(entry.href);
   });
   it('lists the current or requested directory without navigating', () => {
-    expect(runCommand('ls', '/writing').output).toContain('small-changes.md');
+    expect(runCommand('ls', '/writing').output).toContain('under-construction.md');
     expect(runCommand('ls ~/resources', '/writing')).toEqual({ output: 'cooking/\npoker/' });
-    expect(runCommand('ls ~/README.md', '/')).toEqual({ output: 'README.md' });
+    expect(runCommand('ls ~/README.md', '/')).toEqual({ output: 'readme.md' });
   });
   it('rejects invalid commands and paths without emitting a navigation target', () => {
     for (const command of ['cd missing', 'cd README.md', 'open javascript:alert(1)', 'rm -rf /', 'open', 'light extra']) {
@@ -26,7 +26,7 @@ describe('website terminal', () => {
     }
   });
   it('uses a file’s parent as the terminal working directory', () => {
-    expect(directoryForRoute('/writing/detoxifying-life')).toBe('/writing');
+    expect(directoryForRoute('/writing/under-construction')).toBe('/writing');
     expect(directoryForRoute('/poker/casinos')).toBe('/resources/poker');
     expect(directoryForRoute('/resources')).toBe('/resources');
   });
@@ -38,7 +38,7 @@ describe('website terminal', () => {
     expect(runCommand('help', '/').output).toContain('cd ~/writing');
   });
   it('orders writing newest first', () => {
-    expect(writing.map(post => post.date)).toEqual(['2026-01-10', '2025-12-15']);
+    expect(writing.map(post => post.date)).toEqual(['2026-09-29']);
   });
 });
 
@@ -83,7 +83,7 @@ describe('terminal input boundaries', () => {
     expect(runCommand(command, '/')).toEqual({ output: expect.any(String) });
   });
   it('rejects oversized commands before parsing or retaining output', () => {
-    expect(runCommand('x'.repeat(100000), '/')).toEqual({ output: 'Command is too long (maximum 512 characters).' });
+    expect(runCommand('x'.repeat(100000), '/')).toEqual({ output: 'command is too long (maximum 512 characters).' });
   });
   it('removes the unpublished hands page from terminal navigation', () => {
     expect(runCommand('open ~/resources/poker/hands.md', '/').href).toBeUndefined();

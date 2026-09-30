@@ -15,7 +15,7 @@ function Spinner() {
     }}>
       <Image
         src="/HomeButtonIcon.png"
-        alt="Loading..."
+        alt="loading..."
         width={48}
         height={48}
         className="animate-spin"
@@ -36,7 +36,7 @@ const PokerMap = dynamic(() => import("@/components/PokerMap"), {
 export default function CasinosPage() {
   return (
     <div className="w-full max-w-4xl mx-auto pt-2 pb-20 px-10">
-      <BackButton href="/poker" label="Back to Poker" />
+      <BackButton href="/poker" label="back to poker" />
       <section className="glass-panel-static py-8 px-2">
         <h1 className="text-2xl font-bold mb-6">Casinos I&apos;ve Played Poker At</h1>
 
@@ -68,18 +68,18 @@ export default function CasinosPage() {
         <div className="mb-6">
           <h2 className="text-lg font-semibold mb-3">Thoughts on Online vs. In-Person</h2>
           <div className="text-base opacity-80 leading-relaxed space-y-4">
-            <p>While online poker is great because you can play from the comfort of your room and hands move much faster,
-              I&apos;ve discovered through personal experience that there is a severe problem with gameplay integrity. It&apos;s almost trivial to cheat online in ways that
-              are practically undetectable. There&apos;s a whole spectrum of cheating, from softplaying against friends, to colluding with other players, to running a solver in real time.</p>
-            <p>I&apos;ve witnessed cheating firsthand on both commercial platforms like ClubWPT Gold and in private online games.
-              I once saw someone check AK down all the way from preflop through the river in position despite flopping top pair, turning trips, and getting a clean river. Their opponent?
-              An account with only ~500 hands played. For context, most players at those stakes were regs with tens of thousands of hands played. I&apos;ve also dealt with people openly admitting to softplaying
+            <p>while online poker is great because you can play from the comfort of your room and hands move much faster,
+              i&apos;ve discovered through personal experience that there is a severe problem with gameplay integrity. it&apos;s almost trivial to cheat online in ways that
+              are practically undetectable. there&apos;s a whole spectrum of cheating, from softplaying against friends, to colluding with other players, to running a solver in real time.</p>
+            <p>i&apos;ve witnessed cheating firsthand on both commercial platforms like ClubWPT Gold and in private online games.
+              i once saw someone check ak down all the way from preflop through the river in position despite flopping top pair, turning trips, and getting a clean river. their opponent?
+              an account with only ~500 hands played. for context, most players at those stakes were regs with tens of thousands of hands played. i&apos;ve also dealt with people openly admitting to softplaying
               against their friends in private online games, knowing they will not face any consequences or real repercussions because it&apos;s a random online circle, and nobody knows them in real life.
-              I&apos;ve even seen players scam others out of thousands of dollars by simply refusing to pay out losses, espceially in heads-up online matches.</p>
-            <p>In-person poker isn&apos;t perfect either. At Encore Boston Harbor, one of the larger poker rooms, a big portion of the 5/10 player pool
-              consists of the same recurring regulars. I see the same group nearly every session. I&apos;ve also learned that some of these players coach each other away from the casino in their downtime.
-              While I don&apos;t have hard evidence of collusion, it would be very easy for people to set up communication systems that let them collude in real time through coordinated bet sizing or physical tells.
-              And since Encore is one of the larger casinos, these issues are almost certainly worse in smaller player pools.
+              i&apos;ve even seen players scam others out of thousands of dollars by simply refusing to pay out losses, espceially in heads-up online matches.</p>
+            <p>in-person poker isn&apos;t perfect either. at Encore Boston Harbor, one of the larger poker rooms, a big portion of the 5/10 player pool
+              consists of the same recurring regulars. i see the same group nearly every session. i&apos;ve also learned that some of these players coach each other away from the casino in their downtime.
+              while i don&apos;t have hard evidence of collusion, it would be very easy for people to set up communication systems that let them collude in real time through coordinated bet sizing or physical tells.
+              and since Encore is one of the larger casinos, these issues are almost certainly worse in smaller player pools.
             </p>
           </div>
         </div>

@@ -1,10 +1,9 @@
 export type SiteEntry = { name: string; path: string; href: string; title: string; date?: string; children?: SiteEntry[] };
 export const writing: SiteEntry[] = [
-  { name: 'small-changes.md', path: '/writing/small-changes.md', href: '/writing/small-changes-for-health-improvements', title: 'Small Changes for Health Improvements', date: '2026-01-10' },
-  { name: 'detoxifying-life.md', path: '/writing/detoxifying-life.md', href: '/writing/detoxifying-life', title: 'Detoxifying Life', date: '2025-12-15' },
+  { name: 'under-construction.md', path: '/writing/under-construction.md', href: '/writing/under-construction', title: 'under construction', date: '2026-09-29' },
 ].sort((a, b) => b.date!.localeCompare(a.date!));
 export const filesystem: SiteEntry = { name: '~', path: '/', href: '/', title: 'home', children: [
-  { name: 'README.md', path: '/README.md', href: '/', title: 'William Sun' },
+  { name: 'readme.md', path: '/readme.md', href: '/', title: 'William Sun' },
   { name: 'writing', path: '/writing', href: '/writing', title: 'writing', children: writing },
   { name: 'resources', path: '/resources', href: '/resources', title: 'resources', children: [
     { name: 'cooking', path: '/resources/cooking', href: '/cooking', title: 'cooking', children: [
@@ -21,7 +20,7 @@ export const filesystem: SiteEntry = { name: '~', path: '/', href: '/', title: '
 function flatten(entry: SiteEntry): SiteEntry[] { return [entry, ...(entry.children?.flatMap(flatten) ?? [])]; }
 export const entries = flatten(filesystem);
 export function entryForRoute(route: string) {
-  return entries.find(entry => route === '/' ? entry.name === 'README.md' : entry.href === route);
+  return entries.find(entry => route === '/' ? entry.name === 'readme.md' : entry.href === route);
 }
 export function parentPath(path: string) { return path.slice(0, path.lastIndexOf('/')) || '/'; }
 export function directoryForRoute(route: string) {
@@ -37,12 +36,13 @@ export function resolvePath(input: string, cwd: string) {
     if (part === '..') resolved.pop();
     else if (part && part !== '.') resolved.push(part);
   }
-  return '/' + resolved.join('/');
+  const result = '/' + resolved.join('/');
+  return result === '/README.md' ? '/readme.md' : result;
 }
 export type CommandResult = { output: string; href?: string; theme?: 'light' | 'dark'; clear?: boolean; close?: boolean };
 export const MAX_COMMAND_LENGTH = 512;
 export function runCommand(input: string, cwd: string): CommandResult {
-  if (input.length > MAX_COMMAND_LENGTH) return { output: "Command is too long (maximum 512 characters)." };
+  if (input.length > MAX_COMMAND_LENGTH) return { output: "command is too long (maximum 512 characters)." };
   const [command, ...args] = input.trim().split(/\s+/);
   if (!command) return { output: '' };
   if (args.length > 1) return { output: `${command}: too many arguments` };
@@ -53,17 +53,17 @@ export function runCommand(input: string, cwd: string): CommandResult {
     const entry = entries.find(item => item.path === path);
     if (!entry) return { output: `${command}: no such file or directory: ${argument}` };
     if (command === 'ls') return { output: entry.children ? entry.children.map(child => child.name + (child.children ? '/' : '')).join('\n') : entry.name };
-    if (command === 'cd' && !entry.children) return { output: `cd: not a directory: ${argument}. Use open to read a file.` };
+    if (command === 'cd' && !entry.children) return { output: `cd: not a directory: ${argument}. use open to read a file.` };
     return { output: displayPath(entry.path), href: entry.href };
   }
   if (argument) return { output: `${command}: takes no arguments` };
   switch (command) {
-    case 'help': return { output: 'ls [path]    list files and folders\ncd [path]    visit a directory (try cd ~/writing)\nopen <path>  read a file or visit a directory\npwd          show the current directory\nhome         return to README.md\nlight        use light mode\ndark         use dark mode\nclear        clear the terminal\nexit         close the terminal\n\nPaths support ~, /, .. and relative names.\n↑ / ↓ recall commands. Cmd/Ctrl + B toggles the directory.\nCmd/Ctrl + J toggles this panel.' };
+    case 'help': return { output: 'ls [path]    list files and folders\ncd [path]    visit a directory (try cd ~/writing)\nopen <path>  read a file or visit a directory\npwd          show the current directory\nhome         return to readme.md\nlight        use light mode\ndark         use dark mode\nclear        clear the terminal\nexit         close the terminal\n\npaths support ~, /, .. and relative names.\n↑ / ↓ recall commands. ⌘/ctrl + b toggles the directory.\n⌘/ctrl + j toggles this panel.' };
     case 'pwd': return { output: displayPath(cwd) };
-    case 'home': return { output: '~/README.md', href: '/' };
+    case 'home': return { output: '~/readme.md', href: '/' };
     case 'light': case 'dark': return { output: `${command} mode`, theme: command };
     case 'clear': return { output: '', clear: true };
     case 'exit': return { output: '', close: true };
-    default: return { output: `command not found: ${command}. Type help to see available commands.` };
+    default: return { output: `command not found: ${command}. type help to see available commands.` };
   }
 }
