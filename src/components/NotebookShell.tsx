@@ -105,16 +105,15 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
         <Link className="site-name" href="/">wsun.one/</Link>
         <nav aria-label="Files and folders">{tree(filesystem.children!)}</nav>
         <div className="shortcut-hints">
-          <span>try pressing</span>
           <button type="button" className="shortcut-hint" aria-label="Toggle directory: Cmd+B or Ctrl+B" onClick={() => setSidebarOpen(open => !open)}>
             <span className="shortcut-label">directory</span>
-            <span><PlatformLogo platform="apple" /> <kbd>cmd + b</kbd></span>
-            <span>or <PlatformLogo platform="windows" /> <kbd>ctrl + b</kbd></span>
+            <span><PlatformLogo platform="apple" /> <kbd>⌘ + b</kbd></span>
+            <span><PlatformLogo platform="windows" /> <kbd>ctrl + b</kbd></span>
           </button>
           <button type="button" className="shortcut-hint" aria-label="Toggle terminal: Cmd+J or Ctrl+J" onClick={() => setTerminalOpen(open => !open)}>
             <span className="shortcut-label">terminal</span>
-            <span><PlatformLogo platform="apple" /> <kbd>cmd + j</kbd></span>
-            <span>or <PlatformLogo platform="windows" /> <kbd>ctrl + j</kbd></span>
+            <span><PlatformLogo platform="apple" /> <kbd>⌘ + j</kbd></span>
+            <span><PlatformLogo platform="windows" /> <kbd>ctrl + j</kbd></span>
           </button>
         </div>
       </aside>
