@@ -16,6 +16,21 @@ function command(value: string) {
   fireEvent.submit(input.closest('form')!);
 }
 describe('Notebook shell', () => {
+  it('toggles the directory with Cmd+B and Ctrl+B without changing terminal input', () => {
+    render(<NotebookShell>Home</NotebookShell>);
+    const toggle = screen.getByRole('button', { name: /hide directory/ });
+    fireEvent.keyDown(window, { key: 'b', metaKey: true });
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    fireEvent.keyDown(window, { key: 'b', ctrlKey: true, repeat: true });
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    fireEvent.click(screen.getByRole('button', { name: 'terminal' }));
+    const input = screen.getByRole('textbox', { name: 'Terminal command' });
+    fireEvent.change(input, { target: { value: 'cd ~/writing' } });
+    fireEvent.keyDown(input, { key: 'b', ctrlKey: true });
+    expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    expect(input).toHaveValue('cd ~/writing');
+    expect(input).toHaveFocus();
+  });
   it('separates folder disclosure from directory links', () => {
     render(<NotebookShell>Home</NotebookShell>);
     fireEvent.click(screen.getByRole('button', { name: 'Collapse writing' }));

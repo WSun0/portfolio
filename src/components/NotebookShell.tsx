@@ -41,9 +41,13 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
   }, []);
   useEffect(() => {
     const keyboard = (event: KeyboardEvent) => {
-      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'j') {
+      const key = event.key.toLowerCase();
+      if ((event.metaKey || event.ctrlKey) && !event.altKey && (key === 'j' || key === 'b')) {
         event.preventDefault();
-        if (!event.repeat) setTerminalOpen(open => !open);
+        if (!event.repeat) {
+          if (key === 'j') setTerminalOpen(open => !open);
+          else setSidebarOpen(open => !open);
+        }
       }
     };
     window.addEventListener('keydown', keyboard);
@@ -90,21 +94,29 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
   return <div className="notebook-shell">
     <a href="#page-content" className="skip-link">Skip to content</a>
     <header className="toolbar">
-      <button type="button" aria-expanded={sidebarOpen} aria-controls="site-directory" onClick={() => setSidebarOpen(open => !open)}>{sidebarOpen ? '← hide directory' : '→ show directory'}</button>
+      <button type="button" aria-expanded={sidebarOpen} aria-controls="site-directory" aria-keyshortcuts="Meta+b Control+b" title="Toggle directory (Cmd+B / Ctrl+B)" onClick={() => setSidebarOpen(open => !open)}>{sidebarOpen ? '← hide directory' : '→ show directory'}</button>
       <div className="toolbar-actions">
         <button type="button" aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`} onClick={() => changeTheme(theme === 'light' ? 'dark' : 'light')}>{theme === 'light' ? 'dark' : 'light'}</button>
-        <button ref={terminalButton} type="button" aria-expanded={terminalOpen} aria-controls="site-terminal" onClick={() => setTerminalOpen(open => !open)}>terminal</button>
+        <button ref={terminalButton} type="button" aria-expanded={terminalOpen} aria-controls="site-terminal" aria-keyshortcuts="Meta+j Control+j" onClick={() => setTerminalOpen(open => !open)}>terminal</button>
       </div>
     </header>
     <div className={`workspace ${sidebarOpen ? '' : 'sidebar-closed'}`}>
       <aside id="site-directory" className="sidebar" hidden={!sidebarOpen} aria-label="Site directory">
         <Link className="site-name" href="/">wsun.one/</Link>
         <nav aria-label="Files and folders">{tree(filesystem.children!)}</nav>
-        <button type="button" className="terminal-hint" onClick={() => setTerminalOpen(true)}>
+        <div className="shortcut-hints">
           <span>try pressing</span>
-          <span><PlatformLogo platform="apple" /> <kbd>cmd + j</kbd></span>
-          <span>or <PlatformLogo platform="windows" /> <kbd>ctrl + j</kbd></span>
-        </button>
+          <button type="button" className="shortcut-hint" aria-label="Toggle directory: Cmd+B or Ctrl+B" onClick={() => setSidebarOpen(open => !open)}>
+            <span className="shortcut-label">directory</span>
+            <span><PlatformLogo platform="apple" /> <kbd>cmd + b</kbd></span>
+            <span>or <PlatformLogo platform="windows" /> <kbd>ctrl + b</kbd></span>
+          </button>
+          <button type="button" className="shortcut-hint" aria-label="Toggle terminal: Cmd+J or Ctrl+J" onClick={() => setTerminalOpen(open => !open)}>
+            <span className="shortcut-label">terminal</span>
+            <span><PlatformLogo platform="apple" /> <kbd>cmd + j</kbd></span>
+            <span>or <PlatformLogo platform="windows" /> <kbd>ctrl + j</kbd></span>
+          </button>
+        </div>
       </aside>
       <main className="reading-pane" id="page-content" tabIndex={-1} ref={reader}>
         <div className="reading-column">
@@ -115,7 +127,8 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
     </div>
     {terminalOpen && <section id="site-terminal" className="terminal-panel" aria-label="Website terminal">
       <div className="terminal-toolbar"><span>terminal <span className="terminal-location">{displayPath(cwd)}</span></span><button type="button" onClick={closeTerminal} aria-label="Close terminal">close ×</button></div>
-      <div className="terminal-output" ref={output} role="log" aria-label="Terminal output" aria-live="polite" aria-relevant="additions text">
+      <div className="terminal-scroll" ref={output} onClick={event => { if (event.target === event.currentTarget) commandInput.current?.focus(); }}>
+      <div className="terminal-output" role="log" aria-label="Terminal output" aria-live="polite" aria-relevant="additions text">
         {transcript.map((line, index) => <div className="terminal-entry" key={index}>{line.prompt && <div className="terminal-echo">{line.prompt}</div>}{line.output && <pre>{line.output}</pre>}</div>)}
       </div>
       <form className="terminal-form" onSubmit={submit}>
@@ -134,6 +147,7 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
         }} />
         <button type="submit" className="run-command" aria-label="Run command">↵</button>
       </form>
+      </div>
     </section>}
   </div>;
 }

@@ -10,7 +10,7 @@ The site uses a monochrome notebook layout with a collapsible directory. Folder 
 - `npm run build` verifies and builds production; `npm start` serves it.
 - `npx vitest run test/unit/lib/filesystem.test.ts test/unit/components/NotebookShell.test.tsx test/unit/app/page.test.tsx` checks notebook navigation, commands, shortcuts, and the homepage.
 
-Press **Cmd+J** (Mac) or **Ctrl+J** (Windows/Linux), or use the terminal button. The bottom panel supports `help`, `ls`, `cd`, `open`, `pwd`, `home`, `clear`, `exit`, `light`, and `dark`. This is a browser-only site navigator. Theme preference is saved locally. Examples:
+Press **Cmd+B** (Mac) or **Ctrl+B** (Windows/Linux) to toggle the directory. Press **Cmd+J** (Mac) or **Ctrl+J** (Windows/Linux), or use the terminal button. The bottom panel supports `help`, `ls`, `cd`, `open`, `pwd`, `home`, `clear`, `exit`, `light`, and `dark`. This is a browser-only site navigator. Theme preference is saved locally. Examples:
 
 ```text
 cd ~/writing

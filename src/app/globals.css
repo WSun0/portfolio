@@ -25,8 +25,10 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 1px solid 
 .file-link, .folder-link { text-decoration: none; overflow-wrap: anywhere; min-width: 0; }
 .folder-link { color: var(--muted); }
 [aria-current="page"] { color: var(--foreground); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
-.terminal-hint { margin: 38px 0 0 24px; display: grid; gap: 3px; font-size: 11px; color: var(--muted); }
-.terminal-hint span { display: flex; align-items: center; gap: 7px; }
+.shortcut-hints { margin: 38px 0 0 24px; display: grid; gap: 15px; font-size: 11px; color: var(--muted); }
+.shortcut-hint { display: grid; gap: 3px; }
+.shortcut-hint span { display: flex; align-items: center; gap: 7px; }
+.shortcut-label { color: var(--foreground); margin-bottom: 2px; }
 .platform-logo { width: 13px; height: 13px; display: inline-block; flex-shrink: 0; }
 .reading-pane { min-width: 0; overflow: auto; padding: 30px 52px 64px; }
 .reading-pane:focus { outline: none; }
@@ -57,14 +59,17 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 1px solid 
 .terminal-panel { height: clamp(200px,32dvh,330px); flex: 0 0 auto; display: flex; flex-direction: column; border-top: 1px solid var(--line); background: var(--background); }
 .terminal-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 9px 25px; font-size: 12px; border-bottom: 1px solid var(--line); }
 .terminal-location { color: var(--muted); margin-left: 18px; }
-.terminal-output { flex: 1; min-height: 0; overflow: auto; padding: 12px 25px 4px; font-size: 12px; }
+.terminal-scroll { flex: 1; min-height: 0; overflow: auto; padding: 12px 25px 18px; }
+.terminal-output { font-size: 13px; }
 .terminal-entry { margin-bottom: 10px; }
 .terminal-output pre { font: inherit; white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; }
 .terminal-echo { color: var(--muted); overflow-wrap: anywhere; }
-.terminal-form { display: flex; align-items: center; gap: 10px; padding: 8px 25px 15px; font-size: 13px; flex-shrink: 0; }
+.terminal-form { display: flex; align-items: baseline; gap: 9px; padding: 0; font-size: 13px; }
 .terminal-prompt { color: var(--muted); max-width: 48%; overflow-wrap: anywhere; }
-.terminal-form input { flex: 1; min-width: 0; background: transparent; color: var(--foreground); border: 0; border-radius: 0; padding: 3px; outline-offset: 0; }
-.run-command { padding: 2px 6px; }
+.terminal-form input { flex: 1; min-width: 0; appearance: none; background: transparent; color: var(--foreground); caret-color: var(--foreground); border: 0; border-radius: 0; box-shadow: none; padding: 0; }
+.terminal-form input:focus, .terminal-form input:focus-visible { outline: none; box-shadow: none; }
+.terminal-form:focus-within .terminal-prompt { color: var(--foreground); }
+.run-command { display: none; padding: 2px 6px; }
 .skip-link { position: absolute; left: 16px; top: -100px; z-index: 20; background: var(--background); padding: 8px; }
 .skip-link:focus { top: 10px; }
 @media(max-width:720px) {
@@ -75,11 +80,11 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 1px solid 
   .reading-pane { flex: 1 0 auto; overflow: visible; padding: 28px 23px 48px; }
   .workspace.sidebar-closed .reading-pane { flex: 1; min-height: 0; overflow: auto; }
   .document h1 { font-size: 27px; }
-  .terminal-hint { margin-top: 22px; }
+  .shortcut-hints { margin-top: 22px; }
   .writing-list li { grid-template-columns: 1fr; gap: 3px; }
-  .terminal-output, .terminal-toolbar { padding-left: 20px; padding-right: 20px; }
-  .terminal-form { padding-left: 17px; padding-right: 17px; }
+  .terminal-scroll, .terminal-toolbar { padding-left: 20px; padding-right: 20px; }
   .terminal-form input { font-size: 16px; }
   .terminal-panel { height: clamp(180px,35dvh,300px); }
 }
 @media(pointer:coarse) { .toolbar button, .folder-toggle, .tree-row a, .terminal-toolbar button, .run-command { min-height: 44px; } .folder-toggle { flex-basis: 32px; } .tree-row { align-items: center; } .tree-row a { display: flex; align-items: center; } }
+@media(pointer:coarse) { .run-command { display: inline-block; } }
