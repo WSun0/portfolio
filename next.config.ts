@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
     return [
       { source: "/poker/journey", destination: "/poker", permanent: true },
       { source: "/poker/hands", destination: "/poker", permanent: true },
+      ...['small-changes-for-health-improvements', 'detoxifying-life'].flatMap(slug => [
+        { source: `/blog/${slug}`, destination: '/writing', permanent: true },
+        { source: `/writing/${slug}`, destination: '/writing', permanent: true },
+      ]),
       { source: "/blog", destination: "/writing", permanent: true },
       { source: "/blog/:slug", destination: "/writing/:slug", permanent: true },
     ];

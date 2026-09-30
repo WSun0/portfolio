@@ -10,7 +10,7 @@ const images = [
 export default function ChristmasDinnerPage() {
   return (
     <div className="w-full max-w-4xl mx-auto pt-2 pb-20 px-10">
-      <BackButton href="/cooking" label="Back to Cooking" />
+      <BackButton href="/cooking" label="back to cooking" />
       <section className="glass-panel-static py-8 px-2">
         <h1 className="text-2xl font-bold mb-4">Christmas Dinner 2024</h1>
         <p className="text-base opacity-80 mb-8">
@@ -21,7 +21,7 @@ export default function ChristmasDinnerPage() {
             <div key={idx} className="glass-image-container w-full h-64 relative">
               <Image
                 src={src}
-                alt={`Christmas Dinner ${idx + 1}`}
+                alt={`Christmas dinner ${idx + 1}`}
                 fill
                 style={{ objectFit: "cover" }}
                 sizes="(max-width: 768px) 100vw, 33vw"
@@ -34,11 +34,11 @@ export default function ChristmasDinnerPage() {
         <div className="glass-card p-6">
           <h2 className="text-lg font-semibold mb-3">Menu</h2>
           <ul className="text-base opacity-80 space-y-2">
-            <li>Medium-Rare Prime Ribeye</li>
-            <li>Garlic Mashed Potatoes</li>
-            <li>Cajun Roasted Fingerling Potatoes</li>
-            <li>Lemon Butter Asparagus</li>
-            <li>Mushroom Cream Reduction Sauce</li>
+            <li>medium-rare prime ribeye</li>
+            <li>garlic mashed potatoes</li>
+            <li>Cajun roasted fingerling potatoes</li>
+            <li>lemon butter asparagus</li>
+            <li>mushroom cream reduction sauce</li>
           </ul>
         </div>
       </section>

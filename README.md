@@ -3,7 +3,7 @@ Welcome to my personal website! I will occasionally update this website with ent
 The creation of this portfolio website was largely inspired by the following friends and engineers. Thank you [Joanna Y](https://hachiyuki8.com/blog/), [Lee R](https://leerob.com/), [Andrew L](https://www.andrewlee03.dev/), [Tejas G](https://tejasgupta.com/), [William L](https://williamlin.io/), [Katherine Z](https://kzeng24.github.io/personal-website/), and [Max S](https://thenumb.at/)!
 ## Notebook interface
 
-The site uses a monochrome notebook layout with a collapsible directory. Folder names open directory pages; their adjacent `+`/`−` controls expand the tree. Existing articles and photo pages remain available, and `/blog` URLs redirect to `/writing`.
+The site uses a monochrome notebook layout with a collapsible directory. Folder names open directory pages; their adjacent `+`/`−` controls expand the tree. Photo pages remain available. The two legacy writing entries are preserved in `archive/writing/2026-09-29/` outside the published site; their old URLs redirect to `/writing`.
 
 - `npm ci` installs the locked dependencies.
 - `npm run dev` serves the development site on port 3000.
@@ -15,7 +15,7 @@ Press **Cmd+B** (Mac) or **Ctrl+B** (Windows/Linux) to toggle the directory. Pre
 ```text
 cd ~/writing
 ls
-open small-changes.md
+open under-construction.md
 cd ../resources
 cd cooking
 ls
@@ -33,8 +33,10 @@ The complete pre-redesign website is preserved at Git tag [`archive/pre-redesign
 git worktree add --detach ../portfolio-original archive/pre-redesign-2026-09-29
 ```
 
-The original machine also has a full-history backup at `.git/portfolio-before-redesign.bundle`. The tag is on GitHub; this bundle is local only. Article source files and photos are retained in the current site.
+The original machine also has a full-history backup at `.git/portfolio-before-redesign.bundle`. The tag is on GitHub; this bundle is local only. Article source files and photos are retained in the repository; archived writing is outside the published routes.
 
 Security controls and review limitations are documented in [SECURITY.md](SECURITY.md). Public pages use request-specific script nonces; keep the proxy and root layout paired when changing rendering or caching. Contact links live on `/contact`. Removed placeholder routes `/poker/hands` and `/poker/journey` redirect to `/poker`.
 
 Drag the terminal’s top edge to resize it; double-click the edge to reset. The focused resize handle also supports Up/Down (Shift for larger steps), Home, and End. The toolbar’s +/− controls adjust terminal text from 11–22px. Size settings survive closing/reopening within the current page session. The live session clock uses the requested fixed EDT offset (UTC−4), independent of the visitor’s timezone.
+
+Visible prose uses lowercase except proper names; headings retain their chosen capitalization. Edit the copy itself rather than applying a global CSS lowercase transform, so names stay correct.

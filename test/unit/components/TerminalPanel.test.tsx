@@ -64,9 +64,9 @@ describe('terminal panel controls', () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date('2026-09-30T03:05:00Z'));
     const { rerender, unmount } = render(panel());
-    expect(screen.getByText('Sep 29, 2026, 11:05:00 PM EDT')).toBeInTheDocument();
+    expect(screen.getByText('Sep 29, 2026, 11:05:00 pm EDT')).toBeInTheDocument();
     act(() => vi.advanceTimersByTime(1000));
-    expect(screen.getByText('Sep 29, 2026, 11:05:01 PM EDT')).toBeInTheDocument();
+    expect(screen.getByText('Sep 29, 2026, 11:05:01 pm EDT')).toBeInTheDocument();
     rerender(panel(false));
     expect(vi.getTimerCount()).toBe(0);
     rerender(panel());
@@ -74,7 +74,7 @@ describe('terminal panel controls', () => {
     expect(vi.getTimerCount()).toBe(0);
   });
   it('keeps the requested EDT offset across dates and visitor locales', () => {
-    expect(formatSessionTime(new Date('2026-01-01T02:00:00Z'))).toBe('Dec 31, 2025, 10:00:00 PM EDT');
+    expect(formatSessionTime(new Date('2026-01-01T02:00:00Z'))).toBe('Dec 31, 2025, 10:00:00 pm EDT');
   });
   it('places text controls before close and calls the close handler', () => {
     render(panel());

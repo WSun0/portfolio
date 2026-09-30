@@ -15,7 +15,7 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [input, setInput] = useState('');
-  const [transcript, setTranscript] = useState<Transcript[]>([{ output: 'Welcome. Type "help" to explore.' }]);
+  const [transcript, setTranscript] = useState<Transcript[]>([{ output: 'welcome. type "help" to explore.' }]);
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const draft = useRef('');
@@ -93,9 +93,9 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
     </ul>;
   }
   return <div className="notebook-shell">
-    <a href="#page-content" className="skip-link">Skip to content</a>
+    <a href="#page-content" className="skip-link">skip to content</a>
     <header className="toolbar">
-      <button type="button" aria-expanded={sidebarOpen} aria-controls="site-directory" aria-keyshortcuts="Meta+b Control+b" title="Toggle directory (Cmd+B / Ctrl+B)" onClick={() => setSidebarOpen(open => !open)}>{sidebarOpen ? '← hide directory' : '→ show directory'}</button>
+      <button type="button" aria-expanded={sidebarOpen} aria-controls="site-directory" aria-keyshortcuts="Meta+b Control+b" title="toggle directory (⌘+b / ctrl+b)" onClick={() => setSidebarOpen(open => !open)}>{sidebarOpen ? '← hide directory' : '→ show directory'}</button>
       <div className="toolbar-actions">
         <button type="button" aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`} onClick={() => changeTheme(theme === 'light' ? 'dark' : 'light')}>{theme === 'light' ? 'dark' : 'light'}</button>
         <button ref={terminalButton} type="button" aria-expanded={terminalOpen} aria-controls="site-terminal" aria-keyshortcuts="Meta+j Control+j" onClick={() => setTerminalOpen(open => !open)}>terminal</button>

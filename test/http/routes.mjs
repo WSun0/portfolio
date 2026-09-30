@@ -68,8 +68,10 @@ describe('production routes', () => {
     ['/poker/hands', '/poker'],
     ['/poker/journey', '/poker'],
     ['/blog', '/writing'],
-    ['/blog/small-changes-for-health-improvements', '/writing/small-changes-for-health-improvements'],
-    ['/blog/detoxifying-life', '/writing/detoxifying-life'],
+    ['/blog/small-changes-for-health-improvements', '/writing'],
+    ['/blog/detoxifying-life', '/writing'],
+    ['/writing/small-changes-for-health-improvements', '/writing'],
+    ['/writing/detoxifying-life', '/writing'],
   ]) it(`preserves incoming links to ${from}`, async () => {
     const response = await fetch(baseURL + from, { redirect: 'manual' });
     assert.equal(response.status, 308);
@@ -159,4 +161,22 @@ describe('security and content boundaries', () => {
     }
     await findMaps('.next/static');
   });
+});
+
+
+describe('archived writing', () => {
+  it('omits archived entries from the index and directory', async () => {
+    const doc = await documentAt('/writing');
+    assert.equal(doc.querySelector('time').getAttribute('datetime'), '2026-09-29');
+    assert.equal(doc.querySelectorAll('.writing-list a').length, 1);
+    assert.equal(doc.querySelector('.writing-list a').getAttribute('href'), '/writing/under-construction');
+    assert.doesNotMatch(doc.querySelector('main').textContent, /detoxifying|small changes/i);
+    assert.equal(doc.querySelectorAll('a[href*="detoxifying"], a[href*="small-changes"]').length, 0);
+  });
+  for (const slug of ['detoxifying-life', 'small-changes-for-health-improvements']) {
+    it(`does not publish archived source for ${slug}`, async () => {
+      const response = await fetch(`${baseURL}/archive/writing/2026-09-29/${slug}.tsx.txt`);
+      assert.equal(response.status, 404);
+    });
+  }
 });
