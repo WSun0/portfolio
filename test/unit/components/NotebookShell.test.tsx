@@ -17,6 +17,16 @@ function command(value: string) {
   fireEvent.submit(input.closest('form')!);
 }
 describe('Notebook shell', () => {
+  it.each(['/', '/blog', '/blog/under-construction', '/poker/casinos'])('starts with every folder closed at %s', pathname => {
+    route.pathname = pathname;
+    const { container } = render(<NotebookShell>Page</NotebookShell>);
+    const toggles = container.querySelectorAll('.folder-toggle');
+    expect(toggles.length).toBeGreaterThan(0);
+    for (const toggle of toggles) expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    expect(screen.getByRole('link', { name: 'blog/' })).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'under-construction.md' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'poker/' })).not.toBeInTheDocument();
+  });
   it('toggles the directory with Cmd+B and Ctrl+B without changing terminal input', () => {
     render(<NotebookShell>Home</NotebookShell>);
     const toggle = screen.getByRole('button', { name: /hide directory/ });
@@ -34,6 +44,8 @@ describe('Notebook shell', () => {
   });
   it('separates folder disclosure from directory links', () => {
     render(<NotebookShell>Home</NotebookShell>);
+    fireEvent.click(screen.getByRole('button', { name: 'Expand blog' }));
+    expect(screen.getByRole('link', { name: 'under-construction.md' })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Collapse blog' }));
     expect(screen.queryByRole('link', { name: 'under-construction.md' })).not.toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'blog/' })).toHaveAttribute('href', '/blog');
