@@ -58,7 +58,7 @@ export function runCommand(input: string, cwd: string): CommandResult {
   }
   if (argument) return { output: `${command}: takes no arguments` };
   switch (command) {
-    case 'help': return { output: 'ls [path]    list files and folders\ncd [path]    visit a directory (try cd ~/writing)\nopen <path>  read a file or visit a directory\npwd          show the current directory\nhome         return to README.md\nlight        use light mode\ndark         use dark mode\nclear        clear the terminal\nexit         close the terminal\n\nPaths support ~, /, .. and relative names.\n↑ / ↓ recall commands. Cmd/Ctrl + J toggles this panel.' };
+    case 'help': return { output: 'ls [path]    list files and folders\ncd [path]    visit a directory (try cd ~/writing)\nopen <path>  read a file or visit a directory\npwd          show the current directory\nhome         return to README.md\nlight        use light mode\ndark         use dark mode\nclear        clear the terminal\nexit         close the terminal\n\nPaths support ~, /, .. and relative names.\n↑ / ↓ recall commands. Cmd/Ctrl + B toggles the directory.\nCmd/Ctrl + J toggles this panel.' };
     case 'pwd': return { output: displayPath(cwd) };
     case 'home': return { output: '~/README.md', href: '/' };
     case 'light': case 'dark': return { output: `${command} mode`, theme: command };
