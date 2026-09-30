@@ -4,6 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { FormEvent, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { directoryForRoute, displayPath, entryForRoute, filesystem, runCommand, MAX_COMMAND_LENGTH, SiteEntry } from '@/lib/filesystem';
 import PlatformLogo from './PlatformLogo';
+import TerminalPanel from './TerminalPanel';
 type Transcript = { prompt?: string; output: string };
 
 export default function NotebookShell({ children }: { children: ReactNode }) {
@@ -124,8 +125,7 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
         </div>
       </main>
     </div>
-    {terminalOpen && <section id="site-terminal" className="terminal-panel" aria-label="Website terminal">
-      <div className="terminal-toolbar"><span>terminal <span className="terminal-location">{displayPath(cwd)}</span></span><button type="button" onClick={closeTerminal} aria-label="Close terminal">close ×</button></div>
+    <TerminalPanel open={terminalOpen} location={displayPath(cwd)} onClose={closeTerminal}>
       <div className="terminal-scroll" ref={output} onClick={event => { if (event.target === event.currentTarget) commandInput.current?.focus(); }}>
       <div className="terminal-output" role="log" aria-label="Terminal output" aria-live="polite" aria-relevant="additions text">
         {transcript.map((line, index) => <div className="terminal-entry" key={index}>{line.prompt && <div className="terminal-echo">{line.prompt}</div>}{line.output && <pre>{line.output}</pre>}</div>)}
@@ -147,6 +147,6 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
         <button type="submit" className="run-command" aria-label="Run command">↵</button>
       </form>
       </div>
-    </section>}
+    </TerminalPanel>
   </div>;
 }
