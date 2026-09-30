@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { FormEvent, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
-import { directoryForRoute, displayPath, entryForRoute, filesystem, runCommand, SiteEntry } from '@/lib/filesystem';
+import { directoryForRoute, displayPath, entryForRoute, filesystem, runCommand, MAX_COMMAND_LENGTH, SiteEntry } from '@/lib/filesystem';
 import PlatformLogo from './PlatformLogo';
 type Transcript = { prompt?: string; output: string };
 
@@ -133,7 +133,7 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
       </div>
       <form className="terminal-form" onSubmit={submit}>
         <label htmlFor="terminal-command" className="terminal-prompt">{displayPath(cwd)} <span aria-hidden="true">$</span></label>
-        <input ref={commandInput} id="terminal-command" aria-label="Terminal command" autoComplete="off" autoCapitalize="off" spellCheck={false} value={input} onChange={event => { setInput(event.target.value); setHistoryIndex(-1); }} onKeyDown={event => {
+        <input ref={commandInput} id="terminal-command" maxLength={MAX_COMMAND_LENGTH} aria-label="Terminal command" autoComplete="off" autoCapitalize="off" spellCheck={false} value={input} onChange={event => { setInput(event.target.value); setHistoryIndex(-1); }} onKeyDown={event => {
           if (event.key === 'Escape') { event.preventDefault(); closeTerminal(); }
           if (event.key === 'ArrowUp' && history.length) {
             event.preventDefault(); if (historyIndex === -1) draft.current = input;

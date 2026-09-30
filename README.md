@@ -34,3 +34,5 @@ git worktree add --detach ../portfolio-original archive/pre-redesign-2026-09-29
 ```
 
 The original machine also has a full-history backup at `.git/portfolio-before-redesign.bundle`. The tag is on GitHub; this bundle is local only. Article source files and photos are retained in the current site.
+
+Security controls and review limitations are documented in [SECURITY.md](SECURITY.md). Public pages use request-specific script nonces; keep the proxy and root layout paired when changing rendering or caching. Contact links live on `/contact`. Removed placeholder routes `/poker/hands` and `/poker/journey` redirect to `/poker`.

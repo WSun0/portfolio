@@ -76,3 +76,17 @@ describe('path and command edge cases', () => {
     }
   });
 });
+
+
+describe('terminal input boundaries', () => {
+  it.each(['open javascript:alert(1)', 'open https://evil.example', 'cd ../../.env', 'cat /etc/passwd', 'ls;whoami', '$(id)', '<img src=x onerror=alert(1)>'])('does not execute or navigate for %s', command => {
+    expect(runCommand(command, '/')).toEqual({ output: expect.any(String) });
+  });
+  it('rejects oversized commands before parsing or retaining output', () => {
+    expect(runCommand('x'.repeat(100000), '/')).toEqual({ output: 'Command is too long (maximum 512 characters).' });
+  });
+  it('removes the unpublished hands page from terminal navigation', () => {
+    expect(runCommand('open ~/resources/poker/hands.md', '/').href).toBeUndefined();
+    expect(runCommand('ls ~/resources/poker', '/').output).not.toMatch(/hands.md|journey.md/);
+  });
+});

@@ -65,6 +65,8 @@ describe('production routes', () => {
     assert.ok(document.title.includes('William Sun'));
   });
   for (const [from, to] of [
+    ['/poker/hands', '/poker'],
+    ['/poker/journey', '/poker'],
     ['/blog', '/writing'],
     ['/blog/small-changes-for-health-improvements', '/writing/small-changes-for-health-improvements'],
     ['/blog/detoxifying-life', '/writing/detoxifying-life'],
@@ -98,5 +100,63 @@ describe('production routes', () => {
       assert.equal(response.status, 200, `Broken target: ${target}`);
       await response.arrayBuffer();
     }
+  });
+});
+
+
+describe('security and content boundaries', () => {
+  it('issues a fresh strict script policy and rejects visitor-provided nonces', async () => {
+    const nonces = [];
+    for (let i = 0; i < 2; i++) {
+      const response = await fetch(baseURL, { headers: { 'x-nonce': 'attacker-controlled', 'Content-Security-Policy': "script-src * 'unsafe-inline'" } });
+      const policy = response.headers.get('content-security-policy');
+      assert.ok(policy);
+      const scriptPolicy = policy.split(';').find(part => part.trim().startsWith('script-src'));
+      assert.ok(!scriptPolicy.includes("'unsafe-inline'"));
+      assert.ok(!scriptPolicy.includes("'unsafe-eval'"));
+      assert.ok(scriptPolicy.includes("'strict-dynamic'"));
+      const nonce = scriptPolicy.match(/'nonce-([^']+)'/)?.[1];
+      assert.ok(nonce && nonce !== 'attacker-controlled');
+      nonces.push(nonce);
+      const document = new JSDOM(await response.text()).window.document;
+      const scripts = [...document.querySelectorAll('script')].filter(script => !script.type || script.type === 'text/javascript');
+      assert.ok(scripts.length > 0);
+      for (const script of scripts) assert.equal(script.getAttribute('nonce'), nonce, 'every executable script needs the response nonce');
+      assert.match(policy, /object-src 'none'/);
+      assert.match(policy, /frame-ancestors 'none'/);
+      assert.match(policy, /base-uri 'self'/);
+      assert.equal(response.headers.get('x-frame-options'), 'DENY');
+      assert.equal(response.headers.get('x-content-type-options'), 'nosniff');
+      assert.equal(response.headers.get('referrer-policy'), 'strict-origin-when-cross-origin');
+      assert.ok(!response.headers.has('x-powered-by'));
+      assert.match(response.headers.get('cache-control'), /(?:private|no-store)/);
+    }
+    assert.notEqual(nonces[0], nonces[1], 'nonces must never be reused between documents');
+  });
+  for (const target of ['/.env', '/.git/config', '/package.json', '/src/app/page.tsx']) {
+    it(`does not serve private project files at ${target}`, async () => {
+      const response = await fetch(baseURL + target);
+      assert.equal(response.status, 404);
+    });
+  }
+  it('keeps social links on contact and omits unfinished content', async () => {
+    const home = await documentAt('/');
+    assert.equal(home.querySelectorAll('a[href*="linkedin.com"], a[href*="github.com"]').length, 0);
+    const contact = await documentAt('/contact');
+    assert.equal(contact.querySelectorAll('a[href*="linkedin.com"], a[href*="github.com"]').length, 2);
+    for (const route of routes) {
+      const document = await documentAt(route);
+      assert.doesNotMatch(document.querySelector('main').textContent, /coming soon/i);
+      assert.equal(document.querySelectorAll('a[href="/poker/hands"], a[href="/poker/journey"]').length, 0);
+    }
+  });
+  it('does not publish browser source maps', async () => {
+    async function findMaps(directory) {
+      for (const entry of await readdir(directory, { withFileTypes: true })) {
+        if (entry.isDirectory()) await findMaps(path.join(directory, entry.name));
+        else assert.ok(!entry.name.endsWith('.map'), `Public source map: ${entry.name}`);
+      }
+    }
+    await findMaps('.next/static');
   });
 });
