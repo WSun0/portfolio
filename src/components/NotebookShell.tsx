@@ -11,7 +11,7 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [folders, setFolders] = useState<Record<string, boolean>>({ '/blog': true, '/other': true });
+  const [folders, setFolders] = useState<Record<string, boolean>>({});
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [input, setInput] = useState('');
@@ -23,6 +23,7 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
   const output = useRef<HTMLDivElement>(null);
   const reader = useRef<HTMLElement>(null);
   const terminalButton = useRef<HTMLButtonElement>(null);
+  const previousPathname = useRef(pathname);
   const entry = entryForRoute(pathname);
   const cwd = directoryForRoute(pathname);
   const changeTheme = useCallback((value: 'light' | 'dark') => {
@@ -57,7 +58,11 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
   useEffect(() => {
     reader.current?.scrollTo({ top: 0 });
     if (window.matchMedia('(max-width: 720px)').matches) setSidebarOpen(false);
-    if (entry) setFolders(previous => {
+    const navigated = previousPathname.current !== pathname;
+    previousPathname.current = pathname;
+    // Keep every folder closed on initial load, including direct article visits.
+    // Reveal the current location after navigation within the site.
+    if (navigated && entry) setFolders(previous => {
       const next = { ...previous };
       for (const part of ['/blog', '/other', '/other/cooking', '/other/poker', '/other/job-recruiting']) {
         if (entry.path.startsWith(part + '/') || entry.path === part) next[part] = true;
