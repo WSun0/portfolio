@@ -41,3 +41,38 @@ describe('website terminal', () => {
     expect(writing.map(post => post.date)).toEqual(['2026-01-10', '2025-12-15']);
   });
 });
+
+
+describe('path and command edge cases', () => {
+  it.each([
+    ['~', '/resources/poker', '/'],
+    ['.', '/writing', '/writing'],
+    ['..', '/', '/'],
+    ['cooking/../poker', '/resources', '/resources/poker'],
+    ['~/writing/../resources', '/', '/resources'],
+  ])('resolves %s from %s', (input, cwd, expected) => {
+    expect(resolvePath(input, cwd)).toBe(expected);
+  });
+  it.each(['cd', 'cd ~', 'cd /', 'home'])('%s returns home', input => {
+    expect(runCommand(input, '/writing').href).toBe('/');
+  });
+  it.each(['cd https://example.com', 'open //example.com', 'open ../../missing', 'cd a b', 'dark yes', 'pwd more', 'sudo', 'ls missing'])('rejects %s without side effects', input => {
+    const result = runCommand(input, '/');
+    expect(result.output).not.toBe('');
+    expect(result.href).toBeUndefined();
+    expect(result.theme).toBeUndefined();
+    expect(result.close).toBeUndefined();
+    expect(result.clear).toBeUndefined();
+  });
+  it('accepts whitespace and does nothing for empty commands', () => {
+    expect(runCommand('  cd   ~/writing  ', '/').href).toBe('/writing');
+    expect(runCommand('  ', '/')).toEqual({ output: '' });
+  });
+  it('keeps paths unique and every child under its parent', () => {
+    expect(new Set(entries.map(entry => entry.path)).size).toBe(entries.length);
+    for (const entry of entries) for (const child of entry.children ?? []) {
+      expect(child.path).toBe(`${entry.path === '/' ? '' : entry.path}/${child.name}`);
+      expect(child.href.startsWith('/')).toBe(true);
+    }
+  });
+});
