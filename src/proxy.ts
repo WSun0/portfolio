@@ -9,7 +9,7 @@ export function proxy(request: NextRequest) {
     `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${development ? " 'unsafe-eval'" : ''}`,
     // Leaflet positions markers with inline styles; script execution remains nonce-only.
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data: blob: https://*.basemaps.cartocdn.com https://raw.githubusercontent.com https://unpkg.com",
+    "img-src 'self' data: blob: https://tile.openstreetmap.org",
     "font-src 'self'",
     `connect-src 'self'${development ? ' ws://127.0.0.1:* ws://localhost:*' : ''}`,
     "object-src 'none'",

@@ -5,8 +5,7 @@ export default function CookingPage() {
     <div className="w-full max-w-4xl mx-auto pt-2 pb-20 px-10">
       <section className="glass-panel-static py-8 px-2">
         <h1 className="text-2xl font-bold mb-4">Cooking</h1>
-        <p className="text-base opacity-80 mb-8">a collection of some home-cooked meals. i&apos;ve never been trained, but i&apos;ve wasted hundreds of hours watching
-          YouTube videos about food and cooking, and i enjoy eating out a lot, so naturally i&apos;ve been inspired to experiment in the kitchen.
+        <p className="text-base opacity-80 mb-8">a collection of home-cooked meals. i&apos;ve never received training, but i&apos;ve wasted hundreds of hours watching food and cooking videos on YouTube, and i enjoy eating out a lot, so i&apos;ve naturally been inspired to try.
         </p>
         <ul className="space-y-2">
           <li>

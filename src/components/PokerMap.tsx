@@ -1,59 +1,42 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import type { Icon } from "leaflet";
+import { useEffect, useState } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { divIcon } from 'leaflet';
+import { casinos } from '@/lib/casinos';
+import 'leaflet/dist/leaflet.css';
 
-const locations: { name: string; position: [number, number] }[] = [
-  { name: "Encore Boston Harbor", position: [42.4070, -71.0536] },
-  { name: "Parx Casino", position: [40.0871, -74.9083] },
-  { name: "Chasers Poker Room", position: [42.7855, -71.2690] },
-  { name: "Metro Casino", position: [18.4657, -66.1057] },
-  { name: "Caesars New Orleans", position: [29.9511, -90.0715] },
-  { name: "Playground Card Room", position: [45.4947, -73.7109] },
-];
+const marker = divIcon({
+  className: 'casino-pin', html: '<span></span>',
+  iconSize: [22, 28], iconAnchor: [11, 28], popupAnchor: [0, -28],
+});
+const bounds = casinos.map(casino => casino.position);
+
+export function MapResizeObserver() {
+  const map = useMap();
+  useEffect(() => {
+    // The sidebar changes the container width without resizing the browser.
+    const observer = new ResizeObserver(() => map.invalidateSize({ pan: false }));
+    observer.observe(map.getContainer());
+    return () => observer.disconnect();
+  }, [map]);
+  return null;
+}
 
 export default function PokerMap() {
-  const [redIcon, setRedIcon] = useState<Icon | null>(null);
-  const [isMounted, setIsMounted] = useState(false);
-  const mapKey = useRef(Math.random().toString(36).substring(7));
-
-  useEffect(() => {
-    setIsMounted(true);
-    import("leaflet").then(L => {
-      const icon = new L.Icon({
-        iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
-        shadowUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png",
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-        shadowSize: [41, 41],
-      });
-      setRedIcon(icon);
-    });
-  }, []);
-
-  if (!isMounted || !redIcon) {
-    return null;
-  }
-
-  return (
-    <MapContainer 
-      key={mapKey.current}
-      center={[32, -78]} 
-      zoom={4} 
-      style={{ height: "100%", width: "100%" }} 
-      scrollWheelZoom={true}
-    >
+  const [tileError, setTileError] = useState(false);
+  return <div className="casino-map">
+    <MapContainer bounds={bounds} boundsOptions={{ padding: [30, 30] }} style={{ height: '100%', width: '100%' }} scrollWheelZoom={false}>
+      <MapResizeObserver />
       <TileLayer
-        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-        attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'
+        url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        maxZoom={19}
+        eventHandlers={{ tileerror: () => setTileError(true), tileload: () => setTileError(false) }}
       />
-      {locations.map((loc, idx) => (
-        <Marker key={idx} position={loc.position} icon={redIcon}>
-          <Popup>{loc.name}</Popup>
-        </Marker>
-      ))}
+      {casinos.map(casino => <Marker key={casino.name} position={casino.position} icon={marker} title={casino.name} alt={casino.name}>
+        <Popup>{casino.name}<br />{casino.region}</Popup>
+      </Marker>)}
     </MapContainer>
-  );
-} 
+    {tileError && <p className="map-status" role="status">map tiles couldn’t load. the casino list is available above.</p>}
+  </div>;
+}

@@ -26,17 +26,17 @@ describe('Notebook shell', () => {
     expect(toggle).toHaveAttribute('aria-expanded', 'false');
     fireEvent.click(screen.getByRole('button', { name: 'terminal' }));
     const input = screen.getByRole('textbox', { name: 'Terminal command' });
-    fireEvent.change(input, { target: { value: 'cd ~/writing' } });
+    fireEvent.change(input, { target: { value: 'cd ~/blog' } });
     fireEvent.keyDown(input, { key: 'b', ctrlKey: true });
     expect(toggle).toHaveAttribute('aria-expanded', 'true');
-    expect(input).toHaveValue('cd ~/writing');
+    expect(input).toHaveValue('cd ~/blog');
     expect(input).toHaveFocus();
   });
   it('separates folder disclosure from directory links', () => {
     render(<NotebookShell>Home</NotebookShell>);
-    fireEvent.click(screen.getByRole('button', { name: 'Collapse writing' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Collapse blog' }));
     expect(screen.queryByRole('link', { name: 'under-construction.md' })).not.toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'writing/' })).toHaveAttribute('href', '/writing');
+    expect(screen.getByRole('link', { name: 'blog/' })).toHaveAttribute('href', '/blog');
     expect(push).not.toHaveBeenCalled();
   });
   it('opens with either shortcut, focuses input, and closes without repeat toggles', () => {
@@ -51,8 +51,8 @@ describe('Notebook shell', () => {
   it('navigates, changes theme, and retains terminal output across closing', () => {
     render(<NotebookShell>Home</NotebookShell>);
     fireEvent.click(screen.getByRole('button', { name: 'terminal' }));
-    command('cd ~/writing');
-    expect(push).toHaveBeenCalledWith('/writing');
+    command('cd ~/blog');
+    expect(push).toHaveBeenCalledWith('/blog');
     command('dark');
     expect(document.documentElement).toHaveAttribute('data-theme', 'dark');
     expect(localStorage.getItem('portfolio-theme')).toBe('dark');
@@ -80,20 +80,20 @@ describe('notebook regression cases', () => {
   it('tracks the working directory and active file after navigation', () => {
     const { rerender } = render(<NotebookShell>Home</NotebookShell>);
     fireEvent.click(screen.getByRole('button', { name: 'terminal' }));
-    route.pathname = '/writing/under-construction';
+    route.pathname = '/blog/under-construction';
     rerender(<NotebookShell>Article</NotebookShell>);
     expect(screen.getByRole('link', { name: 'under-construction.md' })).toHaveAttribute('aria-current', 'page');
     command('pwd');
-    expect(within(screen.getByRole('log')).getByText('~/writing')).toBeInTheDocument();
+    expect(within(screen.getByRole('log')).getByText('~/blog')).toBeInTheDocument();
     command('open under-construction.md');
-    expect(push).toHaveBeenCalledWith('/writing/under-construction');
+    expect(push).toHaveBeenCalledWith('/blog/under-construction');
   });
   it('starts collapsed on mobile and closes after selecting a directory', () => {
     vi.mocked(window.matchMedia).mockReturnValue({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() } as unknown as MediaQueryList);
     render(<NotebookShell>Home</NotebookShell>);
     const toggle = screen.getByRole('button', { name: /show directory/ });
     fireEvent.click(toggle);
-    fireEvent.click(screen.getByRole('link', { name: 'writing/' }));
+    fireEvent.click(screen.getByRole('link', { name: 'blog/' }));
     expect(toggle).toHaveAttribute('aria-expanded', 'false');
   });
   it('restores the saved theme and persists toolbar changes', () => {
