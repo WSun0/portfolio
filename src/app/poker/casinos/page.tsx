@@ -1,36 +1,11 @@
 "use client";
 import dynamic from "next/dynamic";
-import Image from "next/image";
+import { casinos } from "@/lib/casinos";
 import BackButton from "@/components/BackButton";
-
-function Spinner() {
-  return (
-    <div style={{
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      height: "100%",
-      width: "100%",
-      minHeight: 200,
-    }}>
-      <Image
-        src="/HomeButtonIcon.png"
-        alt="loading..."
-        width={48}
-        height={48}
-        className="animate-spin"
-        style={{
-          animationDuration: '1.6s',
-          animationTimingFunction: 'steps(8, end)'
-        }}
-      />
-    </div>
-  );
-}
 
 const PokerMap = dynamic(() => import("@/components/PokerMap"), {
   ssr: false,
-  loading: () => <Spinner />,
+  loading: () => <p className="muted" role="status">loading map…</p>,
 });
 
 export default function CasinosPage() {
@@ -44,12 +19,7 @@ export default function CasinosPage() {
           <div>
             <h2 className="text-lg font-semibold mb-3">In-Person Casinos</h2>
             <ul className="text-base opacity-80 space-y-2">
-              <li>Encore Boston Harbor (Massachusetts)</li>
-              <li>Parx Casino (Pennsylvania)</li>
-              <li>Chasers Poker Room (New Hampshire)</li>
-              <li>Metro Casino (Puerto Rico)</li>
-              <li>Caesars New Orleans (Louisiana)</li>
-              <li>Playground Card Room (Montreal)</li>
+              {casinos.map(casino => <li key={casino.name}>{casino.name} ({casino.region})</li>)}
               <li className="opacity-60">... and plenty of home games around Boston and NYC</li>
             </ul>
           </div>

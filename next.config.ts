@@ -16,11 +16,12 @@ const nextConfig: NextConfig = {
       { source: "/poker/journey", destination: "/poker", permanent: true },
       { source: "/poker/hands", destination: "/poker", permanent: true },
       ...['small-changes-for-health-improvements', 'detoxifying-life'].flatMap(slug => [
-        { source: `/blog/${slug}`, destination: '/writing', permanent: true },
-        { source: `/writing/${slug}`, destination: '/writing', permanent: true },
+        { source: `/blog/${slug}`, destination: '/blog', permanent: true },
+        { source: `/writing/${slug}`, destination: '/blog', permanent: true },
       ]),
-      { source: "/blog", destination: "/writing", permanent: true },
-      { source: "/blog/:slug", destination: "/writing/:slug", permanent: true },
+      { source: "/writing", destination: "/blog", permanent: true },
+      { source: "/writing/:slug", destination: "/blog/:slug", permanent: true },
+      { source: "/resources", destination: "/other", permanent: true },
     ];
   },
 };

@@ -36,6 +36,7 @@ export default defineConfig({
     },
   },
   css: {
-    postcss: undefined,
+    // Component tests inspect behavior; the production build validates Tailwind.
+    postcss: { plugins: [] },
   },
 })

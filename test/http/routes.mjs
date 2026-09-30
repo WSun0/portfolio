@@ -22,7 +22,7 @@ async function discoverPages(directory, route = '') {
   }
   return result;
 }
-const routes = (await discoverPages('src/app')).filter(route => !route.startsWith('/blog')).sort();
+const routes = (await discoverPages('src/app')).sort();
 
 before(async () => {
   server = spawn(process.execPath, [require.resolve('next/dist/bin/next'), 'start', '--hostname', '127.0.0.1', '--port', String(port)], { stdio: ['ignore', 'pipe', 'pipe'] });
@@ -67,11 +67,13 @@ describe('production routes', () => {
   for (const [from, to] of [
     ['/poker/hands', '/poker'],
     ['/poker/journey', '/poker'],
-    ['/blog', '/writing'],
-    ['/blog/small-changes-for-health-improvements', '/writing'],
-    ['/blog/detoxifying-life', '/writing'],
-    ['/writing/small-changes-for-health-improvements', '/writing'],
-    ['/writing/detoxifying-life', '/writing'],
+    ['/writing', '/blog'],
+    ['/writing/under-construction', '/blog/under-construction'],
+    ['/resources', '/other'],
+    ['/blog/small-changes-for-health-improvements', '/blog'],
+    ['/blog/detoxifying-life', '/blog'],
+    ['/writing/small-changes-for-health-improvements', '/blog'],
+    ['/writing/detoxifying-life', '/blog'],
   ]) it(`preserves incoming links to ${from}`, async () => {
     const response = await fetch(baseURL + from, { redirect: 'manual' });
     assert.equal(response.status, 308);
@@ -124,6 +126,8 @@ describe('security and content boundaries', () => {
       const scripts = [...document.querySelectorAll('script')].filter(script => !script.type || script.type === 'text/javascript');
       assert.ok(scripts.length > 0);
       for (const script of scripts) assert.equal(script.getAttribute('nonce'), nonce, 'every executable script needs the response nonce');
+      assert.match(policy, /img-src [^;]*https:\/\/tile\.openstreetmap\.org/);
+      assert.doesNotMatch(policy, /cartocdn|unpkg|raw\.githubusercontent/);
       assert.match(policy, /object-src 'none'/);
       assert.match(policy, /frame-ancestors 'none'/);
       assert.match(policy, /base-uri 'self'/);
@@ -166,10 +170,10 @@ describe('security and content boundaries', () => {
 
 describe('archived writing', () => {
   it('omits archived entries from the index and directory', async () => {
-    const doc = await documentAt('/writing');
+    const doc = await documentAt('/blog');
     assert.equal(doc.querySelector('time').getAttribute('datetime'), '2026-09-29');
     assert.equal(doc.querySelectorAll('.writing-list a').length, 1);
-    assert.equal(doc.querySelector('.writing-list a').getAttribute('href'), '/writing/under-construction');
+    assert.equal(doc.querySelector('.writing-list a').getAttribute('href'), '/blog/under-construction');
     assert.doesNotMatch(doc.querySelector('main').textContent, /detoxifying|small changes/i);
     assert.equal(doc.querySelectorAll('a[href*="detoxifying"], a[href*="small-changes"]').length, 0);
   });

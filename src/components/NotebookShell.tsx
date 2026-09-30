@@ -11,7 +11,7 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [folders, setFolders] = useState<Record<string, boolean>>({ '/writing': true, '/resources': true });
+  const [folders, setFolders] = useState<Record<string, boolean>>({ '/blog': true, '/other': true });
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [input, setInput] = useState('');
@@ -59,7 +59,7 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
     if (window.matchMedia('(max-width: 720px)').matches) setSidebarOpen(false);
     if (entry) setFolders(previous => {
       const next = { ...previous };
-      for (const part of ['/writing', '/resources', '/resources/cooking', '/resources/poker']) {
+      for (const part of ['/blog', '/other', '/other/cooking', '/other/poker', '/other/job-recruiting']) {
         if (entry.path.startsWith(part + '/') || entry.path === part) next[part] = true;
       }
       return next;
