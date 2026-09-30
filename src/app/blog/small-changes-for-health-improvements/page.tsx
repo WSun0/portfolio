@@ -65,10 +65,6 @@ export default function SmallChangesForHealthImprovementsPage() {
             </p>
           </div>
 
-          <div>
-            <h2 className="text-lg font-semibold mb-3">Paying Attention to Sources of Fiber</h2>
-            <p className="text-base opacity-60 leading-relaxed">Content coming soon</p>
-          </div>
         </div>
       </section>
     </div>

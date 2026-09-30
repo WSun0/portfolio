@@ -14,8 +14,6 @@ export const filesystem: SiteEntry = { name: '~', path: '/', href: '/', title: '
     ] },
     { name: 'poker', path: '/resources/poker', href: '/poker', title: 'poker', children: [
       { name: 'casinos.md', path: '/resources/poker/casinos.md', href: '/poker/casinos', title: 'Casinos I’ve Played At' },
-      { name: 'hands.md', path: '/resources/poker/hands.md', href: '/poker/hands', title: 'Hand Histories' },
-      { name: 'journey.md', path: '/resources/poker/journey.md', href: '/poker/journey', title: 'My Poker Journey' },
     ] },
   ] },
   { name: 'contact.md', path: '/contact.md', href: '/contact', title: 'contact' },
@@ -42,7 +40,9 @@ export function resolvePath(input: string, cwd: string) {
   return '/' + resolved.join('/');
 }
 export type CommandResult = { output: string; href?: string; theme?: 'light' | 'dark'; clear?: boolean; close?: boolean };
+export const MAX_COMMAND_LENGTH = 512;
 export function runCommand(input: string, cwd: string): CommandResult {
+  if (input.length > MAX_COMMAND_LENGTH) return { output: "Command is too long (maximum 512 characters)." };
   const [command, ...args] = input.trim().split(/\s+/);
   if (!command) return { output: '' };
   if (args.length > 1) return { output: `${command}: too many arguments` };

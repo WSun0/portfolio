@@ -22,3 +22,17 @@ ls
 ```
 
 Page routes, directory entries, and post dates are defined in `src/lib/filesystem.ts`. Add an article page and its metadata there to expose it in both the sidebar and terminal. Posts on the writing page are sorted newest first.
+
+## Testing and recovery
+
+Run `npm run test:all` for the regression suite and production build. See [test/README.md](test/README.md) for coverage and limitations. GitHub Actions runs the suite on pull requests and main.
+
+The complete pre-redesign website is preserved at Git tag [`archive/pre-redesign-2026-09-29`](https://github.com/WSun0/portfolio/tree/archive/pre-redesign-2026-09-29), commit `1c731ccc6265aa0fd320fca869785160acef2ea3`. To inspect it without changing this checkout, use:
+
+```sh
+git worktree add --detach ../portfolio-original archive/pre-redesign-2026-09-29
+```
+
+The original machine also has a full-history backup at `.git/portfolio-before-redesign.bundle`. The tag is on GitHub; this bundle is local only. Article source files and photos are retained in the current site.
+
+Security controls and review limitations are documented in [SECURITY.md](SECURITY.md). Public pages use request-specific script nonces; keep the proxy and root layout paired when changing rendering or caching. Contact links live on `/contact`. Removed placeholder routes `/poker/hands` and `/poker/journey` redirect to `/poker`.

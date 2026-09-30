@@ -16,16 +16,6 @@ export default function PokerPage() {
               Casinos I&apos;ve Played At
             </Link>
           </li>
-          <li>
-            <Link href="/poker/hands" className="accent-link">
-              Hand Histories
-            </Link>
-          </li>
-          <li>
-            <Link href="/poker/journey" className="accent-link">
-              My Poker Journey
-            </Link>
-          </li>
         </ul>
       </section>
     </div>

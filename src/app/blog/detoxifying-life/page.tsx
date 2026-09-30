@@ -68,20 +68,8 @@ export default function DetoxifyingLifePage() {
             </div>
           </div>
 
-          <div>
-            <h2 className="text-lg font-semibold mb-3">On Red Meat</h2>
-            <p className="text-base opacity-60 leading-relaxed">Content coming soon</p>
-          </div>
 
-          <div>
-            <h2 className="text-lg font-semibold mb-3">Laptop Radiation Pad</h2>
-            <p className="text-base opacity-60 leading-relaxed">Content coming soon</p>
-          </div>
 
-          <div>
-            <h2 className="text-lg font-semibold mb-3">Processed Sugar and Dermatographia</h2>
-            <p className="text-base opacity-60 leading-relaxed">Content coming soon</p>
-          </div>
         </div>
       </section>
     </div>
