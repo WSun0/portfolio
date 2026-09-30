@@ -2,16 +2,23 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { FormEvent, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
-import { directoryForRoute, displayPath, entryForRoute, filesystem, runCommand, MAX_COMMAND_LENGTH, SiteEntry } from '@/lib/filesystem';
+import { directoryForRoute, displayPath, entryForRoute, entries, filesystem, runCommand, MAX_COMMAND_LENGTH, SiteEntry } from '@/lib/filesystem';
 import PlatformLogo from './PlatformLogo';
 import TerminalPanel from './TerminalPanel';
 type Transcript = { prompt?: string; output: string };
 
+function foldersForRoute(pathname: string): Record<string, boolean> {
+  const entry = entryForRoute(pathname);
+  return Object.fromEntries(entries
+    .filter(folder => folder.children && folder.path !== '/' && entry?.path.startsWith(folder.path + '/'))
+    .map(folder => [folder.path, true]));
+}
+
 export default function NotebookShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [folders, setFolders] = useState<Record<string, boolean>>({});
+  const [sidebarOpen, setSidebarOpen] = useState(pathname !== '/');
+  const [folders, setFolders] = useState<Record<string, boolean>>(() => foldersForRoute(pathname));
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [input, setInput] = useState('');
@@ -34,8 +41,7 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const narrow = window.matchMedia('(max-width: 720px)');
-    setSidebarOpen(!narrow.matches);
-    const resize = () => setSidebarOpen(!narrow.matches);
+    const resize = () => { if (narrow.matches) setSidebarOpen(false); };
     narrow.addEventListener('change', resize);
     const saved = document.documentElement.dataset.theme;
     if (saved === 'light' || saved === 'dark') setTheme(saved);
@@ -57,18 +63,12 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
   }, []);
   useEffect(() => {
     reader.current?.scrollTo({ top: 0 });
-    if (window.matchMedia('(max-width: 720px)').matches) setSidebarOpen(false);
     const navigated = previousPathname.current !== pathname;
     previousPathname.current = pathname;
-    // Keep every folder closed on initial load, including direct article visits.
-    // Reveal the current location after navigation within the site.
-    if (navigated && entry) setFolders(previous => {
-      const next = { ...previous };
-      for (const part of ['/blog', '/other', '/other/cooking', '/other/poker', '/other/job-recruiting']) {
-        if (entry.path.startsWith(part + '/') || entry.path === part) next[part] = true;
-      }
-      return next;
-    });
+    if (navigated) {
+      if (window.matchMedia('(max-width: 720px)').matches) setSidebarOpen(false);
+      setFolders(previous => ({ ...previous, ...foldersForRoute(pathname) }));
+    }
   }, [pathname, entry]);
   useEffect(() => { if (terminalOpen) commandInput.current?.focus(); }, [terminalOpen]);
   useEffect(() => { if (output.current) output.current.scrollTop = output.current.scrollHeight; }, [transcript, terminalOpen]);
