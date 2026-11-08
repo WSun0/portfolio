@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import NotebookShell from "@/components/NotebookShell";
 
@@ -19,6 +20,7 @@ export default async function RootLayout({
       <head><script nonce={nonce} dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem('portfolio-theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}` }} /></head>
       <body>
         <NotebookShell>{children}</NotebookShell>
+        <Analytics />
       </body>
     </html>
   );

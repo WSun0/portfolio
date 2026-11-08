@@ -16,6 +16,7 @@
     "@tsparticles/engine": "^3.8.1",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.8.1",
+    "@vercel/analytics": "^2.0.1",
     "framer-motion": "^12.9.4",
     "leaflet": "^1.9.4",
     "next": "^16.3.7",
