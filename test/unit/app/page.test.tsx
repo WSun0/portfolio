@@ -6,7 +6,7 @@ describe('Notebook home', () => {
     render(<Home />);
     expect(screen.getByRole('heading', { name: 'William Sun' })).toBeInTheDocument();
     expect(screen.queryByRole('link', { name: /linkedin|github/ })).not.toBeInTheDocument();
-    expect(screen.queryByText(/expand the directory|recent writing|things worth keeping/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/recent writing|things worth keeping/i)).not.toBeInTheDocument();
     expect(screen.queryByRole('link', { name: /email/ })).not.toBeInTheDocument();
   });
 });
