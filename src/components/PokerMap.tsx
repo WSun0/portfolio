@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, AttributionControl, useMap } from 'react-leaflet';
 import { divIcon } from 'leaflet';
 import { casinos } from '@/lib/casinos';
 import 'leaflet/dist/leaflet.css';
@@ -26,7 +26,8 @@ export function MapResizeObserver() {
 export default function PokerMap() {
   const [tileError, setTileError] = useState(false);
   return <div className="casino-map" style={{ height: '100%', width: '100%', position: 'relative' }}>
-    <MapContainer bounds={bounds} boundsOptions={{ padding: [30, 30] }} style={{ height: '100%', width: '100%' }} scrollWheelZoom={false}>
+    <MapContainer bounds={bounds} boundsOptions={{ padding: [30, 30] }} style={{ height: '100%', width: '100%' }} scrollWheelZoom={false} attributionControl={false}>
+      <AttributionControl prefix={false} />
       <MapResizeObserver />
       <TileLayer
         url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
