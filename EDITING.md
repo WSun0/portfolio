@@ -94,3 +94,16 @@ If you changed tests, stage those files as well before committing (`git add test
 You can also stage, commit, and push from VS Code's Source Control panel. A commit saves local Git history; a push uploads it to GitHub. Vercel automatically builds pushes to `main` and updates `https://wsun.one` after a successful deployment. You do not need to reconnect the domain or change DNS.
 
 Direct pushes publish without waiting for GitHub Actions, so run the checks before pushing. Use a separate branch and pull request when you want deployment checks and a preview before production.
+
+### Formatting longer articles
+
+`src/components/BlogPost.tsx` provides a shared article layout, estimated reading
+time, and section links. Pass `title`, an optional `intro`, and a `sections` array
+with stable `id`, `title`, optional short `navTitle`, and JSX `content`. Section
+IDs become shareable anchors, so keep existing IDs when changing heading copy.
+Use ordinary paragraphs, lists, blockquotes, and figures within each section.
+
+The casino article at `src/app/poker/casinos/page.tsx` is a complete example.
+Its `post-directory` definition list pairs names with secondary location text;
+locations stack underneath names on small screens. Map credits retain the
+required OpenStreetMap attribution while omitting Leaflet’s optional branding.

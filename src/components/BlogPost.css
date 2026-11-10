@@ -1,0 +1,32 @@
+/* A small article index, kept in one row even on narrow screens. */
+.document .blog-post h1 { margin-bottom: 20px; }
+.document .post-status { margin: 0 0 12px; color: var(--muted); font-size: 11px; letter-spacing: .06em; }
+.post-tools { display: flex; align-items: center; gap: 14px; border-block: 1px solid var(--line); padding: 7px 0; margin-bottom: 28px; font-size: 11px; line-height: 1.5; }
+.post-read-time { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; color: var(--muted); white-space: nowrap; }
+.post-sections { display: flex; align-items: center; gap: 16px; min-width: 0; overflow-x: auto; border-left: 1px solid var(--line); padding-left: 14px; scrollbar-width: thin; }
+.post-sections a { display: inline-flex; align-items: center; gap: 5px; flex-shrink: 0; min-height: 30px; text-decoration: none; white-space: nowrap; }
+.post-sections a:hover { text-decoration: underline; }
+.post-sections a:focus-visible { outline-offset: -1px; }
+.section-number { color: var(--muted); font-weight: 400; font-variant-numeric: tabular-nums; }
+.blog-post h2 { scroll-margin-top: 24px; }
+.blog-post h2:target { text-decoration: underline; text-decoration-color: var(--branch); text-underline-offset: 6px; }
+.blog-post ul { list-style: disc; padding-left: 20px; }
+.blog-post li { margin-bottom: 8px; }
+@media(pointer:coarse) { .post-sections a { min-height: 44px; } }
+
+/* Venue names and locations remain readable within a narrow article column. */
+.blog-post .post-directory { margin: 0 0 16px; }
+.post-directory > div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 6px 20px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+.post-directory dt, .post-directory dd { margin: 0; overflow-wrap: anywhere; }
+.post-directory dd { color: var(--muted); font-size: 13px; }
+.document .blog-post .post-aside { color: var(--muted); font-size: 13px; margin: 16px 0 28px; }
+.blog-post ol { list-style: decimal; padding-left: 24px; }
+.blog-post blockquote { border-left: 2px solid var(--line); padding-left: 20px; margin: 24px 0; color: var(--muted); }
+.blog-post pre { overflow-x: auto; padding: 16px; border: 1px solid var(--line); font-size: 13px; }
+.blog-post figure { margin: 24px 0; }
+.blog-post figcaption { color: var(--muted); font-size: 12px; margin-top: 8px; }
+@media (max-width: 540px) {
+  .post-directory > div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .post-tools { gap: 10px; }
+  .post-sections { padding-left: 10px; gap: 12px; }
+}

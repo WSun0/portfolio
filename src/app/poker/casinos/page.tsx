@@ -2,6 +2,7 @@
 import dynamic from "next/dynamic";
 import { casinos } from "@/lib/casinos";
 import BackButton from "@/components/BackButton";
+import BlogPost from "@/components/BlogPost";
 
 const PokerMap = dynamic(() => import("@/components/PokerMap"), {
   ssr: false,
@@ -9,35 +10,31 @@ const PokerMap = dynamic(() => import("@/components/PokerMap"), {
 });
 
 export default function CasinosPage() {
-  return (
-    <div className="w-full max-w-4xl mx-auto pt-2 pb-20 px-10">
-      <BackButton href="/poker" label="back to poker" />
-      <section className="glass-panel-static py-8 px-2">
-        <h1 className="text-2xl font-bold mb-6">Casinos I&apos;ve Played Poker At</h1>
-
-        <div className="grid md:grid-cols-2 gap-4 mb-6">
-          <div>
-            <h2 className="text-lg font-semibold mb-3">In-Person Casinos</h2>
-            <ul className="text-base opacity-80 space-y-2">
-              {casinos.map(casino => <li key={casino.name}>{casino.name} ({casino.region})</li>)}
-              <li className="opacity-60">... and plenty of home games around Boston and NYC</li>
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="text-lg font-semibold mb-3">Online Poker Rooms</h2>
-            <ul className="text-base opacity-80 space-y-2">
-              <li>Club WPT Gold</li>
-              <li>Ignition</li>
-              <li>ACR</li>
-              <li className="opacity-60">... and plenty of private games on pokernow.club</li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="mb-6">
-          <h2 className="text-lg font-semibold mb-3">Thoughts on Online vs. In-Person</h2>
-          <div className="text-base opacity-80 leading-relaxed space-y-4">
+  return <>
+    <BackButton href="/poker" label="back to poker" />
+    <BlogPost title="Casinos I've Played Poker At" sections={[
+      {
+        id: 'in-person', title: 'In-Person Casinos', navTitle: 'in person',
+        content: <>
+          <dl className="post-directory" aria-label="Casinos and locations">
+            {casinos.map(casino => <div key={casino.name}>
+              <dt>{casino.name}</dt>
+              <dd>{casino.region}</dd>
+            </div>)}
+          </dl>
+          <p className="post-aside">and plenty of home games around Boston and NYC</p>
+        </>,
+      },
+      {
+        id: 'online', title: 'Online Poker Rooms', navTitle: 'online',
+        content: <>
+          <ul><li>Club WPT Gold</li><li>Ignition</li><li>ACR</li></ul>
+          <p className="post-aside">and plenty of private games on pokernow.club</p>
+        </>,
+      },
+      {
+        id: 'thoughts', title: 'Thoughts on Online vs. In-Person', navTitle: 'thoughts',
+        content: <>
             <p>while online poker is great because you can play from the comfort of your room and hands move much faster,
               i&apos;ve discovered through personal experience that there is a severe problem with gameplay integrity. it&apos;s almost trivial to cheat online in ways that
               are practically undetectable. there&apos;s a whole spectrum of cheating, from softplaying against friends, to colluding with other players, to running a solver in real time.</p>
@@ -51,14 +48,12 @@ export default function CasinosPage() {
               while i don&apos;t have hard evidence of collusion, it would be very easy for people to set up communication systems that let them collude in real time through coordinated bet sizing or physical tells.
               and since Encore is one of the larger casinos, these issues are almost certainly worse in smaller player pools.
             </p>
-          </div>
-        </div>
-
-        <h2 className="text-lg font-semibold mb-4">A map of where I have played poker in-person:</h2>
-        <div className="glass-image-container" style={{ height: "500px", width: "100%", zIndex: 1, position: "relative" }}>
-          <PokerMap />
-        </div>
-      </section>
-    </div>
-  );
+        </>,
+      },
+      {
+        id: 'map', title: 'Where I’ve Played In Person', navTitle: 'map',
+        content: <div className="post-map" style={{ height: 'min(500px, 65svh)', minHeight: '280px', width: '100%', position: 'relative', zIndex: 1 }}><PokerMap /></div>,
+      },
+    ]} />
+  </>;
 }

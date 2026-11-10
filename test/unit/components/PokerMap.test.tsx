@@ -7,7 +7,8 @@ const tiles = vi.hoisted(() => ({ handlers: {} as Record<string, () => void> }))
 vi.mock('react-leaflet', () => ({
   useMap: () => map,
   MapContainer: ({ children }: { children: ReactNode }) => <div>{children}</div>,
-  TileLayer: ({ eventHandlers }: { eventHandlers: Record<string, () => void> }) => { tiles.handlers = eventHandlers; return null; },
+  AttributionControl: ({ prefix }: { prefix: string | false }) => <span data-testid="map-credit" data-prefix={String(prefix)} />,
+  TileLayer: ({ eventHandlers, attribution }: { eventHandlers: Record<string, () => void>; attribution: string }) => { tiles.handlers = eventHandlers; return <span data-testid="tile-credit">{attribution}</span>; },
   Marker: ({ title, children }: { title: string; children: ReactNode }) => <div role="button" aria-label={title}>{children}</div>,
   Popup: ({ children }: { children: ReactNode }) => <div>{children}</div>,
 }));
@@ -39,6 +40,12 @@ describe('casino map', () => {
       expect(screen.getByRole('button', { name })).toBeInTheDocument();
     }
     expect(screen.getByRole('button', { name: 'Bay 101' })).toHaveTextContent('San Jose, California');
+  });
+  it('removes optional Leaflet branding while retaining the OpenStreetMap credit', () => {
+    setup();
+    expect(screen.getByTestId('map-credit')).toHaveAttribute('data-prefix', 'false');
+    expect(screen.getByTestId('tile-credit')).toHaveTextContent('OpenStreetMap</a> contributors');
+    expect(screen.getByTestId('tile-credit')).toHaveTextContent('https://www.openstreetmap.org/copyright');
   });
   it('updates the map when its container changes size and cleans up on navigation', () => {
     const view = setup();
