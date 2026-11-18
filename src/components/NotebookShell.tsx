@@ -90,7 +90,7 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
       {items.map((item, index) => <li key={item.path}>
         <div className="tree-row">
           <span className="tree-stem" aria-hidden="true">{index === items.length - 1 ? '└─' : '├─'}</span>
-          <Link href={item.href} aria-current={entry?.path === item.path ? 'page' : undefined} className={item.children ? 'folder-link' : 'file-link'} onClick={() => { if (window.matchMedia('(max-width: 720px)').matches) setSidebarOpen(false); }}>{item.name}{item.children ? '/' : ''}</Link>
+          <Link href={item.href} aria-current={entry?.path === item.path ? 'page' : undefined} className={item.children ? 'folder-link' : 'file-link'} onClick={() => { if (window.matchMedia('(max-width: 720px)').matches) setSidebarOpen(false); }}>{item.name}</Link>
           {item.children && <button type="button" className="folder-toggle" aria-label={`${folders[item.path] ? 'Collapse' : 'Expand'} ${item.name}`} aria-expanded={!!folders[item.path]} aria-controls={`folder-${item.name}`} onClick={() => setFolders(previous => ({ ...previous, [item.path]: !previous[item.path] }))}>{folders[item.path] ? '−' : '+'}</button>}
         </div>
         {item.children && <div id={`folder-${item.name}`} hidden={!folders[item.path]}>{tree(item.children, depth + 1)}</div>}
@@ -108,7 +108,7 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
     </header>
     <div className={`workspace ${sidebarOpen ? '' : 'sidebar-closed'}`}>
       <aside id="site-directory" className="sidebar" hidden={!sidebarOpen} aria-label="Site directory">
-        <Link className="site-name" href="/">wsun.one/</Link>
+        <Link className="site-name" href="/">wsun.one</Link>
         <nav aria-label="Files and folders">{tree(filesystem.children!)}</nav>
         <div className="shortcut-hints">
           <button type="button" className="shortcut-hint" aria-label="Toggle directory: Cmd+B or Ctrl+B" onClick={() => setSidebarOpen(open => !open)}>
@@ -125,7 +125,7 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
       </aside>
       <main className="reading-pane" id="page-content" tabIndex={-1} ref={reader}>
         <div className="reading-column">
-          <p className="file-path">{entry ? displayPath(entry.path) + (entry.children ? '/' : '') : pathname}</p>
+          <p className="file-path">{entry ? displayPath(entry.path) : pathname}</p>
           <div className="document">{children}</div>
         </div>
       </main>

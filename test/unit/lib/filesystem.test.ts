@@ -11,16 +11,16 @@ describe('website terminal', () => {
   it('visits directories and opens files using the same routes as the sidebar', () => {
     expect(runCommand('cd ~/blog', '/')).toMatchObject({ href: '/blog' });
     expect(runCommand('cd ..', '/other/cooking')).toMatchObject({ href: '/other' });
-    expect(runCommand('open under-construction.md', '/blog')).toMatchObject({ href: '/blog/under-construction' });
+    expect(runCommand('open under-construction', '/blog')).toMatchObject({ href: '/blog/under-construction' });
     for (const entry of entries) expect(runCommand(`open ~${entry.path}`, '/').href).toBe(entry.href);
   });
   it('lists the current or requested directory without navigating', () => {
-    expect(runCommand('ls', '/blog').output).toContain('under-construction.md');
-    expect(runCommand('ls ~/other', '/blog')).toEqual({ output: 'job-recruiting/\npoker/\ncooking/' });
-    expect(runCommand('ls ~/README.md', '/')).toEqual({ output: 'readme.md' });
+    expect(runCommand('ls', '/blog').output).toContain('under-construction');
+    expect(runCommand('ls ~/other', '/blog')).toEqual({ output: 'job-recruiting\npoker\ncooking' });
+    expect(runCommand('ls ~/README', '/')).toEqual({ output: 'readme' });
   });
   it('rejects invalid commands and paths without emitting a navigation target', () => {
-    for (const command of ['cd missing', 'cd README.md', 'open javascript:alert(1)', 'rm -rf /', 'open', 'light extra']) {
+    for (const command of ['cd missing', 'open javascript:alert(1)', 'rm -rf /', 'open', 'light extra']) {
       expect(runCommand(command, '/').href).toBeUndefined();
       expect(runCommand(command, '/').output.length).toBeGreaterThan(0);
     }
@@ -86,7 +86,37 @@ describe('terminal input boundaries', () => {
     expect(runCommand('x'.repeat(100000), '/')).toEqual({ output: 'command is too long (maximum 512 characters).' });
   });
   it('removes the unpublished hands page from terminal navigation', () => {
-    expect(runCommand('open ~/other/poker/hands.md', '/').href).toBeUndefined();
-    expect(runCommand('ls ~/other/poker', '/').output).not.toMatch(/hands.md|journey.md/);
+    expect(runCommand('open ~/other/poker/hands', '/').href).toBeUndefined();
+    expect(runCommand('ls ~/other/poker', '/').output).not.toMatch(/hands|journey/);
+  });
+});
+
+describe('simple navigation names', () => {
+  it('lets visitors cd into every name shown by ls', () => {
+    for (const folder of entries.filter(entry => entry.children)) {
+      const names = runCommand('ls', folder.path).output.split('\n');
+      expect(names).toEqual(folder.children!.map(child => child.name));
+      for (const child of folder.children!) {
+        expect(child.name).toMatch(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
+        expect(runCommand(`cd ${child.name}`, folder.path)).toEqual({ output: `~${child.path}`, href: child.href });
+      }
+    }
+  });
+  it.each(['readme', 'readme.md', 'README', 'README.md'])('opens the homepage with cd %s', name => {
+    expect(runCommand(`cd ${name}`, '/')).toEqual({ output: '~/readme', href: '/' });
+  });
+  it('supports legacy page extensions for cd, open and ls', () => {
+    for (const entry of entries.filter(entry => !entry.children)) {
+      for (const command of ['cd', 'open']) {
+        expect(runCommand(`${command} ~${entry.path}.md`, '/')).toEqual({ output: `~${entry.path}`, href: entry.href });
+      }
+      expect(runCommand(`ls ~${entry.path}.md`, '/')).toEqual({ output: entry.name });
+    }
+  });
+  it('keeps folder path separators and trailing-slash inputs working', () => {
+    expect(runCommand('cd ~/other/cooking/', '/').href).toBe('/cooking');
+    expect(runCommand('cd christmas-dinner', '/other/cooking').href).toBe('/cooking/christmas-dinner');
+    expect(runCommand('cd ../poker/casinos', '/other/cooking').href).toBe('/poker/casinos');
+    expect(runCommand('pwd', '/other/cooking').output).toBe('~/other/cooking');
   });
 });
