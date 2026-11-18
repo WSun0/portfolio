@@ -57,8 +57,8 @@ export default function Post() {
 
 ```ts
 {
-  name: 'my-post.md',
-  path: '/blog/my-post.md',
+  name: 'my-post',
+  path: '/blog/my-post',
   href: '/blog/my-post',
   title: 'my post',
   date: '2026-09-30',
@@ -107,3 +107,5 @@ The casino article at `src/app/poker/casinos/page.tsx` is a complete example.
 Its `post-directory` definition list pairs names with secondary location text;
 locations stack underneath names on small screens. Map credits retain the
 required OpenStreetMap attribution while omitting Leaflet’s optional branding.
+
+Navigation names use lowercase words separated by dashes, without `.md` or trailing slashes (for example, `christmas-dinner`). `cd` and `open` both visit pages or folders; old `.md` terminal commands remain supported. Keep `/` between levels in full paths such as `~/other/cooking/christmas-dinner`.
