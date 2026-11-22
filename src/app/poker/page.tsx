@@ -17,6 +17,11 @@ export default function PokerPage() {
               casinos i&apos;ve played at
             </Link>
           </li>
+          <li>
+            <Link href="/poker/online-vs-in-person" className="accent-link">
+              thoughts on online versus in-person
+            </Link>
+          </li>
         </ul>
       </section>
     </div>

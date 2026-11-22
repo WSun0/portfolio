@@ -12,7 +12,7 @@ export default function ChristmasDinnerPage() {
       <section className="glass-panel-static py-8 px-2">
         <h1 className="text-2xl font-bold mb-4">Christmas dinner 2024</h1>
         <p className="text-base opacity-80 mb-8">
-          Christmas dinner 2024 with family and friends!
+          Christmas dinner 2024 with family and friends.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
           {images.map((src, idx) => (

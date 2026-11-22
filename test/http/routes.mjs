@@ -93,6 +93,7 @@ describe('production routes', () => {
       ['/other/job-recruiting/under-construction', '/other/job-recruiting'],
       ['/poker', '/other'],
       ['/poker/casinos', '/poker'],
+      ['/poker/online-vs-in-person', '/poker'],
       ['/cooking', '/other'],
       ['/cooking/christmas-dinner', '/cooking'],
       ['/cooking/first-time-cooking-wagyu-2025', '/cooking'],

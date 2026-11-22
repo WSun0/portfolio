@@ -10,6 +10,7 @@ export const filesystem: SiteEntry = { name: '~', path: '/', href: '/', title: '
     ] },
     { name: 'poker', path: '/other/poker', href: '/poker', title: 'poker', children: [
       { name: 'casinos', path: '/other/poker/casinos', href: '/poker/casinos', title: 'casinos i’ve played at' },
+      { name: 'online-vs-in-person', path: '/other/poker/online-vs-in-person', href: '/poker/online-vs-in-person', title: 'thoughts on online versus in-person' },
     ] },
     { name: 'cooking', path: '/other/cooking', href: '/cooking', title: 'cooking', children: [
       { name: 'wagyu', path: '/other/cooking/wagyu', href: '/cooking/first-time-cooking-wagyu-2025', title: 'first time cooking wagyu 2025' },
