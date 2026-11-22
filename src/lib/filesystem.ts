@@ -9,12 +9,12 @@ export const filesystem: SiteEntry = { name: '~', path: '/', href: '/', title: '
       { name: 'under-construction', path: '/other/job-recruiting/under-construction', href: '/other/job-recruiting/under-construction', title: 'under construction' },
     ] },
     { name: 'poker', path: '/other/poker', href: '/poker', title: 'poker', children: [
-      { name: 'casinos', path: '/other/poker/casinos', href: '/poker/casinos', title: 'Casinos I’ve Played At' },
+      { name: 'casinos', path: '/other/poker/casinos', href: '/poker/casinos', title: 'casinos i’ve played at' },
     ] },
     { name: 'cooking', path: '/other/cooking', href: '/cooking', title: 'cooking', children: [
-      { name: 'wagyu', path: '/other/cooking/wagyu', href: '/cooking/first-time-cooking-wagyu-2025', title: 'First Time Cooking Wagyu 2025' },
-      { name: 'christmas-dinner', path: '/other/cooking/christmas-dinner', href: '/cooking/christmas-dinner', title: 'Christmas Dinner 2024' },
-      { name: 'farmers-market', path: '/other/cooking/farmers-market', href: '/cooking/sf-pier-farmers-market-breakfast-2023', title: 'SF Pier Farmer’s Market Breakfast 2023' },
+      { name: 'wagyu', path: '/other/cooking/wagyu', href: '/cooking/first-time-cooking-wagyu-2025', title: 'first time cooking wagyu 2025' },
+      { name: 'christmas-dinner', path: '/other/cooking/christmas-dinner', href: '/cooking/christmas-dinner', title: 'Christmas dinner 2024' },
+      { name: 'farmers-market', path: '/other/cooking/farmers-market', href: '/cooking/sf-pier-farmers-market-breakfast-2023', title: 'SF pier farmer’s market breakfast 2023' },
     ] },
   ] },
   { name: 'contact', path: '/contact', href: '/contact', title: 'contact' },

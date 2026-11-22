@@ -1,5 +1,5 @@
 import Link from 'next/link';
-export const metadata = { title: 'Other · William Sun' };
+export const metadata = { title: 'other · William Sun' };
 export default function OtherPage() {
   return <><h1>other</h1><p className="muted">collections of thoughts on categorized hobbies</p>
     <ul className="resource-list">

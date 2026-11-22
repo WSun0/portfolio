@@ -10,7 +10,7 @@ export default function ChristmasDinnerPage() {
   return (
     <div className="w-full max-w-4xl mx-auto pt-2 pb-20 px-10">
       <section className="glass-panel-static py-8 px-2">
-        <h1 className="text-2xl font-bold mb-4">Christmas Dinner 2024</h1>
+        <h1 className="text-2xl font-bold mb-4">Christmas dinner 2024</h1>
         <p className="text-base opacity-80 mb-8">
           Christmas dinner 2024 with family and friends!
         </p>
@@ -30,7 +30,7 @@ export default function ChristmasDinnerPage() {
           ))}
         </div>
         <div className="glass-card p-6">
-          <h2 className="text-lg font-semibold mb-3">Menu</h2>
+          <h2 className="text-lg font-semibold mb-3">menu</h2>
           <ul className="text-base opacity-80 space-y-2">
             <li>medium-rare prime ribeye</li>
             <li>garlic mashed potatoes</li>
