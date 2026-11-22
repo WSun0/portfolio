@@ -10,9 +10,9 @@ const PokerMap = dynamic(() => import("@/components/PokerMap"), {
 
 export default function CasinosPage() {
   return <>
-    <BlogPost title="Casinos I've Played Poker At" sections={[
+    <BlogPost title="casinos i've played poker at" sections={[
       {
-        id: 'in-person', title: 'In-Person Casinos', navTitle: 'in person',
+        id: 'in-person', title: 'in-person casinos', navTitle: 'in person',
         content: <>
           <dl className="post-directory" aria-label="Casinos and locations">
             {casinos.map(casino => <div key={casino.name}>
@@ -24,14 +24,14 @@ export default function CasinosPage() {
         </>,
       },
       {
-        id: 'online', title: 'Online Poker Rooms', navTitle: 'online',
+        id: 'online', title: 'online poker rooms', navTitle: 'online',
         content: <>
           <ul><li>Club WPT Gold</li><li>Ignition</li><li>ACR</li></ul>
           <p className="post-aside">and plenty of private games on pokernow.club</p>
         </>,
       },
       {
-        id: 'thoughts', title: 'Thoughts on Online vs. In-Person', navTitle: 'thoughts',
+        id: 'thoughts', title: 'thoughts on online vs. in-person', navTitle: 'thoughts',
         content: <>
             <p>while online poker is great because you can play from the comfort of your room and hands move much faster,
               i&apos;ve discovered through personal experience that there is a severe problem with gameplay integrity. it&apos;s almost trivial to cheat online in ways that
@@ -49,7 +49,7 @@ export default function CasinosPage() {
         </>,
       },
       {
-        id: 'map', title: 'Where I’ve Played In Person', navTitle: 'map',
+        id: 'map', title: 'where i’ve played in person', navTitle: 'map',
         content: <div className="post-map" style={{ height: 'min(500px, 65svh)', minHeight: '280px', width: '100%', position: 'relative', zIndex: 1 }}><PokerMap /></div>,
       },
     ]} />

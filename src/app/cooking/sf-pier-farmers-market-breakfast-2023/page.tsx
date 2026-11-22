@@ -10,7 +10,7 @@ export default function SFPierFarmersMarketBreakfastPage() {
   return (
     <div className="w-full max-w-4xl mx-auto pt-2 pb-20 px-10">
       <section className="glass-panel-static py-8 px-2">
-        <h1 className="text-2xl font-bold mb-4">SF Pier Farmer&apos;s Market Breakfast 2023</h1>
+        <h1 className="text-2xl font-bold mb-4">SF pier farmer&apos;s market breakfast 2023</h1>
         <p className="text-base opacity-80 mb-8">
           got ingredients from the farmer&apos;s market at the San Francisco pier stands and took them back to the Airbnb to make breakfast!
         </p>
@@ -30,7 +30,7 @@ export default function SFPierFarmersMarketBreakfastPage() {
           ))}
         </div>
         <div className="glass-card p-6">
-          <h2 className="text-lg font-semibold mb-3">Menu</h2>
+          <h2 className="text-lg font-semibold mb-3">menu</h2>
           <ul className="text-base opacity-80 space-y-2">
             <li>toasted artisan ube sourdough bread</li>
             <li>roasted farmer&apos;s market tomatoes</li>

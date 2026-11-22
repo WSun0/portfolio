@@ -1,5 +1,5 @@
 import Link from 'next/link';
-export const metadata = { title: 'Job Recruiting · William Sun' };
+export const metadata = { title: 'job recruiting · William Sun' };
 export default function JobRecruitingPage() {
   return <>
     <h1>job recruiting</h1>
