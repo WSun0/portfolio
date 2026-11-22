@@ -10,16 +10,16 @@ export default function SFPierFarmersMarketBreakfastPage() {
   return (
     <div className="w-full max-w-4xl mx-auto pt-2 pb-20 px-10">
       <section className="glass-panel-static py-8 px-2">
-        <h1 className="text-2xl font-bold mb-4">SF pier farmer&apos;s market breakfast 2023</h1>
+        <h1 className="text-2xl font-bold mb-4">San Francisco pier farmer&apos;s market breakfast 2023</h1>
         <p className="text-base opacity-80 mb-8">
-          got ingredients from the farmer&apos;s market at the San Francisco pier stands and took them back to the Airbnb to make breakfast.
+          got ingredients from the farmer&apos;s market at the San Francisco pier stands and took them back to the Airbnb to make breakfast
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
           {images.map((src, idx) => (
             <div key={idx} className="glass-image-container w-full h-64 relative">
               <Image
                 src={src}
-                alt={`SF pier farmer's market breakfast ${idx + 1}`}
+                alt={`San Francisco pier farmer's market breakfast ${idx + 1}`}
                 fill
                 style={{ objectFit: "cover" }}
                 sizes="(max-width: 768px) 100vw, 33vw"
