@@ -37,7 +37,7 @@ Text is JSX. Keep the surrounding tags, and write `&amp;` for an ampersand in pr
 
 ## Write a blog post
 
-Posts are currently React `.tsx` pages, not Markdown files. The `.md` names in the sidebar are part of the filesystem-style presentation.
+Posts are currently React `.tsx` pages, not Markdown files. The sidebar shows simple names without extensions.
 
 1. Create `src/app/blog/my-post/page.tsx`:
 
@@ -109,3 +109,5 @@ locations stack underneath names on small screens. Map credits retain the
 required OpenStreetMap attribution while omitting Leaflet’s optional branding.
 
 Navigation names use lowercase words separated by dashes, without `.md` or trailing slashes (for example, `christmas-dinner`). `cd` and `open` both visit pages or folders; old `.md` terminal commands remain supported. Keep `/` between levels in full paths such as `~/other/cooking/christmas-dinner`.
+
+The homepage is the root (`~`), reached by clicking `wsun.one` or running `home` or `cd ~`. Older `cd readme` and `cd readme.md` commands still return home. The shared shell derives each page's back link from its parent in `src/lib/filesystem.ts`, so pages do not need their own back buttons. When adding a page, add its intended parent to the navigation expectations in `test/http/routes.mjs`.

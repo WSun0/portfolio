@@ -17,7 +17,7 @@ describe('website terminal', () => {
   it('lists the current or requested directory without navigating', () => {
     expect(runCommand('ls', '/blog').output).toContain('under-construction');
     expect(runCommand('ls ~/other', '/blog')).toEqual({ output: 'job-recruiting\npoker\ncooking' });
-    expect(runCommand('ls ~/README', '/')).toEqual({ output: 'readme' });
+    expect(runCommand('ls ~/README', '/')).toEqual({ output: 'blog\nother\ncontact' });
   });
   it('rejects invalid commands and paths without emitting a navigation target', () => {
     for (const command of ['cd missing', 'open javascript:alert(1)', 'rm -rf /', 'open', 'light extra']) {
@@ -54,7 +54,7 @@ describe('path and command edge cases', () => {
     expect(resolvePath(input, cwd)).toBe(expected);
   });
   it.each(['cd', 'cd ~', 'cd /', 'home'])('%s returns home', input => {
-    expect(runCommand(input, '/blog').href).toBe('/');
+    expect(runCommand(input, '/blog')).toEqual({ output: '~', href: '/' });
   });
   it.each(['cd https://example.com', 'open //example.com', 'open ../../missing', 'cd a b', 'dark yes', 'pwd more', 'sudo', 'ls missing'])('rejects %s without side effects', input => {
     const result = runCommand(input, '/');
@@ -103,7 +103,7 @@ describe('simple navigation names', () => {
     }
   });
   it.each(['readme', 'readme.md', 'README', 'README.md'])('opens the homepage with cd %s', name => {
-    expect(runCommand(`cd ${name}`, '/')).toEqual({ output: '~/readme', href: '/' });
+    expect(runCommand(`cd ${name}`, '/')).toEqual({ output: '~', href: '/' });
   });
   it('supports legacy page extensions for cd, open and ls', () => {
     for (const entry of entries.filter(entry => !entry.children)) {

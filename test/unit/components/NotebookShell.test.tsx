@@ -24,6 +24,10 @@ describe('Notebook shell', () => {
     fireEvent.click(screen.getByRole('button', { name: /show directory/ }));
     expect(screen.getByRole('link', { name: 'blog' })).toBeInTheDocument();
     expect(screen.queryByRole('link', { name: 'under-construction' })).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'wsun.one' })).toHaveAttribute('aria-current', 'page');
+    expect(screen.queryByRole('link', { name: 'readme' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /back to/ })).not.toBeInTheDocument();
+    expect(container.querySelector('.file-path')?.textContent).toBe('~');
   });
   it.each([
     ['/blog', [], 'blog'],
@@ -203,12 +207,41 @@ describe('simplified sidebar and terminal labels', () => {
     render(<NotebookShell>Home</NotebookShell>);
     fireEvent.click(screen.getByRole('button', { name: 'terminal' }));
     command('ls');
-    expect(within(screen.getByRole('log')).getByText('readme blog other contact')).toBeInTheDocument();
+    expect(within(screen.getByRole('log')).getByText('blog other contact')).toBeInTheDocument();
     command('cd readme');
     expect(push).toHaveBeenLastCalledWith('/');
     command('cd readme.md');
     expect(push).toHaveBeenLastCalledWith('/');
     command('cd contact');
     expect(push).toHaveBeenLastCalledWith('/contact');
+  });
+});
+
+describe('parent navigation', () => {
+  it.each([
+    ['/blog', '/', 'home'],
+    ['/other', '/', 'home'],
+    ['/contact', '/', 'home'],
+    ['/poker', '/other', 'other'],
+    ['/cooking', '/other', 'other'],
+    ['/poker/casinos', '/poker', 'poker'],
+    ['/cooking/christmas-dinner', '/cooking', 'cooking'],
+    ['/other/job-recruiting/under-construction', '/other/job-recruiting', 'job recruiting'],
+  ])('offers the parent of %s even with the directory closed', (pathname, href, label) => {
+    route.pathname = pathname;
+    render(<NotebookShell>Page</NotebookShell>);
+    fireEvent.click(screen.getByRole('button', { name: /hide directory/ }));
+    expect(screen.getByRole('link', { name: `back to ${label}` })).toHaveAttribute('href', href);
+  });
+  it('updates the parent link after navigation and removes it at the root', () => {
+    route.pathname = '/poker/casinos';
+    const { rerender } = render(<NotebookShell>Article</NotebookShell>);
+    expect(screen.getByRole('link', { name: 'back to poker' })).toHaveAttribute('href', '/poker');
+    route.pathname = '/poker';
+    rerender(<NotebookShell>Poker</NotebookShell>);
+    expect(screen.getByRole('link', { name: 'back to other' })).toHaveAttribute('href', '/other');
+    route.pathname = '/';
+    rerender(<NotebookShell>Home</NotebookShell>);
+    expect(screen.queryByRole('link', { name: /back to/ })).not.toBeInTheDocument();
   });
 });

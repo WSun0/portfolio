@@ -1,5 +1,4 @@
 import Image from "next/image";
-import BackButton from "@/components/BackButton";
 
 const images = [
   "/cooking/sf-pier-farmers-market-breakfast-2023/finished.JPG",
@@ -10,7 +9,6 @@ const images = [
 export default function SFPierFarmersMarketBreakfastPage() {
   return (
     <div className="w-full max-w-4xl mx-auto pt-2 pb-20 px-10">
-      <BackButton href="/cooking" label="back to cooking" />
       <section className="glass-panel-static py-8 px-2">
         <h1 className="text-2xl font-bold mb-4">SF Pier Farmer&apos;s Market Breakfast 2023</h1>
         <p className="text-base opacity-80 mb-8">
@@ -43,4 +41,4 @@ export default function SFPierFarmersMarketBreakfastPage() {
       </section>
     </div>
   );
-} 
+}

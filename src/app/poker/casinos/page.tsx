@@ -1,7 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
 import { casinos } from "@/lib/casinos";
-import BackButton from "@/components/BackButton";
 import BlogPost from "@/components/BlogPost";
 
 const PokerMap = dynamic(() => import("@/components/PokerMap"), {
@@ -11,7 +10,6 @@ const PokerMap = dynamic(() => import("@/components/PokerMap"), {
 
 export default function CasinosPage() {
   return <>
-    <BackButton href="/poker" label="back to poker" />
     <BlogPost title="Casinos I've Played Poker At" sections={[
       {
         id: 'in-person', title: 'In-Person Casinos', navTitle: 'in person',
