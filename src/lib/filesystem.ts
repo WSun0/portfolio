@@ -15,7 +15,7 @@ export const filesystem: SiteEntry = { name: '~', path: '/', href: '/', title: '
     { name: 'cooking', path: '/other/cooking', href: '/cooking', title: 'cooking', children: [
       { name: 'wagyu', path: '/other/cooking/wagyu', href: '/cooking/first-time-cooking-wagyu-2025', title: 'first time cooking wagyu 2025' },
       { name: 'christmas-dinner', path: '/other/cooking/christmas-dinner', href: '/cooking/christmas-dinner', title: 'Christmas dinner 2024' },
-      { name: 'farmers-market', path: '/other/cooking/farmers-market', href: '/cooking/sf-pier-farmers-market-breakfast-2023', title: 'SF pier farmer’s market breakfast 2023' },
+      { name: 'farmers-market', path: '/other/cooking/farmers-market', href: '/cooking/sf-pier-farmers-market-breakfast-2023', title: 'San Francisco pier farmer’s market breakfast 2023' },
     ] },
   ] },
   { name: 'contact', path: '/contact', href: '/contact', title: 'contact' },

@@ -20,7 +20,7 @@ export default function CookingPage() {
           </li>
           <li>
             <Link href="/cooking/sf-pier-farmers-market-breakfast-2023" className="accent-link">
-              SF pier farmer&apos;s market breakfast 2023
+              San Francisco pier farmer&apos;s market breakfast 2023
             </Link>
           </li>
         </ul>
