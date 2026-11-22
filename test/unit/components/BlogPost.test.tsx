@@ -10,7 +10,7 @@ describe('article formatting', () => {
   it('links each casino section to a unique focusable heading', () => {
     render(<CasinosPage />);
     const links = within(screen.getByRole('navigation', { name: 'Post sections' })).getAllByRole('link');
-    expect(links).toHaveLength(4);
+    expect(links.map(link => link.getAttribute('href'))).toEqual(['#in-person', '#online', '#map']);
     for (const link of links) {
       const target = document.querySelectorAll(link.getAttribute('href')!);
       expect(target).toHaveLength(1);

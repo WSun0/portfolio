@@ -12,7 +12,7 @@ export default function SFPierFarmersMarketBreakfastPage() {
       <section className="glass-panel-static py-8 px-2">
         <h1 className="text-2xl font-bold mb-4">SF pier farmer&apos;s market breakfast 2023</h1>
         <p className="text-base opacity-80 mb-8">
-          got ingredients from the farmer&apos;s market at the San Francisco pier stands and took them back to the Airbnb to make breakfast!
+          got ingredients from the farmer&apos;s market at the San Francisco pier stands and took them back to the Airbnb to make breakfast.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
           {images.map((src, idx) => (
