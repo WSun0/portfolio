@@ -3,7 +3,6 @@ export const blog: SiteEntry[] = [
   { name: 'under-construction', path: '/blog/under-construction', href: '/blog/under-construction', title: 'under construction', date: '2026-09-29' },
 ].sort((a, b) => b.date!.localeCompare(a.date!));
 export const filesystem: SiteEntry = { name: '~', path: '/', href: '/', title: 'home', children: [
-  { name: 'readme', path: '/readme', href: '/', title: 'William Sun' },
   { name: 'blog', path: '/blog', href: '/blog', title: 'blog', children: blog },
   { name: 'other', path: '/other', href: '/other', title: 'other', children: [
     { name: 'job-recruiting', path: '/other/job-recruiting', href: '/other/job-recruiting', title: 'job recruiting', children: [
@@ -23,9 +22,14 @@ export const filesystem: SiteEntry = { name: '~', path: '/', href: '/', title: '
 function flatten(entry: SiteEntry): SiteEntry[] { return [entry, ...(entry.children?.flatMap(flatten) ?? [])]; }
 export const entries = flatten(filesystem);
 export function entryForRoute(route: string) {
-  return entries.find(entry => route === '/' ? entry.name === 'readme' : entry.href === route);
+  return entries.find(entry => entry.href === route);
 }
 export function parentPath(path: string) { return path.slice(0, path.lastIndexOf('/')) || '/'; }
+export function parentForRoute(route: string) {
+  const entry = entryForRoute(route);
+  if (!entry || entry.path === '/') return undefined;
+  return entries.find(parent => parent.path === parentPath(entry.path));
+}
 export function directoryForRoute(route: string) {
   const entry = entryForRoute(route);
   return entry?.children ? entry.path : parentPath(entry?.path ?? '/');
@@ -40,7 +44,8 @@ export function resolvePath(input: string, cwd: string) {
     else if (part && part !== '.') resolved.push(part);
   }
   const result = '/' + resolved.join('/');
-  return /^\/readme(?:\.md)?$/i.test(result) ? '/readme' : result;
+  // The homepage is the root; keep older terminal commands as aliases.
+  return /^\/readme(?:\.md)?$/i.test(result) ? '/' : result;
 }
 export type CommandResult = { output: string; href?: string; theme?: 'light' | 'dark'; clear?: boolean; close?: boolean };
 export const MAX_COMMAND_LENGTH = 512;
@@ -61,9 +66,9 @@ export function runCommand(input: string, cwd: string): CommandResult {
   }
   if (argument) return { output: `${command}: takes no arguments` };
   switch (command) {
-    case 'help': return { output: 'ls [path]    list pages and folders\ncd [path]    visit a page or folder (try cd ~/blog)\nopen <path>  same as cd\npwd          show the current directory\nhome         return to readme\nlight        use light mode\ndark         use dark mode\nclear        clear the terminal\nexit         close the terminal\n\npaths support ~, /, .. and relative names.\n↑ / ↓ recall commands. ⌘/ctrl + b toggles the directory.\n⌘/ctrl + j toggles this panel.' };
+    case 'help': return { output: 'ls [path]    list pages and folders\ncd [path]    visit a page or folder (try cd ~/blog)\nopen <path>  same as cd\npwd          show the current directory\nhome         return to the root (~)\nlight        use light mode\ndark         use dark mode\nclear        clear the terminal\nexit         close the terminal\n\npaths support ~, /, .. and relative names.\n↑ / ↓ recall commands. ⌘/ctrl + b toggles the directory.\n⌘/ctrl + j toggles this panel.' };
     case 'pwd': return { output: displayPath(cwd) };
-    case 'home': return { output: '~/readme', href: '/' };
+    case 'home': return { output: '~', href: '/' };
     case 'light': case 'dark': return { output: `${command} mode`, theme: command };
     case 'clear': return { output: '', clear: true };
     case 'exit': return { output: '', close: true };

@@ -66,10 +66,9 @@ describe('published content', () => {
     expect(screen.getByText(/my favorite professional players are Linus Loeliger, Chris Brewer, Dan Cates, and Alex Foxen/)).toBeInTheDocument();
     expect(screen.getByText(/i started playing poker in September/)).toBeInTheDocument();
   });
-  it.each([Wagyu, Christmas, Breakfast])('preserves cooking photos and navigation (%#)', Page => {
+  it.each([Wagyu, Christmas, Breakfast])('preserves cooking photos and headings (%#)', Page => {
     render(<Page />);
     expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /back to cooking/i })).toHaveAttribute('href', '/cooking');
     const photos = screen.getAllByRole('img');
     expect(photos.length).toBeGreaterThan(0);
     for (const photo of photos) {

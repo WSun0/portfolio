@@ -2,7 +2,8 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { FormEvent, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
-import { directoryForRoute, displayPath, entryForRoute, entries, filesystem, runCommand, MAX_COMMAND_LENGTH, SiteEntry } from '@/lib/filesystem';
+import { directoryForRoute, displayPath, entryForRoute, entries, filesystem, parentForRoute, runCommand, MAX_COMMAND_LENGTH, SiteEntry } from '@/lib/filesystem';
+import BackButton from './BackButton';
 import PlatformLogo from './PlatformLogo';
 import TerminalPanel from './TerminalPanel';
 type Transcript = { prompt?: string; output: string };
@@ -33,6 +34,7 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
   const previousPathname = useRef(pathname);
   const entry = entryForRoute(pathname);
   const cwd = directoryForRoute(pathname);
+  const parent = parentForRoute(pathname);
   const changeTheme = useCallback((value: 'light' | 'dark') => {
     setTheme(value);
     document.documentElement.dataset.theme = value;
@@ -108,7 +110,7 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
     </header>
     <div className={`workspace ${sidebarOpen ? '' : 'sidebar-closed'}`}>
       <aside id="site-directory" className="sidebar" hidden={!sidebarOpen} aria-label="Site directory">
-        <Link className="site-name" href="/">wsun.one</Link>
+        <Link className="site-name" href="/" aria-current={pathname === '/' ? 'page' : undefined}>wsun.one</Link>
         <nav aria-label="Files and folders">{tree(filesystem.children!)}</nav>
         <div className="shortcut-hints">
           <button type="button" className="shortcut-hint" aria-label="Toggle directory: Cmd+B or Ctrl+B" onClick={() => setSidebarOpen(open => !open)}>
@@ -125,7 +127,10 @@ export default function NotebookShell({ children }: { children: ReactNode }) {
       </aside>
       <main className="reading-pane" id="page-content" tabIndex={-1} ref={reader}>
         <div className="reading-column">
-          <p className="file-path">{entry ? displayPath(entry.path) : pathname}</p>
+          <div className="page-navigation">
+            <p className="file-path">{entry ? displayPath(entry.path) : pathname}</p>
+            {parent && <BackButton href={parent.href} label={`back to ${parent.title}`} />}
+          </div>
           <div className="document">{children}</div>
         </div>
       </main>

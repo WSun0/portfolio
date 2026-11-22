@@ -17,7 +17,6 @@ describe('article formatting', () => {
       expect(target[0].tagName).toBe('H2');
       expect(target[0]).toHaveAttribute('tabindex', '-1');
     }
-    expect(screen.getByRole('link', { name: /back to poker/ })).toHaveAttribute('href', '/poker');
   });
 
   it('pairs every venue with its location without crowding it into the name', () => {

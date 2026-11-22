@@ -84,6 +84,36 @@ describe('production routes', () => {
     const response = await fetch(baseURL + '/this-page-does-not-exist');
     assert.equal(response.status, 404);
   });
+  it('shows exactly one parent link on every page except the root', async () => {
+    const parents = new Map([
+      ['/blog', '/'],
+      ['/blog/under-construction', '/blog'],
+      ['/other', '/'],
+      ['/other/job-recruiting', '/other'],
+      ['/other/job-recruiting/under-construction', '/other/job-recruiting'],
+      ['/poker', '/other'],
+      ['/poker/casinos', '/poker'],
+      ['/cooking', '/other'],
+      ['/cooking/christmas-dinner', '/cooking'],
+      ['/cooking/first-time-cooking-wagyu-2025', '/cooking'],
+      ['/cooking/sf-pier-farmers-market-breakfast-2023', '/cooking'],
+      ['/contact', '/'],
+    ]);
+    for (const route of routes) {
+      const document = await documentAt(route);
+      const backLinks = [...document.querySelectorAll('main a')].filter(link => /back to /.test(link.textContent));
+      if (route === '/') {
+        assert.equal(backLinks.length, 0);
+        assert.equal(document.querySelector('.file-path').textContent, '~');
+        assert.equal(document.querySelector('.site-name').getAttribute('aria-current'), 'page');
+        assert.doesNotMatch(document.querySelector('.sidebar').textContent, /readme/i);
+      } else {
+        assert.ok(parents.has(route), `Define the intended parent of ${route}`);
+        assert.equal(backLinks.length, 1, `${route} must have one back link`);
+        assert.equal(backLinks[0].getAttribute('href'), parents.get(route), `Parent of ${route}`);
+      }
+    }
+  });
   it('has no broken internal links or missing local images', async () => {
     const targets = new Set();
     for (const route of routes) {
